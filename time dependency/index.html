@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Le temps : la dépendance oubliée</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown>
+					## Le temps :
+					## La dépendance oubliée
+				</section>
+				<section data-markdown>
+					Baptiste Langlade
+
+					[@baptouuuu](https://twitter.com/baptouuuu)
+
+					Dev chez Wizaplace (on recrute)
+				</section>
+				<section>
+					<h2>Evolution ces dernières années</h2>
+					<ul>
+						<li class="fragment">Frameworks</li>
+						<li class="fragment">Design patterns</li>
+						<li class="fragment">Domain Driven Design</li>
+					</ul>
+				</section>
+				<section>
+					<section data-markdown>
+						## La tendance
+						réflexion sur notre métier
+					</section>
+					<section data-markdown>
+						## Le but
+						testabilité et maintenabilité de nos apps
+					</section>
+				</section>
+				<section data-markdown>
+					## Leçons apprises
+
+					* injection des dépendances
+					* l'état global cémal
+				</section>
+				<section>
+					<section data-markdown>
+						## Malgré tout ça...
+					</section>
+					<section data-markdown>
+						* 29 février
+						* changement d'heure
+
+						![](pictures/phpunit.png)
+					</section>
+				</section>
+				<section data-markdown>
+					## La raison
+
+					```php
+					# Order.php
+					public function withdrawalPeriodOver(): bool {
+						$now = new \DateTime('now');
+						return $this->delivery->diff($now) > new \DateInterval('P15D');
+					}
+					```
+				</section>
+				<section>
+					<section data-markdown>
+						## Premier problème
+
+						Dépendance au temps non explicite du point de vue de l'utilisateur
+
+						```withdrawalPeriodOver()``` donnée fixe ou calculée? ¯\\_(ツ)_/¯
+					</section>
+					<section data-markdown>
+						## Deuxième problème
+
+						2 instanciations avec le même paramètre produit un résultat différent
+
+						La classe dépend donc d'un état global qui change à chaque instanciation
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						## Une solution
+
+						Le pattern de l'horloge
+					</section>
+					<section data-markdown>
+						Interface ultra minimaliste
+						```php
+						interface Clock
+						{
+							public function now(): \DateTimeImmutable;
+						}
+						```
+
+						Implémentation de base
+						```php
+						public function now(): \DateTimeImmutable {
+							return new \DateTimeImmutable('now');
+						}
+						```
+					</section>
+				</section>
+				<section data-markdown>
+					```php
+					# Order.php
+					public function withdrawalPeriodOver(Clock $clock): bool {
+						$period = $this->delivery->diff($clock->now());
+						return $period > new \DateInterval('P15D');
+					}
+					```
+
+					* dépendance explicite
+					* état local à l'horloge
+				</section>
+				<section data-markdown>
+					## Avantages :
+
+					* le temps est une dépendance comme une autre
+					* (réel) test unitaire sur le temps
+						* facile à mocker
+						* on peut tester tous les cas particuliers
+					* rejouer toute l'app à un moment particulier dans le passé (ou le futur)
+				</section>
+				<section>
+					<section data-markdown>
+						## Pousser la réflexion un peu plus
+
+						La sémantique
+					</section>
+					<section>
+						<ul>
+							<li class="fragment">"Ubiquitous language"</li>
+							<li class="fragment">Déclaratif > impératif</li>
+						</ul>
+					</section>
+					<section data-markdown>
+						Code impératif
+						```php
+							$now = $clock->now();
+							$diff = $now->diff($this->delivery);
+
+							$diff > new DateInterval('P15D');
+						```
+					</section>
+					<section data-markdown>
+						Code déclaratif
+						```php
+							$clock
+								->now()
+								->elapsedSince($this->delivery)
+								->longerThan(new WithdrawalPeriod);
+						```
+					</section>
+					<section data-markdown>
+						## Si vous voulez vous amuser
+
+						[github.com/innmind/TimeContinuum](https://github.com/innmind/TimeContinuum)
+					</section>
+				</section>
+				<section data-markdown>
+					# Questions ?
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				],
+				history: true
+			});
+		</script>
+	</body>
+</html>
