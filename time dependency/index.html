@@ -55,12 +55,42 @@
 						testabilité et maintenabilité de nos apps
 					</section>
 				</section>
-				<section data-markdown>
-					## Leçons apprises
+				<section>
+					<section data-markdown>
+						## Leçons apprises
 
-					Note:
-					* injection des dépendances
-					* l'état global cémal
+						Note:
+						* injection des dépendances
+						* l'état global cémal
+					</section>
+					<section data-markdown>
+						```php
+						function myCode() {
+							return Http::get(...);
+						}
+						```
+						vs
+						```php
+function myCode($http) {
+	return $http->get(...);
+}
+						```
+					</section>
+					<section data-markdown>
+						```php
+						global $value;
+						function increment() {
+							global $value;
+							++$value;
+						}
+						```
+						vs
+						```php
+$value = function myCode($value) {
+	return ++$value;
+}
+						```
+					</section>
 				</section>
 				<section>
 					<section data-markdown>
