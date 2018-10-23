@@ -33,41 +33,75 @@
 
 					[@baptouuuu](https://twitter.com/baptouuuu)
 
-					Dev chez Wizaplace (on recrute)
+					Dev chez Opéra Energie
 				</section>
 				<section>
 					<h2>Evolution ces dernières années</h2>
-					<ul>
-						<li class="fragment">Frameworks</li>
-						<li class="fragment">Design patterns</li>
-						<li class="fragment">Domain Driven Design</li>
-					</ul>
+					<aside class="notes">
+						Frameworks, Design patterns, Domain Driven Design
+					</aside>
 				</section>
 				<section>
 					<section data-markdown>
 						## La tendance
+
+						Note:
 						réflexion sur notre métier
 					</section>
 					<section data-markdown>
 						## Le but
+
+						Note:
 						testabilité et maintenabilité de nos apps
 					</section>
 				</section>
-				<section data-markdown>
-					## Leçons apprises
+				<section>
+					<section data-markdown>
+						## Leçons apprises
 
-					* injection des dépendances
-					* l'état global cémal
+						Note:
+						* injection des dépendances
+						* l'état global cémal
+					</section>
+					<section data-markdown>
+						```php
+						function myCode() {
+							return Http::get(...);
+						}
+						```
+						vs
+						```php
+function myCode($http) {
+	return $http->get(...);
+}
+						```
+					</section>
+					<section data-markdown>
+						```php
+						global $value;
+						function increment() {
+							global $value;
+							++$value;
+						}
+						```
+						vs
+						```php
+$value = function myCode($value) {
+	return ++$value;
+}
+						```
+					</section>
 				</section>
 				<section>
 					<section data-markdown>
 						## Malgré tout ça...
 					</section>
 					<section data-markdown>
+						![](pictures/phpunit.png)
+
+						Note:
 						* 29 février
 						* changement d'heure
-
-						![](pictures/phpunit.png)
 					</section>
 				</section>
 				<section data-markdown>
@@ -178,7 +212,13 @@
 					</section>
 				</section>
 				<section data-markdown>
-					# Questions ?
+					Le temps : la dépendance oubliée
+
+					# Questions
+
+					Twitter @Baptouuuu
+
+					Github @Baptouuuu
 				</section>
 			</div>
 		</div>
