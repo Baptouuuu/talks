@@ -13,7 +13,7 @@ use Innmind\TimeContinuum\Earth\{
 };
 use PHPUnit\Framework\TestCase;
 
-class CitizenTest extends TestCase
+class TraditionalTest extends TestCase
 {
     public function testAge()
     {
