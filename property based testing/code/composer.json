@@ -1,0 +1,29 @@
+{
+    "name": "baptouuuu/talk-pbt",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Baptiste Langlade",
+            "email": "langlade.baptiste@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "~7.4",
+        "innmind/time-continuum": "^2.2"
+    },
+    "require-dev": {
+        "innmind/black-box": "^4.2",
+        "phpunit/phpunit": "~8"
+    },
+    "autoload": {
+        "psr-4": {
+            "PBT\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\PBT\\": "tests/"
+        }
+    }
+}
