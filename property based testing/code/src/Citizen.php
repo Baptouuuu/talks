@@ -16,6 +16,7 @@ final class Citizen
     private PointInTime $birthday;
     private string $placeOfBirth;
     private bool $emancipatedMinor = false;
+    private ?DriverLicense $driverLicense = null;
 
     public function __construct(
         string $firstName,
@@ -54,5 +55,24 @@ final class Citizen
         }
 
         return $years;
+    }
+
+    public function obtainDriverLicense(Clock $clock, DeliverDriverLicense $deliver): void
+    {
+        if (!$this->isAdult($clock)) {
+            throw new \LogicException("Only an adult can obtain a driver license");
+        }
+
+        $this->driverLicense = $deliver(
+            $this->firstName,
+            $this->lastName,
+            $this->birthday,
+            $this->placeOfBirth,
+        );
+    }
+
+    public function hasDriverLicense(): bool
+    {
+        return !\is_null($this->driverLicense);
     }
 }
