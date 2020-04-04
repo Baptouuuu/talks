@@ -38,7 +38,7 @@ class ParametrizedTest extends TestCase
         $this->assertSame($expectedAge, $citizen->age($this->clock));
     }
 
-    public function testIsAdult()
+    public function testIsNotAnAdult()
     {
         $citizen = new Citizen(
             $this->faker->firstName,
@@ -47,7 +47,10 @@ class ParametrizedTest extends TestCase
             $this->faker->city,
         );
         $this->assertFalse($citizen->isAdult($this->clock));
+    }
 
+    public function testIsAdult()
+    {
         $citizen = new Citizen(
             $this->faker->firstName,
             $this->faker->lastName,

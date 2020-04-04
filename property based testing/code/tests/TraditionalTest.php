@@ -36,7 +36,7 @@ class TraditionalTest extends TestCase
         $this->assertSame(20, $citizen->age($clock));
     }
 
-    public function testIsAdult()
+    public function testIsNotAndAdult()
     {
         $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
 
@@ -47,6 +47,11 @@ class TraditionalTest extends TestCase
             'Somewhere',
         );
         $this->assertFalse($citizen->isAdult($clock));
+    }
+
+    public function testIsAdult()
+    {
+        $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
 
         $citizen = new Citizen(
             'John',
