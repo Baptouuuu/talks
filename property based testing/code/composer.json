@@ -14,7 +14,8 @@
     },
     "require-dev": {
         "innmind/black-box": "^4.2",
-        "phpunit/phpunit": "~8"
+        "phpunit/phpunit": "~8",
+        "fzaninotto/faker": "^1.9"
     },
     "autoload": {
         "psr-4": {
