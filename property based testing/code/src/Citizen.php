@@ -50,7 +50,7 @@ final class Citizen
         $years = $today->year()->toInt() - $this->birthday->year()->toInt();
         $thisYearBirthday = $this->birthday->goForward(new Year($years));
 
-        if ($today->aheadOf($thisYearBirthday)) {
+        if ($thisYearBirthday->aheadOf($today)) {
             return $years - 1;
         }
 

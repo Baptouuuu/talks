@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "innmind/time-continuum",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Innmind/TimeContinuum.git",
-                "reference": "d9a925f0f42468cbc00585cbb0f44171fb6e394c"
+                "reference": "7fe67cecf7b394bc3c13387b08371d48a89354eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Innmind/TimeContinuum/zipball/d9a925f0f42468cbc00585cbb0f44171fb6e394c",
-                "reference": "d9a925f0f42468cbc00585cbb0f44171fb6e394c",
+                "url": "https://api.github.com/repos/Innmind/TimeContinuum/zipball/7fe67cecf7b394bc3c13387b08371d48a89354eb",
+                "reference": "7fe67cecf7b394bc3c13387b08371d48a89354eb",
                 "shasum": ""
             },
             "require": {
@@ -59,7 +59,7 @@
             "keywords": [
                 "time"
             ],
-            "time": "2020-02-15T15:18:13+00:00"
+            "time": "2020-04-04T13:50:58+00:00"
         }
     ],
     "packages-dev": [
@@ -891,16 +891,16 @@
         },
         {
             "name": "innmind/black-box",
-            "version": "4.2.3",
+            "version": "4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Innmind/BlackBox.git",
-                "reference": "45808b9bc1102db7384cc7783770724b2a79f3b5"
+                "reference": "fe9e3c2b6f9860f5818abd2a04bb2a7ee5827f89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Innmind/BlackBox/zipball/45808b9bc1102db7384cc7783770724b2a79f3b5",
-                "reference": "45808b9bc1102db7384cc7783770724b2a79f3b5",
+                "url": "https://api.github.com/repos/Innmind/BlackBox/zipball/fe9e3c2b6f9860f5818abd2a04bb2a7ee5827f89",
+                "reference": "fe9e3c2b6f9860f5818abd2a04bb2a7ee5827f89",
                 "shasum": ""
             },
             "require": {
@@ -937,7 +937,7 @@
                 "property based testing",
                 "test"
             ],
-            "time": "2020-03-08T11:43:04+00:00"
+            "time": "2020-04-04T18:24:42+00:00"
         },
         {
             "name": "innmind/json",

@@ -22,7 +22,7 @@ class TraditionalTest extends TestCase
         $citizen = new Citizen(
             'John',
             'Doe',
-            $clock->at('2004-05-14 03:00:00'),
+            $clock->at('2004-05-16 03:00:00'),
             'Somewhere',
         );
         $this->assertSame(15, $citizen->age($clock));
@@ -30,7 +30,7 @@ class TraditionalTest extends TestCase
         $citizen = new Citizen(
             'John',
             'Doe',
-            $clock->at('2000-05-16 03:00:00'),
+            $clock->at('2000-05-14 03:00:00'),
             'Somewhere',
         );
         $this->assertSame(20, $citizen->age($clock));
