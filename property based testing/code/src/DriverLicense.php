@@ -13,12 +13,5 @@ final class DriverLicense
         PointInTime $birthDay,
         string $placeOfBirth
     ) {
-        if (
-            \mb_strlen($firstName) > 60 ||
-            \mb_strlen($lastName) > 60 ||
-            \mb_strlen($placeOfBirth) > 60
-        ) {
-            throw new \LogicException("Data can't fit in the document");
-        }
     }
 }
