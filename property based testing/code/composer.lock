@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "innmind/time-continuum",
-            "version": "2.3.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Innmind/TimeContinuum.git",
-                "reference": "7fe67cecf7b394bc3c13387b08371d48a89354eb"
+                "reference": "d8e71b8e42429c8d839f0a99175c7ca77fb5bcf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Innmind/TimeContinuum/zipball/7fe67cecf7b394bc3c13387b08371d48a89354eb",
-                "reference": "7fe67cecf7b394bc3c13387b08371d48a89354eb",
+                "url": "https://api.github.com/repos/Innmind/TimeContinuum/zipball/d8e71b8e42429c8d839f0a99175c7ca77fb5bcf5",
+                "reference": "d8e71b8e42429c8d839f0a99175c7ca77fb5bcf5",
                 "shasum": ""
             },
             "require": {
@@ -32,7 +32,7 @@
             "require-dev": {
                 "innmind/black-box": "^4.0",
                 "phpunit/phpunit": "~8.0",
-                "vimeo/psalm": "~3.7.0"
+                "vimeo/psalm": "~3.7"
             },
             "suggest": {
                 "innmind/black-box": "For property based testing"
@@ -59,7 +59,7 @@
             "keywords": [
                 "time"
             ],
-            "time": "2020-04-04T13:50:58+00:00"
+            "time": "2020-04-18T16:20:07+00:00"
         }
     ],
     "packages-dev": [
