@@ -9,7 +9,6 @@ use PBT\{
 };
 use Innmind\TimeContinuum\Earth\{
     FrozenClock,
-    PointInTime\PointInTime as PIT,
     Period\Year,
     Period\Composite,
 };
@@ -264,6 +263,20 @@ class PropertyBasedTest extends TestCase
                 $citizen->emancipate();
 
                 $this->assertTrue($citizen->isAdult($clock));
+            });
+    }
+
+    public function testAnyAdultCanObtainADriverLicense()
+    {
+        $this
+            ->forAll(CitizenSet::anyAdult())
+            ->then(function($citizenAndClock) {
+                [$citizen, $clock] = $citizenAndClock;
+                $deliver = new DeliverDriverLicense($clock);
+
+                $this->assertFalse($citizen->hasDriverLicense());
+                $this->assertNull($citizen->obtainDriverLicense($clock, $deliver));
+                $this->assertTrue($citizen->hasDriverLicense());
             });
     }
 }
