@@ -41,7 +41,7 @@ final class Citizen
             return true;
         }
 
-        return $this->age($clock) > 18;
+        return $this->age($clock) >= 18;
     }
 
     public function age(Clock $clock): int
