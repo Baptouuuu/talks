@@ -129,26 +129,7 @@ class PropertyBasedTest extends TestCase
         $this
             ->forAll(
                 PointInTime::any(),
-                Set\Composite::immutable(
-                    static function($year, $month, $day, $hour, $minute, $second, $millisecond): Composite {
-                        return new Composite(
-                            $year,
-                            $month,
-                            $day,
-                            $hour,
-                            $minute,
-                            $second,
-                            $millisecond,
-                        );
-                    },
-                    Set\Integers::between(0, 130), // small chance someone will be older than that
-                    Set\Integers::between(0, 12),
-                    Set\Integers::between(0, 30),
-                    Set\Integers::between(0, 23),
-                    Set\Integers::between(0, 59),
-                    Set\Integers::between(0, 59),
-                    Set\Integers::between(0, 999),
-                ),
+                $this->ageBetween(0, 130), // small chance someone will be older than that
                 Set\Strings::any(),
                 Set\Strings::any(),
                 Set\Strings::any(),
@@ -176,26 +157,7 @@ class PropertyBasedTest extends TestCase
         $this
             ->forAll(
                 PointInTime::any(),
-                Set\Composite::immutable(
-                    static function($year, $month, $day, $hour, $minute, $second, $millisecond): Composite {
-                        return new Composite(
-                            $year,
-                            $month,
-                            $day,
-                            $hour,
-                            $minute,
-                            $second,
-                            $millisecond,
-                        );
-                    },
-                    Set\Integers::between(0, 17), // can't be older than 17
-                    Set\Integers::between(0, 11),
-                    Set\Integers::between(0, 30),
-                    Set\Integers::between(0, 23),
-                    Set\Integers::between(0, 59),
-                    Set\Integers::between(0, 59),
-                    Set\Integers::between(0, 999),
-                ),
+                $this->ageBetween(0, 17), // can't be older than 17
                 Set\Strings::any(),
                 Set\Strings::any(),
                 Set\Strings::any(),
@@ -223,26 +185,7 @@ class PropertyBasedTest extends TestCase
         $this
             ->forAll(
                 PointInTime::any(),
-                Set\Composite::immutable(
-                    static function($year, $month, $day, $hour, $minute, $second, $millisecond): Composite {
-                        return new Composite(
-                            $year,
-                            $month,
-                            $day,
-                            $hour,
-                            $minute,
-                            $second,
-                            $millisecond,
-                        );
-                    },
-                    Set\Integers::between(0, 130), // small chance someone will be older than that
-                    Set\Integers::between(0, 12),
-                    Set\Integers::between(0, 30),
-                    Set\Integers::between(0, 23),
-                    Set\Integers::between(0, 59),
-                    Set\Integers::between(0, 59),
-                    Set\Integers::between(0, 999),
-                ),
+                $this->ageBetween(0, 130), // small chance someone will be older than that
                 Set\Strings::any(),
                 Set\Strings::any(),
                 Set\Strings::any(),
@@ -278,5 +221,29 @@ class PropertyBasedTest extends TestCase
                 $this->assertNull($person->obtainDriverLicense($clock, $deliver));
                 $this->assertTrue($person->hasDriverLicense());
             });
+    }
+
+    private function ageBetween(int $min, int $max): Set
+    {
+        return Set\Composite::immutable(
+            static function($year, $month, $day, $hour, $minute, $second, $millisecond): Composite {
+                return new Composite(
+                    $year,
+                    $month,
+                    $day,
+                    $hour,
+                    $minute,
+                    $second,
+                    $millisecond,
+                );
+            },
+            Set\Integers::between($min, $max),
+            Set\Integers::between(0, 11),
+            Set\Integers::between(0, 29), // prevent overlapping to march from february
+            Set\Integers::between(0, 23),
+            Set\Integers::between(0, 59),
+            Set\Integers::between(0, 59),
+            Set\Integers::between(0, 999),
+        );
     }
 }
