@@ -129,7 +129,7 @@ class PropertyBasedTest extends TestCase
         $this
             ->forAll(
                 PointInTime::any(),
-                $this->ageBetween(0, 130), // small chance someone will be older than that
+                $this->ageBetween(18, 130), // small chance someone will be older than that
                 Set\Strings::any(),
                 Set\Strings::any(),
                 Set\Strings::any(),
@@ -139,7 +139,7 @@ class PropertyBasedTest extends TestCase
                 return $birthday->year()->toInt() < 9500;
             })
             ->then(function($birthday, $period, $firstName, $lastName, $placeOfBirth) {
-                $now = $birthday->goForward($period->add(new Year(18)));
+                $now = $birthday->goForward($period);
                 $clock = new FrozenClock($now);
                 $person = new Person(
                     $firstName,
