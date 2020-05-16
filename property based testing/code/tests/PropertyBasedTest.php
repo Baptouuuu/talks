@@ -40,9 +40,6 @@ class PropertyBasedTest extends TestCase
                 Set\Strings::any(),
                 Set\Strings::any(),
             )
-            ->filter(function($birthday, $age, $timeBeforeBirthday) {
-                return $birthday->day()->ofYear() > $timeBeforeBirthday->days();
-            })
             ->then(function($birthday, $age, $timeBeforeBirthday, $firstName, $lastName, $placeOfBirth) {
                 $now = $birthday->goForward($age)->goBack($timeBeforeBirthday);
                 $clock = new FrozenClock($now);
@@ -71,9 +68,6 @@ class PropertyBasedTest extends TestCase
                 Set\Strings::any(),
                 Set\Strings::any(),
             )
-            ->filter(function($birthday, $age, $timeAfterBirthday) {
-                return $birthday->day()->ofYear() < $timeAfterBirthday->days();
-            })
             ->then(function($birthday, $age, $timeAfterBirthday, $firstName, $lastName, $placeOfBirth) {
                 $now = $birthday->goForward($age)->goForward($timeAfterBirthday);
                 $clock = new FrozenClock($now);
