@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace Tests\PBT;
 
 use PBT\{
-    Citizen,
+    Person,
     DeliverDriverLicense,
 };
 use Innmind\TimeContinuum\Earth\{
@@ -50,14 +50,14 @@ class PropertyBasedTest extends TestCase
             ->then(function($birthday, $age, $timeBeforeBirthday, $firstName, $lastName, $placeOfBirth) {
                 $now = $birthday->goForward($age)->goBack($timeBeforeBirthday);
                 $clock = new FrozenClock($now);
-                $citizen = new Citizen(
+                $person = new Person(
                     $firstName,
                     $lastName,
                     $birthday,
                     $placeOfBirth,
                 );
 
-                $this->assertSame($age->years() - 1, $citizen->age($clock));
+                $this->assertSame($age->years() - 1, $person->age($clock));
             });
     }
 
@@ -85,14 +85,14 @@ class PropertyBasedTest extends TestCase
             ->then(function($birthday, $age, $timeAfterBirthday, $firstName, $lastName, $placeOfBirth) {
                 $now = $birthday->goForward($age)->goForward($timeAfterBirthday);
                 $clock = new FrozenClock($now);
-                $citizen = new Citizen(
+                $person = new Person(
                     $firstName,
                     $lastName,
                     $birthday,
                     $placeOfBirth,
                 );
 
-                $this->assertSame($age->years(), $citizen->age($clock));
+                $this->assertSame($age->years(), $person->age($clock));
             });
     }
 
@@ -113,14 +113,14 @@ class PropertyBasedTest extends TestCase
             ->then(function($birthday, $lessThanAYear, $firstName, $lastName, $placeOfBirth) {
                 $now = $birthday->goForward($lessThanAYear);
                 $clock = new FrozenClock($now);
-                $citizen = new Citizen(
+                $person = new Person(
                     $firstName,
                     $lastName,
                     $birthday,
                     $placeOfBirth,
                 );
 
-                $this->assertSame(0, $citizen->age($clock));
+                $this->assertSame(0, $person->age($clock));
             });
     }
 
@@ -160,14 +160,14 @@ class PropertyBasedTest extends TestCase
             ->then(function($birthday, $period, $firstName, $lastName, $placeOfBirth) {
                 $now = $birthday->goForward($period->add(new Year(18)));
                 $clock = new FrozenClock($now);
-                $citizen = new Citizen(
+                $person = new Person(
                     $firstName,
                     $lastName,
                     $birthday,
                     $placeOfBirth,
                 );
 
-                $this->assertTrue($citizen->isAdult($clock));
+                $this->assertTrue($person->isAdult($clock));
             });
     }
 
@@ -207,14 +207,14 @@ class PropertyBasedTest extends TestCase
             ->then(function($birthday, $age, $firstName, $lastName, $placeOfBirth) {
                 $now = $birthday->goForward($age);
                 $clock = new FrozenClock($now);
-                $citizen = new Citizen(
+                $person = new Person(
                     $firstName,
                     $lastName,
                     $birthday,
                     $placeOfBirth,
                 );
 
-                $this->assertFalse($citizen->isAdult($clock));
+                $this->assertFalse($person->isAdult($clock));
             });
     }
 
@@ -254,29 +254,29 @@ class PropertyBasedTest extends TestCase
             ->then(function($birthday, $period, $firstName, $lastName, $placeOfBirth) {
                 $now = $birthday->goForward($period);
                 $clock = new FrozenClock($now);
-                $citizen = new Citizen(
+                $person = new Person(
                     $firstName,
                     $lastName,
                     $birthday,
                     $placeOfBirth,
                 );
-                $citizen->emancipate();
+                $person->emancipate();
 
-                $this->assertTrue($citizen->isAdult($clock));
+                $this->assertTrue($person->isAdult($clock));
             });
     }
 
     public function testAnyAdultCanObtainADriverLicense()
     {
         $this
-            ->forAll(CitizenSet::anyAdult())
-            ->then(function($citizenAndClock) {
-                [$citizen, $clock] = $citizenAndClock;
+            ->forAll(PersonSet::anyAdult())
+            ->then(function($personAndClock) {
+                [$person, $clock] = $personAndClock;
                 $deliver = new DeliverDriverLicense($clock);
 
-                $this->assertFalse($citizen->hasDriverLicense());
-                $this->assertNull($citizen->obtainDriverLicense($clock, $deliver));
-                $this->assertTrue($citizen->hasDriverLicense());
+                $this->assertFalse($person->hasDriverLicense());
+                $this->assertNull($person->obtainDriverLicense($clock, $deliver));
+                $this->assertTrue($person->hasDriverLicense());
             });
     }
 }

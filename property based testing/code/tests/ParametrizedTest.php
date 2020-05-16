@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace Tests\PBT;
 
 use PBT\{
-    Citizen,
+    Person,
     DeliverDriverLicense,
 };
 use Innmind\TimeContinuum\Earth\{
@@ -29,55 +29,55 @@ class ParametrizedTest extends TestCase
      */
     public function testAge($birthday, $expectedAge)
     {
-        $citizen = new Citizen(
+        $person = new Person(
             $this->faker->firstName,
             $this->faker->lastName,
             $this->clock->at($birthday),
             $this->faker->city,
         );
-        $this->assertSame($expectedAge, $citizen->age($this->clock));
+        $this->assertSame($expectedAge, $person->age($this->clock));
     }
 
     public function testIsNotAnAdult()
     {
-        $citizen = new Citizen(
+        $person = new Person(
             $this->faker->firstName,
             $this->faker->lastName,
             $this->clock->at('2004-05-14 03:00:00'),
             $this->faker->city,
         );
-        $this->assertFalse($citizen->isAdult($this->clock));
+        $this->assertFalse($person->isAdult($this->clock));
     }
 
     public function testIsAdult()
     {
-        $citizen = new Citizen(
+        $person = new Person(
             $this->faker->firstName,
             $this->faker->lastName,
             $this->clock->at('2000-05-16 03:00:00'),
             $this->faker->city,
         );
-        $this->assertTrue($citizen->isAdult($this->clock));
+        $this->assertTrue($person->isAdult($this->clock));
     }
 
     public function testEmancipatedCitizenIsConsideredAnAdult()
     {
-        $citizen = new Citizen(
+        $person = new Person(
             $this->faker->firstName,
             $this->faker->lastName,
             $this->clock->at('2004-05-14 03:00:00'),
             $this->faker->city,
         );
-        $citizen->emancipate();
+        $person->emancipate();
 
-        $this->assertTrue($citizen->isAdult($this->clock));
+        $this->assertTrue($person->isAdult($this->clock));
     }
 
     public function testANonAdultCantObtainADriverLicense()
     {
         $deliver = new DeliverDriverLicense($this->clock);
 
-        $citizen = new Citizen(
+        $person = new Person(
             $this->faker->firstName,
             $this->faker->lastName,
             $this->clock->at('2004-05-14 03:00:00'),
@@ -85,10 +85,10 @@ class ParametrizedTest extends TestCase
         );
 
         try {
-            $citizen->obtainDriverLicense($this->clock, $deliver);
+            $person->obtainDriverLicense($this->clock, $deliver);
             $this->fail('it should throw an exception');
         } catch (\LogicException $e) {
-            $this->assertFalse($citizen->hasDriverLicense());
+            $this->assertFalse($person->hasDriverLicense());
         }
     }
 
@@ -96,16 +96,16 @@ class ParametrizedTest extends TestCase
     {
         $deliver = new DeliverDriverLicense($this->clock);
 
-        $citizen = new Citizen(
+        $person = new Person(
             $this->faker->firstName,
             $this->faker->lastName,
             $this->clock->at('2000-05-16 03:00:00'),
             $this->faker->city,
         );
 
-        $this->assertFalse($citizen->hasDriverLicense());
-        $this->assertNull($citizen->obtainDriverLicense($this->clock, $deliver));
-        $this->assertTrue($citizen->hasDriverLicense());
+        $this->assertFalse($person->hasDriverLicense());
+        $this->assertNull($person->obtainDriverLicense($this->clock, $deliver));
+        $this->assertTrue($person->hasDriverLicense());
     }
 
     public function ages(): array

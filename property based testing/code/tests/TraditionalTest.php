@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace Tests\PBT;
 
 use PBT\{
-    Citizen,
+    Person,
     DeliverDriverLicense,
 };
 use Innmind\TimeContinuum\Earth\{
@@ -19,62 +19,62 @@ class TraditionalTest extends TestCase
     {
         $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
 
-        $citizen = new Citizen(
+        $person = new Person(
             'John',
             'Doe',
             $clock->at('2004-05-16 03:00:00'),
             'Somewhere',
         );
-        $this->assertSame(15, $citizen->age($clock));
+        $this->assertSame(15, $person->age($clock));
 
-        $citizen = new Citizen(
+        $person = new Person(
             'John',
             'Doe',
             $clock->at('2000-05-14 03:00:00'),
             'Somewhere',
         );
-        $this->assertSame(20, $citizen->age($clock));
+        $this->assertSame(20, $person->age($clock));
     }
 
     public function testIsNotAndAdult()
     {
         $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
 
-        $citizen = new Citizen(
+        $person = new Person(
             'John',
             'Doe',
             $clock->at('2004-05-14 03:00:00'),
             'Somewhere',
         );
-        $this->assertFalse($citizen->isAdult($clock));
+        $this->assertFalse($person->isAdult($clock));
     }
 
     public function testIsAdult()
     {
         $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
 
-        $citizen = new Citizen(
+        $person = new Person(
             'John',
             'Doe',
             $clock->at('2000-05-16 03:00:00'),
             'Somewhere',
         );
-        $this->assertTrue($citizen->isAdult($clock));
+        $this->assertTrue($person->isAdult($clock));
     }
 
     public function testEmancipatedCitizenIsConsideredAnAdult()
     {
         $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
 
-        $citizen = new Citizen(
+        $person = new Person(
             'John',
             'Doe',
             $clock->at('2004-05-14 03:00:00'),
             'Somewhere',
         );
-        $citizen->emancipate();
+        $person->emancipate();
 
-        $this->assertTrue($citizen->isAdult($clock));
+        $this->assertTrue($person->isAdult($clock));
     }
 
     public function testANonAdultCantObtainADriverLicense()
@@ -82,7 +82,7 @@ class TraditionalTest extends TestCase
         $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
         $deliver = new DeliverDriverLicense($clock);
 
-        $citizen = new Citizen(
+        $person = new Person(
             'John',
             'Doe',
             $clock->at('2004-05-14 03:00:00'),
@@ -90,10 +90,10 @@ class TraditionalTest extends TestCase
         );
 
         try {
-            $citizen->obtainDriverLicense($clock, $deliver);
+            $person->obtainDriverLicense($clock, $deliver);
             $this->fail('it should throw an exception');
         } catch (\LogicException $e) {
-            $this->assertFalse($citizen->hasDriverLicense());
+            $this->assertFalse($person->hasDriverLicense());
         }
     }
 
@@ -102,15 +102,15 @@ class TraditionalTest extends TestCase
         $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
         $deliver = new DeliverDriverLicense($clock);
 
-        $citizen = new Citizen(
+        $person = new Person(
             'John',
             'Doe',
             $clock->at('2000-05-16 03:00:00'),
             'Somewhere',
         );
 
-        $this->assertFalse($citizen->hasDriverLicense());
-        $this->assertNull($citizen->obtainDriverLicense($clock, $deliver));
-        $this->assertTrue($citizen->hasDriverLicense());
+        $this->assertFalse($person->hasDriverLicense());
+        $this->assertNull($person->obtainDriverLicense($clock, $deliver));
+        $this->assertTrue($person->hasDriverLicense());
     }
 }

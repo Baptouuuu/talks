@@ -9,7 +9,7 @@ use Innmind\TimeContinuum\{
     Earth\Period\Year,
 };
 
-final class Citizen
+final class Person
 {
     private string $firstName;
     private string $lastName;

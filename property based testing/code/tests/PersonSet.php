@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Tests\PBT;
 
-use PBT\Citizen;
+use PBT\Person;
 use Innmind\TimeContinuum\{
     Clock,
     Earth\FrozenClock,
@@ -15,10 +15,10 @@ use PHPUnit\Framework\TestCase;
 use Innmind\BlackBox\Set;
 use Fixtures\Innmind\TimeContinuum\Earth\PointInTime;
 
-class CitizenSet
+class PersonSet
 {
     /**
-     * @return Set<array{0: Citizen, 1: Clock}>
+     * @return Set<array{0: Person, 1: Clock}>
      */
     public static function anyAdult(): Set
     {
@@ -29,14 +29,14 @@ class CitizenSet
     }
 
     /**
-     * @return Set<array{0: Citizen, 1: Clock}>
+     * @return Set<array{0: Person, 1: Clock}>
      */
     public static function over18YearsOld(): Set
     {
         return Set\Composite::mutable(
             function($firstname, $lastname, $birthday, $age, $placeOfBirth) {
                 return [
-                    new Citizen(
+                    new Person(
                         $firstname,
                         $lastname,
                         $birthday,
@@ -56,22 +56,22 @@ class CitizenSet
     }
 
     /**
-     * @return Set<array{0: Citizen, 1: Clock}>
+     * @return Set<array{0: Person, 1: Clock}>
      */
     public static function emancipated(): Set
     {
         return Set\Composite::mutable(
             function($firstname, $lastname, $birthday, $age, $placeOfBirth) {
-                $citizen = new Citizen(
+                $person = new Person(
                     $firstname,
                     $lastname,
                     $birthday,
                     $placeOfBirth,
                 );
-                $citizen->emancipate();
+                $person->emancipate();
 
                 return [
-                    $citizen,
+                    $person,
                     new FrozenClock($birthday->goForward($age)),
                 ];
             },
