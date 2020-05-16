@@ -154,7 +154,7 @@ class PropertyBasedTest extends TestCase
             });
     }
 
-    public function testCitizenIsConsideredAnAdultWhenHeEmancipateNotMatterHisAge()
+    public function testCitizenIsConsideredAnAdultWhenHeEmancipateNoMatterHisAge()
     {
         $this
             ->forAll(
