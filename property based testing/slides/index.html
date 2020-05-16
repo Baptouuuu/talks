@@ -1,0 +1,425 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Du test à la preuve: introduction au Property Based Testing</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown>
+					## Du test à la preuve :
+					### Introduction au Property Based Testing
+				</section>
+				<section>
+					<section>
+						<h3>Un exemple concret</h3>
+					</section>
+					<section>
+						<ul>
+							<li class="fragment">Une personne de plus de 18 ans est adulte</li>
+							<li class="fragment">Une personne émancipé est adulte</li>
+							<li class="fragment">Un adulte peut passer le permis</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Modèle</h2>
+					</section>
+					<section data-markdown>
+						```php
+final class Person {
+	public function emancipate(): void;
+	public function isAdult(Clock $clock): bool;
+	public function age(Clock $clock): int;
+	public function obtainDriverLicense(
+		Clock $clock,
+		DeliverDriverLicense $deliver
+	): void;
+	public function hasDriverLicense(): bool;
+}
+						```
+					</section>
+					<section data-markdown>
+						```php
+final class DeliverDriverLicense {
+	public function __invoke(
+        string $firstName,
+        string $lastName,
+        PointInTime $birthday,
+        string $placeOfBirth
+    ): DriverLicense;
+}
+						```
+
+						Note:
+						On est dans un projet réel
+						Un collègue l'a déjà implémenté donc on n'a même pas à s'en préoccuper
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Tests traditionnels</h2>
+					</section>
+					<section data-markdown>
+						```php
+public function testAgeBeforeBirthday()
+{
+    $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
+
+    $person = new Person(
+        'John',
+        'Doe',
+        $clock->at('2004-05-16 03:00:00'),
+        'Somewhere',
+    );
+    $this->assertSame(15, $person->age($clock));
+}
+						```
+					</section>
+					<section data-markdown>
+						```php
+public function testAgeAfterBirthday()
+{
+    $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
+
+    $person = new Person(
+        'John',
+        'Doe',
+        $clock->at('2000-05-14 03:00:00'),
+        'Somewhere',
+    );
+    $this->assertSame(20, $person->age($clock));
+}
+						```
+					</section>
+					<section data-markdown>
+						```php
+public function testIsAdult()
+{
+    $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
+
+    $person = new Person(
+        'John',
+        'Doe',
+        $clock->at('2000-05-16 03:00:00'),
+        'Somewhere',
+    );
+    $this->assertTrue($person->isAdult($clock));
+}
+						```
+
+						Note:
+						Majorité des tests
+						Test positif
+					</section>
+					<section data-markdown>
+						```php
+public function testIsNotAndAdult()
+{
+    $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
+
+    $person = new Person(
+        'John',
+        'Doe',
+        $clock->at('2004-05-14 03:00:00'),
+        'Somewhere',
+    );
+    $this->assertFalse($person->isAdult($clock));
+}
+						```
+
+						Note:
+						Consciencieux
+						Test négatif
+					</section>
+					<section data-markdown>
+						```php
+public function testEmancipatedCitizenIsConsideredAnAdult();
+public function testANonAdultCantObtainADriverLicense();
+public function testAnAdultCanObtainADriverLicense();
+						```
+					</section>
+					<section data-markdown>
+						![](pictures/traditional.png)
+
+						Note:
+						3 règles couvertes
+						100% coverage
+					</section>
+				</section>
+				<section>
+					<h2>C'est bon ça fonctione...</h2>
+					<h4 class="fragment">...pour John Doe</h4>
+				</section>
+				<section>
+					<section data-markdown>
+						## Tests paramétrés
+
+						Note:
+						L'important est d'extraire l'inutile
+					</section>
+					<section data-markdown>
+						```php
+public function setUp(): void
+{
+    $this->clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
+    $this->faker = \Faker\Factory::create();
+}
+						```
+					</section>
+					<section data-markdown>
+						```php
+/**
+ * @dataProvider ages
+ */
+public function testAge(string $birthday, int $expectedAge)
+{
+    $person = new Person(
+        $this->faker->firstName,
+        $this->faker->lastName,
+        $this->clock->at($birthday),
+        $this->faker->city,
+    );
+    $this->assertSame($expectedAge, $person->age($this->clock));
+}
+						```
+
+						Note:
+						Relation entre date de naissance et âge
+					</section>
+					<section data-markdown>
+						```php
+public function ages(): array
+{
+    return [
+        'the day before is 16th birthday' => [
+            '2004-05-16 03:00:00',
+            15,
+        ],
+        'the day after is 20th birthday' => [
+            '2000-05-14 03:00:00',
+            20,
+        ],
+    ];
+}
+						```
+					</section>
+					<section data-markdown>
+						![](pictures/parameterized.png)
+					</section>
+				</section>
+				<section data-markdown>
+					## Des tests simples, mais...
+
+					Note:
+					Encore que des cas précis
+				</section>
+				<section>
+					<section>
+						<h2>Propery Based Testing</h2>
+					</section>
+					<section data-markdown>
+						### Un peu d'historique
+
+						Note:
+						Vient de la prog fonctionnelle
+						Née en 1999 avec QuickCheck (Haskell) par John Hughes
+					</section>
+					<section data-markdown>
+						### Les  principes
+
+						Note:
+						On décrit un comportement attendu
+						Le framework va chercher un moyen d'invalider ce comportement
+						Exemple Volvo : clignotant + monter le volume = désactivation des freins
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>PBT appliqué à PHPUnit</h2>
+					</section>
+					<section data-markdown>
+						```sh
+composer require --dev innmind/black-box
+						```
+					</section>
+					<section data-markdown>
+						```php
+use Innmind\BlackBox\{
+	PHPUnit\BlackBox,
+	Set,
+};
+
+class Test extends \PHPUnit\Framework\TestCase
+{
+	use BlackBox;
+
+	public function testProperty()
+	{
+		$this->forAll(/* inputs */)
+			->then(function(...$inputs) {
+				// assertions
+			});
+	}
+}
+						```
+					</section>
+					<section data-markdown>
+						```php
+public function testCitizenIsConsideredAnAdultWhenHeReachesHis18thBirthday()
+{
+    $this
+        ->forAll(
+            PointInTime::before('3000-01-01T00:00:00'),
+            $this->ageBetween(18, 130), // small chance someone will be older than that
+            Set\Strings::any(),
+            Set\Strings::any(),
+            Set\Strings::any(),
+        )
+        ->then(/* assertions */);
+}
+						```
+					</section>
+					<section data-markdown>
+						```php
+public function testCitizenIsConsideredAnAdultWhenHeReachesHis18thBirthday()
+{
+    $this
+        ->forAll(/* inputs */)
+        ->then(function($birthday, $age, $firstName, $lastName, $placeOfBirth) {
+            $now = $birthday->goForward($age);
+            $clock = new FrozenClock($now);
+            $person = new Person(
+                $firstName,
+                $lastName,
+                $birthday,
+                $placeOfBirth,
+            );
+
+            $this->assertTrue($person->isAdult($clock));
+        });
+}
+						```
+
+						Note:
+						La seule donnée en dur est celle qui a de l'importance
+					</section>
+					<section data-markdown>
+						```php
+# PersonSet.php
+public static function over18YearsOld(): Set
+{
+    return Set\Composite::mutable(
+        function($firstname, $lastname, $birthday, $age, $placeOfBirth) {
+            return [
+                new Person($firstname, $lastname, $birthday, $placeOfBirth),
+                new FrozenClock($birthday->goForward($age)),
+            ];
+        },
+        Set\Strings::any(),
+        Set\Strings::any(),
+        PointInTime::before('3000-01-01T00:00:00'),
+        self::ageAbove(18),
+        Set\Strings::any(),
+    );
+}
+						```
+					</section>
+					<section data-markdown>
+						```php
+public static function anyAdult(): Set
+{
+    return new Set\Either(
+        self::over18YearsOld(),
+        self::emancipated(),
+    );
+}
+						```
+					</section>
+					<section data-markdown>
+						```php
+public function testAnyAdultCanObtainADriverLicense()
+{
+    $this
+        ->forAll(PersonSet::anyAdult())
+        ->then(function($personAndClock) {
+            [$person, $clock] = $personAndClock;
+            $deliver = new DeliverDriverLicense($clock);
+
+            $this->assertFalse($person->hasDriverLicense());
+            $this->assertNull($person->obtainDriverLicense($clock, $deliver));
+            $this->assertTrue($person->hasDriverLicense());
+        });
+}
+						```
+					</section>
+					<section data-markdown>
+						![](pictures/pbt.png)
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						## En résumé
+
+						Note:
+						Des tests vraiment exhaustifs
+						Les tests deviennent une documentation vivante
+						Renforce la méfiance sur les tests verts
+					</section>
+					<section>
+						Ce n'est pas:
+						- un remplacement des techniques de tests standard
+						- une preuve formelle au sens mathématiques
+					</section>
+				</section>
+				<section>
+					"Don't write tests... Generate them!" - John Hughes
+				</section>
+				<section data-markdown>
+					# Questions
+
+					Twitter @Baptouuuu
+
+					Github @Baptouuuu/talks
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				],
+				history: true
+			});
+		</script>
+	</body>
+</html>
