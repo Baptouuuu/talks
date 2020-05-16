@@ -116,8 +116,8 @@ class PropertyBasedTest extends TestCase
                 Set\Strings::any(),
                 Set\Strings::any(),
             )
-            ->then(function($birthday, $period, $firstName, $lastName, $placeOfBirth) {
-                $now = $birthday->goForward($period);
+            ->then(function($birthday, $age, $firstName, $lastName, $placeOfBirth) {
+                $now = $birthday->goForward($age);
                 $clock = new FrozenClock($now);
                 $person = new Person(
                     $firstName,
