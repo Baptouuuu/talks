@@ -8,7 +8,6 @@ use Innmind\TimeContinuum\{
     Clock,
     Earth\FrozenClock,
     Earth\Period\Composite,
-    Earth\Period\Year,
     Period,
 };
 use PHPUnit\Framework\TestCase;
@@ -42,13 +41,13 @@ class PersonSet
                         $birthday,
                         $placeOfBirth,
                     ),
-                    new FrozenClock($birthday->goForward($age->add(new Year(18)))),
+                    new FrozenClock($birthday->goForward($age)),
                 ];
             },
             Set\Strings::any(),
             Set\Strings::any(),
             PointInTime::before('3000-01-01T00:00:00'),
-            self::age(),
+            self::ageAbove(18),
             Set\Strings::any(),
         );
     }
@@ -76,7 +75,7 @@ class PersonSet
             Set\Strings::any(),
             Set\Strings::any(),
             PointInTime::before('3000-01-01T00:00:00'),
-            self::age(),
+            self::ageAbove(0),
             Set\Strings::any(),
         );
     }
@@ -84,13 +83,13 @@ class PersonSet
     /**
      * @return Set<Period>
      */
-    private static function age(): Set
+    private static function ageAbove(int $min): Set
     {
         return Set\Composite::immutable(
             static function($year, $month, $day, $hour, $minute, $second, $millisecond): Composite {
                 return new Composite($year, $month, $day, $hour, $minute, $second, $millisecond);
             },
-            Set\Integers::between(0, 130), // small chance someone will be older than that
+            Set\Integers::between($min, 130), // small chance someone will be older than that
             Set\Integers::between(0, 12),
             Set\Integers::between(0, 30),
             Set\Integers::between(0, 23),
