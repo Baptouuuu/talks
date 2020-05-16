@@ -47,9 +47,7 @@ class PersonSet
             },
             Set\Strings::any(),
             Set\Strings::any(),
-            PointInTime::any()->filter(
-                fn($birthday) => $birthday->year()->toInt() < 9500, // otherwise it may exceed the max year supported by PHP
-            ),
+            PointInTime::before('3000-01-01T00:00:00'),
             self::age(),
             Set\Strings::any(),
         );
@@ -77,9 +75,7 @@ class PersonSet
             },
             Set\Strings::any(),
             Set\Strings::any(),
-            PointInTime::any()->filter(
-                fn($birthday) => $birthday->year()->toInt() < 9500, // otherwise it may exceed the max year supported by PHP
-            ),
+            PointInTime::before('3000-01-01T00:00:00'),
             self::age(),
             Set\Strings::any(),
         );

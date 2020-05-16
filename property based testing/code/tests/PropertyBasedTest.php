@@ -30,7 +30,7 @@ class PropertyBasedTest extends TestCase
     {
         $this
             ->forAll(
-                PointInTime::any(),
+                PointInTime::before('3000-01-01T00:00:00'),
                 Set\Decorate::immutable(
                     static fn(int $year): Year => new Year($year),
                     Set\Integers::between(1, 130), // small chance someone will be older than that
@@ -40,10 +40,6 @@ class PropertyBasedTest extends TestCase
                 Set\Strings::any(),
                 Set\Strings::any(),
             )
-            ->filter(function($birthday) {
-                // otherwise it may exceed the max year supported by PHP
-                return $birthday->year()->toInt() < 9500;
-            })
             ->filter(function($birthday, $age, $timeBeforeBirthday) {
                 return $birthday->day()->ofYear() > $timeBeforeBirthday->days();
             })
@@ -65,7 +61,7 @@ class PropertyBasedTest extends TestCase
     {
         $this
             ->forAll(
-                PointInTime::any(),
+                PointInTime::before('3000-01-01T00:00:00'),
                 Set\Decorate::immutable(
                     static fn(int $year): Year => new Year($year),
                     Set\Integers::between(1, 130), // small chance someone will be older than that
@@ -75,10 +71,6 @@ class PropertyBasedTest extends TestCase
                 Set\Strings::any(),
                 Set\Strings::any(),
             )
-            ->filter(function($birthday) {
-                // otherwise it may exceed the max year supported by PHP
-                return $birthday->year()->toInt() < 9500;
-            })
             ->filter(function($birthday, $age, $timeAfterBirthday) {
                 return $birthday->day()->ofYear() < $timeAfterBirthday->days();
             })
@@ -100,16 +92,12 @@ class PropertyBasedTest extends TestCase
     {
         $this
             ->forAll(
-                PointInTime::any(),
+                PointInTime::before('3000-01-01T00:00:00'),
                 Period::lessThanAYear(),
                 Set\Strings::any(),
                 Set\Strings::any(),
                 Set\Strings::any(),
             )
-            ->filter(function($birthday) {
-                // otherwise it may exceed the max year supported by PHP
-                return $birthday->year()->toInt() < 9500;
-            })
             ->then(function($birthday, $lessThanAYear, $firstName, $lastName, $placeOfBirth) {
                 $now = $birthday->goForward($lessThanAYear);
                 $clock = new FrozenClock($now);
@@ -128,16 +116,12 @@ class PropertyBasedTest extends TestCase
     {
         $this
             ->forAll(
-                PointInTime::any(),
+                PointInTime::before('3000-01-01T00:00:00'),
                 $this->ageBetween(18, 130), // small chance someone will be older than that
                 Set\Strings::any(),
                 Set\Strings::any(),
                 Set\Strings::any(),
             )
-            ->filter(function($birthday) {
-                // otherwise it may exceed the max year supported by PHP
-                return $birthday->year()->toInt() < 9500;
-            })
             ->then(function($birthday, $period, $firstName, $lastName, $placeOfBirth) {
                 $now = $birthday->goForward($period);
                 $clock = new FrozenClock($now);
@@ -156,16 +140,12 @@ class PropertyBasedTest extends TestCase
     {
         $this
             ->forAll(
-                PointInTime::any(),
+                PointInTime::before('3000-01-01T00:00:00'),
                 $this->ageBetween(0, 17), // can't be older than 17
                 Set\Strings::any(),
                 Set\Strings::any(),
                 Set\Strings::any(),
             )
-            ->filter(function($birthday) {
-                // otherwise it may exceed the max year supported by PHP
-                return $birthday->year()->toInt() < 9500;
-            })
             ->then(function($birthday, $age, $firstName, $lastName, $placeOfBirth) {
                 $now = $birthday->goForward($age);
                 $clock = new FrozenClock($now);
@@ -184,16 +164,12 @@ class PropertyBasedTest extends TestCase
     {
         $this
             ->forAll(
-                PointInTime::any(),
+                PointInTime::before('3000-01-01T00:00:00'),
                 $this->ageBetween(0, 130), // small chance someone will be older than that
                 Set\Strings::any(),
                 Set\Strings::any(),
                 Set\Strings::any(),
             )
-            ->filter(function($birthday) {
-                // otherwise it may exceed the max year supported by PHP
-                return $birthday->year()->toInt() < 9500;
-            })
             ->then(function($birthday, $period, $firstName, $lastName, $placeOfBirth) {
                 $now = $birthday->goForward($period);
                 $clock = new FrozenClock($now);
