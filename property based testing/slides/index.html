@@ -34,9 +34,9 @@
 					</section>
 					<section>
 						<ul>
-							<li class="fragment">Une personne de plus de 18 ans est adulte</li>
-							<li class="fragment">Une personne émancipé est adulte</li>
-							<li class="fragment">Un adulte peut passer le permis</li>
+							<li class="fragment">Une personne de plus de 18 ans est un adulte</li>
+							<li class="fragment">Une personne émancipé est un adulte</li>
+							<li class="fragment">Un adulte peut obtenir le permis</li>
 						</ul>
 					</section>
 				</section>
@@ -81,38 +81,6 @@ final class DeliverDriverLicense {
 					</section>
 					<section data-markdown>
 						```php
-public function testAgeBeforeBirthday()
-{
-    $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
-
-    $person = new Person(
-        'John',
-        'Doe',
-        $clock->at('2004-05-16 03:00:00'),
-        'Somewhere',
-    );
-    $this->assertSame(15, $person->age($clock));
-}
-						```
-					</section>
-					<section data-markdown>
-						```php
-public function testAgeAfterBirthday()
-{
-    $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
-
-    $person = new Person(
-        'John',
-        'Doe',
-        $clock->at('2000-05-14 03:00:00'),
-        'Somewhere',
-    );
-    $this->assertSame(20, $person->age($clock));
-}
-						```
-					</section>
-					<section data-markdown>
-						```php
 public function testIsAdult()
 {
     $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
@@ -153,9 +121,11 @@ public function testIsNotAndAdult()
 					</section>
 					<section data-markdown>
 						```php
+public function testAgeBeforeBirthday();
+public function testAgeAfterBirthday();
 public function testEmancipatedCitizenIsConsideredAnAdult();
-public function testANonAdultCantObtainADriverLicense();
 public function testAnAdultCanObtainADriverLicense();
+public function testANonAdultCantObtainADriverLicense();
 						```
 					</section>
 					<section data-markdown>
@@ -248,9 +218,9 @@ public function ages(): array
 						### Les  principes
 
 						Note:
+						Type system
 						On décrit un comportement attendu
 						Le framework va chercher un moyen d'invalider ce comportement
-						Exemple Volvo : clignotant + monter le volume = désactivation des freins
 					</section>
 				</section>
 				<section>
@@ -343,9 +313,14 @@ public static function over18YearsOld(): Set
     );
 }
 						```
+
+						Note:
+						Réutilisation des briques de base
+						Lego
 					</section>
 					<section data-markdown>
 						```php
+# PersonSet.php
 public static function anyAdult(): Set
 {
     return new Set\Either(
