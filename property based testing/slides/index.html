@@ -240,9 +240,9 @@ class Test extends \PHPUnit\Framework\TestCase
 }
 						```
 					</section>
-					<section data-markdown>
-						```php
-public function testCitizenIsConsideredAnAdultWhenHeReachesHis18thBirthday()
+					<section>
+						<pre>
+<code data-line-numbers="5-9|12-21|6">public function testCitizenIsConsideredAnAdultWhenHeReachesHis18thBirthday()
 {
     $this
         ->forAll(
@@ -252,16 +252,6 @@ public function testCitizenIsConsideredAnAdultWhenHeReachesHis18thBirthday()
             Set\Strings::any(),
             Set\Strings::any(),
         )
-        ->then(/* assertions */);
-}
-						```
-					</section>
-					<section data-markdown>
-						```php
-public function testCitizenIsConsideredAnAdultWhenHeReachesHis18thBirthday()
-{
-    $this
-        ->forAll(/* inputs */)
         ->then(function($birthday, $age, $firstName, $lastName, $placeOfBirth) {
             $now = $birthday->goForward($age);
             $clock = new FrozenClock($now);
@@ -274,11 +264,12 @@ public function testCitizenIsConsideredAnAdultWhenHeReachesHis18thBirthday()
 
             $this->assertTrue($person->isAdult($clock));
         });
-}
-						```
+}</code>
+                        </pre>
 
-						Note:
-						La seule donnée en dur est celle qui a de l'importance
+                        <aside class="notes">
+                        La seule donnée en dur est celle qui a de l'importance
+                        </aside>
 					</section>
 					<section data-markdown>
 						```php
