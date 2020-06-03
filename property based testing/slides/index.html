@@ -128,69 +128,6 @@ public function testANonAdultCantObtainADriverLicense();
 					<h4 class="fragment">...pour John Doe</h4>
 				</section>
 				<section>
-					<section data-markdown>
-						## Tests paramétrés
-
-						Note:
-						L'important est d'extraire l'inutile
-					</section>
-					<section data-markdown>
-						```php
-public function setUp(): void
-{
-    $this->clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
-    $this->faker = \Faker\Factory::create();
-}
-						```
-					</section>
-					<section data-markdown>
-						```php
-/**
- * @dataProvider ages
- */
-public function testAge(string $birthday, int $expectedAge)
-{
-    $person = new Person(
-        $this->faker->firstName,
-        $this->faker->lastName,
-        $this->clock->at($birthday),
-        $this->faker->city,
-    );
-    $this->assertSame($expectedAge, $person->age($this->clock));
-}
-						```
-
-						Note:
-						Relation entre date de naissance et âge
-					</section>
-					<section data-markdown>
-						```php
-public function ages(): array
-{
-    return [
-        'the day before is 16th birthday' => [
-            '2004-05-16 03:00:00',
-            15,
-        ],
-        'the day after is 20th birthday' => [
-            '2000-05-14 03:00:00',
-            20,
-        ],
-    ];
-}
-						```
-					</section>
-					<section data-markdown>
-						![](pictures/parameterized.png)
-					</section>
-				</section>
-				<section data-markdown>
-					## Des tests simples, mais...
-
-					Note:
-					Encore que des cas précis
-				</section>
-				<section>
 					<section>
 						<h2>Propery Based Testing</h2>
 					</section>
