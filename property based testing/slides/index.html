@@ -1,71 +1,71 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>Du test à la preuve: introduction au Property Based Testing</title>
+        <title>Du test à la preuve: introduction au Property Based Testing</title>
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/moon.css" id="theme">
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/moon.css" id="theme">
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section data-markdown>
-					## Du test à la preuve :
-					### Introduction au Property Based Testing
-				</section>
-				<section>
-					<ul>
-						<li class="fragment">Une personne de plus de 18 ans est un adulte</li>
-						<li class="fragment">Une personne émancipé est un adulte</li>
-						<li class="fragment">Un adulte peut obtenir le permis</li>
-					</ul>
-				</section>
-				<section>
-					<section data-markdown>
-						```php
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown>
+                    ## Du test à la preuve :
+                    ### Introduction au Property Based Testing
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">Une personne de plus de 18 ans est un adulte</li>
+                        <li class="fragment">Une personne émancipé est un adulte</li>
+                        <li class="fragment">Un adulte peut obtenir le permis</li>
+                    </ul>
+                </section>
+                <section>
+                    <section data-markdown>
+                        ```php
 final class Person {
-	public function emancipate(): void;
-	public function isAdult(Clock $clock): bool;
-	public function age(Clock $clock): int;
-	public function obtainDriverLicense(
-		Clock $clock,
-		DeliverDriverLicense $deliver
-	): void;
-	public function hasDriverLicense(): bool;
+    public function emancipate(): void;
+    public function isAdult(Clock $clock): bool;
+    public function age(Clock $clock): int;
+    public function obtainDriverLicense(
+        Clock $clock,
+        DeliverDriverLicense $deliver
+    ): void;
+    public function hasDriverLicense(): bool;
 }
-						```
-					</section>
-					<section data-markdown>
-						```php
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ```php
 final class DeliverDriverLicense {
-	public function __invoke(
+    public function __invoke(
         string $firstName,
         string $lastName,
         PointInTime $birthday,
         string $placeOfBirth
     ): DriverLicense;
 }
-						```
+                        ```
 
-						Note:
-						On est dans un projet réel
-						Un collègue l'a déjà implémenté donc on n'a même pas à s'en préoccuper
-					</section>
-				</section>
-				<section>
-					<section>
-						<h2>Tests traditionnels</h2>
-					</section>
-					<section data-markdown>
-						```php
-public function testIsAdult()
+                        Note:
+                        On est dans un projet réel
+                        Un collègue l'a déjà implémenté donc on n'a même pas à s'en préoccuper
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Tests traditionnels</h2>
+                    </section>
+                    <section>
+                        <pre>
+<code data-line-numbers>public function testIsAdult()
 {
     $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
 
@@ -76,16 +76,17 @@ public function testIsAdult()
         'Somewhere',
     );
     $this->assertTrue($person->isAdult($clock));
-}
-						```
+}</code>
+                        </pre>
 
-						Note:
-						Majorité des tests
-						Test positif
-					</section>
-					<section data-markdown>
-						```php
-public function testIsNotAndAdult()
+                        <aside class="notes">
+                        Majorité des tests <br>
+                        Test positif
+                        </aside>
+                    </section>
+                    <section>
+                        <pre>
+<code data-line-numbers="1|8|11">public function testIsNotAndAdult()
 {
     $clock = new FrozenClock(new PointInTime('2020-05-15 11:30:00'));
 
@@ -96,86 +97,87 @@ public function testIsNotAndAdult()
         'Somewhere',
     );
     $this->assertFalse($person->isAdult($clock));
-}
-						```
+}</code>
+                        </pre>
 
-						Note:
-						Consciencieux
-						Test négatif
-					</section>
-					<section data-markdown>
-						```php
+                        <aside class="notes">
+                        Consciencieux <br>
+                        Test négatif
+                        </aside>
+                    </section>
+                    <section data-markdown>
+                        ```php
 public function testAgeBeforeBirthday();
 public function testAgeAfterBirthday();
 public function testEmancipatedCitizenIsConsideredAnAdult();
 public function testAnAdultCanObtainADriverLicense();
 public function testANonAdultCantObtainADriverLicense();
-						```
-					</section>
-					<section data-markdown>
-						![](pictures/traditional.png)
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ![](pictures/traditional.png)
 
-						Note:
-						3 règles couvertes
-						100% coverage
-					</section>
-				</section>
-				<section>
-					<h2>C'est bon ça fonctionne...</h2>
-					<h4 class="fragment">...pour John Doe</h4>
-				</section>
-				<section>
-					<section>
-						<h2>Propery Based Testing</h2>
-					</section>
-					<section data-markdown>
-						### Un peu d'historique
+                        Note:
+                        3 règles couvertes
+                        100% coverage
+                    </section>
+                </section>
+                <section>
+                    <h2>C'est bon ça fonctionne...</h2>
+                    <h4 class="fragment">...pour John Doe</h4>
+                </section>
+                <section>
+                    <section>
+                        <h2>Propery Based Testing</h2>
+                    </section>
+                    <section data-markdown>
+                        ### Un peu d'historique
 
-						Note:
-						Vient de la prog fonctionnelle
-						Née en 1999 avec QuickCheck (Haskell) par John Hughes
-					</section>
-					<section data-markdown>
-						### Les  principes
+                        Note:
+                        Vient de la prog fonctionnelle
+                        Née en 1999 avec QuickCheck (Haskell) par John Hughes
+                    </section>
+                    <section data-markdown>
+                        ### Les  principes
 
-						Note:
-						Type system
-						On décrit un comportement attendu
-						Le framework va chercher un moyen d'invalider ce comportement
-					</section>
-				</section>
-				<section>
-					<section>
-						<h2>PBT appliqué à PHPUnit</h2>
-					</section>
-					<section data-markdown>
-						```sh
+                        Note:
+                        Type system
+                        On décrit un comportement attendu
+                        Le framework va chercher un moyen d'invalider ce comportement
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>PBT appliqué à PHPUnit</h2>
+                    </section>
+                    <section data-markdown>
+                        ```sh
 composer require --dev innmind/black-box
-						```
-					</section>
-					<section data-markdown>
-						```php
-use Innmind\BlackBox\{
-	PHPUnit\BlackBox,
-	Set,
+                        ```
+                    </section>
+                    <section>
+                        <pre>
+<code data-line-numbers="8|12-15">use Innmind\BlackBox\{
+    PHPUnit\BlackBox,
+    Set,
 };
 
 class Test extends \PHPUnit\Framework\TestCase
 {
-	use BlackBox;
+    use BlackBox;
 
-	public function testProperty()
-	{
-		$this->forAll(/* inputs */)
-			->then(function(...$inputs) {
-				// assertions
-			});
-	}
-}
-						```
-					</section>
-					<section>
-						<pre>
+    public function testProperty()
+    {
+        $this->forAll(/* inputs */)
+            ->then(function(...$inputs) {
+                // assertions
+            });
+    }
+}</code>
+                        </pre>
+                    </section>
+                    <section>
+                        <pre>
 <code data-line-numbers="5-9|12-21|6">public function testCitizenIsConsideredAnAdultWhenHeReachesHis18thBirthday()
 {
     $this
@@ -204,10 +206,10 @@ class Test extends \PHPUnit\Framework\TestCase
                         <aside class="notes">
                         La seule donnée en dur est celle qui a de l'importance
                         </aside>
-					</section>
-					<section data-markdown>
-						```php
-# PersonSet.php
+                    </section>
+                    <section>
+                        <pre>
+<code data-line-numbers="2|11-15|7-8"># PersonSet.php
 public static function over18YearsOld(): Set
 {
     return Set\Composite::mutable(
@@ -223,28 +225,29 @@ public static function over18YearsOld(): Set
         self::ageAbove(18),
         Set\Strings::any(),
     );
-}
-						```
+}</code>
+                        </pre>
 
-						Note:
-						Réutilisation des briques de base
-						Lego
-					</section>
-					<section data-markdown>
-						```php
-# PersonSet.php
+                        <aside class="notes">
+                        Réutilisation des briques de base <br>
+                        Lego
+                        </aside>
+                    </section>
+                    <section>
+                        <pre>
+<code data-line-numbers># PersonSet.php
 public static function anyAdult(): Set
 {
     return new Set\Either(
         self::over18YearsOld(),
         self::emancipated(),
     );
-}
-						```
-					</section>
-					<section data-markdown>
-						```php
-public function testAnyAdultCanObtainADriverLicense()
+}</code>
+                        </pre>
+                    </section>
+                    <section>
+                        <pre>
+<code data-line-numbers="1|4|10">public function testAnyAdultCanObtainADriverLicense()
 {
     $this
         ->forAll(PersonSet::anyAdult())
@@ -253,48 +256,48 @@ public function testAnyAdultCanObtainADriverLicense()
             $deliver = new DeliverDriverLicense($clock);
 
             $this->assertFalse($person->hasDriverLicense());
-            $this->assertNull($person->obtainDriverLicense($clock, $deliver));
+            $person->obtainDriverLicense($clock, $deliver);
             $this->assertTrue($person->hasDriverLicense());
         });
-}
-						```
-					</section>
-					<section data-markdown>
-						![](pictures/pbt.png)
-					</section>
-				</section>
-				<section data-markdown>
-					## En résumé
+}</code>
+                        </pre>
+                    </section>
+                    <section data-markdown>
+                        ![](pictures/pbt.png)
+                    </section>
+                </section>
+                <section data-markdown>
+                    ## En résumé
 
-					Note:
-					Des tests vraiment exhaustifs
-					Les tests deviennent une documentation vivante
-					Renforce la méfiance sur les tests verts
-				</section>
-				<section data-markdown>
-					# Questions
+                    Note:
+                    Des tests vraiment exhaustifs
+                    Les tests deviennent une documentation vivante
+                    Renforce la méfiance sur les tests verts
+                </section>
+                <section data-markdown>
+                    # Questions
 
-					Twitter @Baptouuuu
+                    Twitter @Baptouuuu
 
-					Github @Baptouuuu/talks
-				</section>
-			</div>
-		</div>
+                    Github @Baptouuuu/talks
+                </section>
+            </div>
+        </div>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script>
+            // More info about initialization & config:
+            // - https://revealjs.com/initialization/
+            // - https://revealjs.com/config/
+            Reveal.initialize({
+                hash: true,
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+                // Learn about plugins: https://revealjs.com/plugins/
+                plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+            });
+        </script>
+    </body>
 </html>
