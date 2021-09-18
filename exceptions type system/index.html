@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Les Exception : le trou dans la raquette du typage</title>
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/moon.css" id="theme">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown>
+                    ## Les Exception :
+                    ### Le trou dans la raquette du typage
+                </section>
+                <section>
+                    <pre><code>f(x) = y</code></pre>
+                    <span class="fragment"><pre><code class="language-php">$y = $f($x);</code></pre></span>
+                    <aside class="notes">
+                        simplicité relation directe input/output<br/>
+                        2 types : Input et Output<br/>
+                        lambda, named function et method c'est pareil
+                    </aside>
+                </section>
+                <section data-markdown>
+                    ```php
+                    function getUser(string $id): User;
+                    function createUser(string $email): void;
+                    ```
+
+                    Note:
+                    lecture vs écriture
+                </section>
+                <section>
+                    <section data-markdown>
+                        `\Throwable`
+
+                        `\Exception`
+
+                        `\Error`
+
+                        Note:
+                        monde imparfait
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        class UserNotFound extends \RuntimeException {}
+                        ```
+
+                        Note:
+                        abscence de donnée
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        class InvalidEmail extends \DomainException {}
+                        ```
+
+                        Note:
+                        structure de controle
+                    </section>
+                </section>
+                <section data-markdown>
+                    ## Uniformité
+
+                    Note:
+                    dans tout le language
+                </section>
+                <section>
+                    <section data-markdown>
+                        ## Invonvénients
+
+                        Note:
+                        vérification non automatisable
+                    </section>
+                    <section data-markdown>
+                        `Psalm`
+
+                        `PHPStan`
+
+                        Note:
+                        check I/O mais pas les exceptions
+                    </section>
+                    <section data-markdown>
+                        ```
+                        Controller -> Service1 -> Service2 -> getUser()
+                        ```
+
+                        Note:
+                        qui catch ?
+                        catch intermédiaire => code mort ?
+                        nouvelle exception ?
+                    </section>
+                </section>
+                <section>
+                    <section data-markdown>
+                        ## Alternatives
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        function getUser(string $id): ?User;
+                        ```
+
+                        Note:
+                        marche pas pour l'écriture
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        [$error, $user] = getUser($id);
+                        ```
+
+                        Note:
+                        Go lang
+                        uniforme mais implique un if
+                    </section>
+                </section>
+                <section data-markdown>
+                    ## Typage
+
+                    Note:
+                    le point commun on ramène les erreurs dans le système de typage
+                </section>
+                <section>
+                    <section data-markdown>
+                        ## Monad
+
+                        Note:
+                        erreur dans typage + uniformité + simplicité (continuité)
+                    </section>
+                    <section>
+                        <pre><code class="language-php"><script type="text/template">/**
+ * @immutable
+ */
+interface Monad<T>
+{
+    public function map<S>(callable(T): S $map): self<S>;
+    public function flatMap<S>(callable(T): self<S> $map): self<S>;
+}
+                        </script></code></pre>
+
+                        <aside class="notes">
+                            monad = map + flatMap + immuable + pattern matching
+                        </aside>
+                    </section>
+                    <section>
+                        <pre><code class="language-php"><script type="text/template">/**
+ * @return Maybe<User>
+ */
+function getUser(string $id): Maybe;
+</script></code></pre>
+                        <pre><code data-line-numbers class="language-php">$response = getUser($id)
+    ->map(fn(User $user): string => $user->getBrotherId())
+    ->flatMap(fn(string $brotherId): Maybe => getUser($brotherId))
+    ->map(fn(User $brother) => new JsonResponse($brother))
+    ->match(
+        fn(JsonResponse $response) => $response,
+        fn() => new JsonResponse(null, 404),
+    );
+                        </code></pre>
+                    </section>
+                    <section>
+                        <pre><code class="language-php"><script type="text/template">/**
+ * @return Either<InvalidEmail, User>
+ */
+function createUser(string $email): Either;
+</script></code></pre>
+                        <pre><code data-line-numbers class="language-php"><script type="text/template">$response = createUser($email)
+    ->map(fn(User $user) => new JsonResponse($user, 201))
+    ->match(
+        fn(JsonResponse $response) => $response,
+        fn(InvalidEmail $error) => new JsonResponse(null, 400),
+    );
+                        </script></code></pre>
+
+                        <aside class="notes">
+                            règle générale<br/>
+                            lecture = Maybe<br/>
+                            écriture = Either
+                        </aside>
+                    </section>
+                </section>
+                <section>
+                    <section data-markdown>
+                        ## Migration
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        class UserRepository
+                        {
+                            public function get(string $id): Maybe;
+                        }
+                        ```
+
+                        ```php
+                        # ServiceClass
+                        $user = $userRepository->get($id)->match(
+                            fn(User $user) => $user,
+                            fn() => throw new UserNotFound(),
+                        );
+                        ```
+                    </section>
+                </section>
+                <section data-markdown>
+                    ```sh
+                    composer require innmind/immutable
+                    ```
+                </section>
+                <section data-markdown>
+                    # Questions
+
+                    Twitter @Baptouuuu
+
+                    Github @Baptouuuu/talks
+                </section>
+            </div>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script>
+            // More info about initialization & config:
+            // - https://revealjs.com/initialization/
+            // - https://revealjs.com/config/
+            Reveal.initialize({
+                hash: true,
+
+                // Learn about plugins: https://revealjs.com/plugins/
+                plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+            });
+        </script>
+    </body>
+</html>
