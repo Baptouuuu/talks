@@ -148,6 +148,14 @@ interface Monad<T>
                             monad = map + flatMap + immuable + pattern matching
                         </aside>
                     </section>
+                    <section data-markdown>
+                        ## Maybe
+
+                        ```php
+                        Maybe::just($value);
+                        Maybe::nothing();
+                        ```
+                    </section>
                     <section>
                         <pre><code class="language-php"><script type="text/template">/**
  * @return Maybe<User>
@@ -163,6 +171,14 @@ function getUser(string $id): Maybe;
         fn() => new JsonResponse(null, 404),
     );
                         </code></pre>
+                    </section>
+                    <section data-markdown>
+                        ## Either
+
+                        ```php
+                        Either::right($value);
+                        Either::left($error);
+                        ```
                     </section>
                     <section>
                         <pre><code class="language-php"><script type="text/template">/**
