@@ -148,6 +148,10 @@ interface Monad<T>
                         Maybe::nothing();
                         ```
                     </section>
+                    <section data-markdown>
+                        ![](maybe_just.png)
+                        ![](maybe_nothing.png)
+                    </section>
                     <section>
                         <pre><code class="language-php"><script type="text/template">/**
  * @return Maybe<User>
@@ -171,6 +175,10 @@ function getUser(string $id): Maybe;
                         Either::right($value);
                         Either::left($error);
                         ```
+                    </section>
+                    <section data-markdown>
+                        ![](either_right.png)
+                        ![](either_left.png)
                     </section>
                     <section>
                         <pre><code class="language-php"><script type="text/template">/**
