@@ -213,6 +213,20 @@ function createUser(string $email): Either;
                             écriture = Either
                         </aside>
                     </section>
+                    <section>
+                        <pre><code class="language-php"><script type="text/template">/**
+ * @return Either<InvalidEmail|EmailAlreadyUsed, User>
+ */
+function createUser(string $email): Either;
+</script></code></pre>
+                        <pre><code data-line-numbers="5" class="language-php"><script type="text/template">$response = createUser($email)
+    ->map(fn(User $user) => new JsonResponse($user, 201))
+    ->match(
+        fn(JsonResponse $response) => $response,
+        fn(InvalidEmail|EmailAlreayUsed $error) => new JsonResponse(null, 400),
+    );
+                        </script></code></pre>
+                    </section>
                 </section>
                 <section>
                     <section data-markdown>
