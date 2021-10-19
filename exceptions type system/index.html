@@ -153,11 +153,17 @@ interface Monad<T>
                         ![](maybe_nothing.png)
                     </section>
                     <section>
+                        <h3>Avant</h3>
+                        <pre><code class="language-php"><script type="text/template">function getUser(string $id): ?User;
+</script></code></pre>
+                        <h3>Après</h3>
                         <pre><code class="language-php"><script type="text/template">/**
  * @return Maybe<User>
  */
 function getUser(string $id): Maybe;
 </script></code></pre>
+                    </section>
+                    <section>
                         <pre><code data-line-numbers class="language-php">$response = getUser($id)
     ->map(fn(User $user): string => $user->getBrotherId())
     ->flatMap(fn(string $brotherId): Maybe => getUser($brotherId))
@@ -181,11 +187,20 @@ function getUser(string $id): Maybe;
                         ![](either_left.png)
                     </section>
                     <section>
+                        <h3>Avant</h3>
+                        <pre><code class="language-php"><script type="text/template">/**
+ * @throws InvalidEmail
+ */
+function createUser(string $email): User;
+</script></code></pre>
+                        <h3>Après</h3>
                         <pre><code class="language-php"><script type="text/template">/**
  * @return Either<InvalidEmail, User>
  */
 function createUser(string $email): Either;
 </script></code></pre>
+                    </section>
+                    <section>
                         <pre><code data-line-numbers class="language-php"><script type="text/template">$response = createUser($email)
     ->map(fn(User $user) => new JsonResponse($user, 201))
     ->match(
