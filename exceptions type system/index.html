@@ -184,6 +184,38 @@ function getUser(string $id): Maybe;
 </script></code></pre>
                     </section>
                     <section>
+                        <h3>Avant</h3>
+                        <pre><code data-line-numbers class="language-php"><script type="text/template">/**
+ * @throws UserNotFound
+ */
+function getUser(string $id): User {
+    $user = $pdo->get($id);
+
+    if (\is_null($user)) {
+        throw new UserNotFound();
+    }
+
+    return $user;
+}
+</script></code></pre>
+                    </section>
+                    <section>
+                        <h3>Après</h3>
+                        <pre><code data-line-numbers="2,4,8,11" class="language-php"><script type="text/template">/**
+ * @return Maybe<User>
+ */
+function getUser(string $id): Maybe {
+    $user = $pdo->get($id);
+
+    if (\is_null($user)) {
+        return Maybe::nothing();
+    }
+
+    return Maybe::just($user);
+}
+</script></code></pre>
+                    </section>
+                    <section>
                         <pre><code data-line-numbers class="language-php">function userController(string $id): JsonResponse {
     return getUser($id)->match(
         fn(User $user) => new JsonResponse($user->toArray()),
