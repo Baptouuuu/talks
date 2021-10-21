@@ -216,47 +216,47 @@ function getUser(string $id): Maybe {
 </script></code></pre>
                     </section>
                     <section>
-                        <pre><code data-line-numbers class="language-php">function userController(string $id): JsonResponse {
+                        <pre><code data-line-numbers class="language-php">function userController(string $id): Response {
     return getUser($id)->match(
-        fn(User $user) => new JsonResponse($user->toArray()),
-        fn() => new JsonResponse(null, 404),
+        fn(User $user) => new Response($user->toArray()),
+        fn() => new Response(null, 404),
     );
 }
                         </code></pre>
                     </section>
                     <section>
-                        <pre><code data-line-numbers="3,5" class="language-php">function userController(string $id): JsonResponse {
+                        <pre><code data-line-numbers="3,5" class="language-php">function userController(string $id): Response {
     return getUser($id)
         ->map(fn(User $user) => $user->toArray())
         ->match(
-            fn(array $data) => new JsonResponse($data),
-            fn() => new JsonResponse(null, 404),
+            fn(array $data) => new Response($data),
+            fn() => new Response(null, 404),
         );
 }
                         </code></pre>
                     </section>
                     <section>
-                        <pre><code data-line-numbers="1,3,4" class="language-php">function brotherController(string $id): JsonResponse {
+                        <pre><code data-line-numbers="1,3,4" class="language-php">function brotherController(string $id): Response {
     return getUser($id)
         ->map(fn(User $user) => $user->getBrotherId())
         ->flatMap(fn(string $brotherId) => getUser($brotherId))
         ->map(fn(User $user) => $user->toArray())
         ->match(
-            fn(array $data) => new JsonResponse($data),
-            fn() => new JsonResponse(null, 404),
+            fn(array $data) => new Response($data),
+            fn() => new Response(null, 404),
         );
 }
                         </code></pre>
                     </section>
                     <section>
-                        <pre><code data-line-numbers="2,4,8" class="language-php">function brotherController(string $id): JsonResponse {
+                        <pre><code data-line-numbers="2,4,8" class="language-php">function brotherController(string $id): Response {
     return getUser($id)
         ->map(fn(User $user) => $user->getBrotherId())
         ->flatMap(fn(string $brotherId) => getUser($brotherId))
         ->map(fn(User $user) => $user->toArray())
         ->match(
-            fn(array $data) => new JsonResponse($data),
-            fn() => new JsonResponse(null, 404),
+            fn(array $data) => new Response($data),
+            fn() => new Response(null, 404),
         );
 }
                         </code></pre>
@@ -284,12 +284,12 @@ function createUser(string $email): Either;
 </script></code></pre>
                     </section>
                     <section>
-                        <pre><code data-line-numbers class="language-php"><script type="text/template">function newUserController(string $email): JsonResponse {
+                        <pre><code data-line-numbers class="language-php"><script type="text/template">function newUserController(string $email): Response {
     return createUser($email)
-        ->map(fn(User $user) => new JsonResponse($user, 201))
+        ->map(fn(User $user) => new Response($user, 201))
         ->match(
-            fn(JsonResponse $response) => $response,
-            fn(InvalidEmail $error) => new JsonResponse(null, 400),
+            fn(Response $response) => $response,
+            fn(InvalidEmail $error) => new Response(null, 400),
         );
 }
                         </script></code></pre>
@@ -306,12 +306,12 @@ function createUser(string $email): Either;
  */
 function createUser(string $email): Either;
 </script></code></pre>
-                        <pre><code data-line-numbers="6,7" class="language-php"><script type="text/template">function newUserController(string $email): JsonResponse {
+                        <pre><code data-line-numbers="6,7" class="language-php"><script type="text/template">function newUserController(string $email): Response {
     return createUser($email)
-        ->map(fn(User $user) => new JsonResponse($user, 201))
+        ->map(fn(User $user) => new Response($user, 201))
         ->match(
-            fn(JsonResponse $response) => $response,
-            fn(InvalidEmail $error) => new JsonResponse(null, 400),
+            fn(Response $response) => $response,
+            fn(InvalidEmail $error) => new Response(null, 400),
             // ⌙-> erreur car ça peut aussi être EmailAlreadyUsed
         );
 }
@@ -329,12 +329,12 @@ function createUser(string $email): Either;
  */
 function createUser(string $email): Either;
 </script></code></pre>
-                        <pre><code data-line-numbers="6" class="language-php"><script type="text/template">function newUserController(string $email): JsonResponse {
+                        <pre><code data-line-numbers="6" class="language-php"><script type="text/template">function newUserController(string $email): Response {
     return createUser($email)
-        ->map(fn(User $user) => new JsonResponse($user, 201))
+        ->map(fn(User $user) => new Response($user, 201))
         ->match(
-            fn(JsonResponse $response) => $response,
-            fn(InvalidEmail|EmailAlreadyUsed $error) => new JsonResponse(null, 400),
+            fn(Response $response) => $response,
+            fn(InvalidEmail|EmailAlreadyUsed $error) => new Response(null, 400),
         );
 }
                         </script></code></pre>
