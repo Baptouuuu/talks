@@ -296,6 +296,40 @@ function createUser(string $email): Either;
 </script></code></pre>
                     </section>
                     <section>
+                        <h3>Avant</h3>
+                        <pre><code data-line-numbers class="language-php"><script type="text/template">/**
+ * @throws InvalidEmail
+ */
+function createUser(string $email): User {
+    if (!is_email($email)) {
+        throw new InvalidEmail();
+    }
+
+    $user = new User($email);
+    $pdo->insert($user);
+
+    return $user;
+}
+</script></code></pre>
+                    </section>
+                    <section>
+                        <h3>Après</h3>
+                        <pre><code data-line-numbers="2,4,6,12" class="language-php"><script type="text/template">/**
+ * @return Either<InvalidEmail, User>
+ */
+function createUser(string $email): Either {
+    if (!is_email($email)) {
+        return Either::left(new InvalidEmail());
+    }
+
+    $user = new User($email);
+    $pdo->insert($user);
+
+    return Either::right($user);
+}
+</script></code></pre>
+                    </section>
+                    <section>
                         <pre><code data-line-numbers class="language-php"><script type="text/template">function newUserController(string $email): Response {
     return createUser($email)
         ->map(fn(User $user) => new Response($user, 201))
