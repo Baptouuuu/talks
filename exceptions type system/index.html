@@ -147,21 +147,6 @@
                         <p>Either</p>
                     </section>
                     <section>
-                        <pre><code class="language-php"><script type="text/template">/**
- * @immutable
- */
-interface Monad<T>
-{
-    public function map<S>(callable(T): S $map): self<S>;
-    public function flatMap<S>(callable(T): self<S> $map): self<S>;
-}
-                        </script></code></pre>
-
-                        <aside class="notes">
-                            monad = map + flatMap + immuable + pattern matching
-                        </aside>
-                    </section>
-                    <section>
                         <h3>Avant</h3>
                         <pre><code class="language-php"><script type="text/template">/**
  * @throws UserNotFound
@@ -370,10 +355,13 @@ function createUser(string $email): Either;
                         </script></code></pre>
                     </section>
                     <section data-markdown>
-                        ### Mention spéciale
+                        ## Monad
+
+                        - `map`
+                        - `flatMap`
 
                         Note:
-                        Promises, then = map + flatMap
+                        mention spéciale : Promises, then = map + flatMap
                     </section>
                 </section>
                 <section>
