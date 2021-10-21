@@ -154,7 +154,10 @@ interface Monad<T>
                     </section>
                     <section>
                         <h3>Avant</h3>
-                        <pre><code class="language-php"><script type="text/template">function getUser(string $id): ?User;
+                        <pre><code class="language-php"><script type="text/template">/**
+ * @throws UserNotFound
+ */
+function getUser(string $id): User;
 </script></code></pre>
                         <h3>Après</h3>
                         <pre><code class="language-php"><script type="text/template">/**
