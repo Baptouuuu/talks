@@ -1,0 +1,426 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Les Exception : le trou dans la raquette du typage</title>
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/moon.css" id="theme">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown>
+                    ## Les Exceptions :
+                    ### Le trou dans la raquette du typage
+                </section>
+                <section data-markdown>
+                    - Baptiste Langlade
+                    - Lyon
+                    - Efalia
+                    - ~10 ans XP
+                    - ~80 packages open source
+                </section>
+                <section>
+                    <pre><code class="language-php">$f = fn(InputType $x): OutputType => $y;</code></pre>
+                    <aside class="notes">
+                        simplicité relation directe input/output<br/>
+                        2 types : Input et Output<br/>
+                        lambda, named function et method c'est pareil
+                    </aside>
+                </section>
+                <section data-markdown>
+                    ```php
+                    function getUser(string $id): User;
+                    function createUser(string $email): User;
+                    ```
+
+                    Note:
+                    lecture vs écriture
+                </section>
+                <section>
+                    <section data-markdown>
+                        `\Throwable`
+
+                        `\Exception`
+
+                        `\Error`
+
+                        Note:
+                        monde imparfait
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        class UserNotFound extends \RuntimeException {}
+                        ```
+
+                        Note:
+                        abscence de donnée
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        class InvalidEmail extends \DomainException {}
+                        ```
+
+                        Note:
+                        structure de controle
+                    </section>
+                </section>
+                <section data-markdown>
+                    ## Uniformité
+
+                    Note:
+                    dans tout le language
+                </section>
+                <section></section>
+                <section>
+                    <section data-markdown>
+                        ## Analyse statique
+
+                        Note:
+                        vérification non automatisable
+                        phpstan/psalm check I/O mais pas les exceptions
+                    </section>
+                    <section data-markdown>
+                        ```
+                        Controller -> Service1 -> Service2 -> getUser()
+                        ```
+
+                        Note:
+                        qui catch ?
+                        catch intermédiaire => code mort ?
+                        nouvelle exception ?
+                    </section>
+                </section>
+                <section>
+                    <section data-markdown>
+                        ## Alternatives
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        function getUser(string $id): ?User;
+                        ```
+
+                        Note:
+                        marche pas pour l'écriture
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        [$error, $user] = getUser($id);
+                        ```
+
+                        Note:
+                        Go lang
+                        uniforme mais implique un if
+                    </section>
+                </section>
+                <section data-markdown>
+                    ## Typage
+
+                    Note:
+                    le point commun on ramène les erreurs dans le système de typage
+                </section>
+                <section></section>
+                <section>
+                    <section data-markdown>
+                        ## Monad
+
+                        Note:
+                        erreur dans typage + uniformité + simplicité (continuité)
+                    </section>
+                    <section>
+                        <p>Maybe</p>
+                        <p>Either</p>
+                        <p>Set</p>
+                        <p>Sequence</p>
+                        <p>State</p>
+                        <p>IO</p>
+                        <p>Free</p>
+                        <p>...</p>
+                    </section>
+                    <section>
+                        <p>Maybe</p>
+                        <p>Either</p>
+                    </section>
+                    <section>
+                        <h3>Avant</h3>
+                        <pre><code class="language-php"><script type="text/template">/**
+ * @throws UserNotFound
+ */
+function getUser(string $id): User;
+</script></code></pre>
+                        <h3>Après</h3>
+                        <pre><code class="language-php"><script type="text/template">/**
+ * @return Maybe<User>
+ */
+function getUser(string $id): Maybe;
+</script></code></pre>
+                    </section>
+                    <section>
+                        <h3>Avant</h3>
+                        <pre><code data-line-numbers class="language-php"><script type="text/template">/**
+ * @throws UserNotFound
+ */
+function getUser(string $id): User {
+    $user = $pdo->get($id);
+
+    if (\is_null($user)) {
+        throw new UserNotFound();
+    }
+
+    return $user;
+}
+</script></code></pre>
+                    </section>
+                    <section>
+                        <h3>Après</h3>
+                        <pre><code data-line-numbers="2,4,8,11" class="language-php"><script type="text/template">/**
+ * @return Maybe<User>
+ */
+function getUser(string $id): Maybe {
+    $user = $pdo->get($id);
+
+    if (\is_null($user)) {
+        return Maybe::nothing();
+    }
+
+    return Maybe::just($user);
+}
+</script></code></pre>
+                    </section>
+                    <section>
+                        <pre><code data-line-numbers class="language-php">function userController(string $id): Response {
+    return getUser($id)->match(
+        fn(User $user) => new Response($user->toArray()),
+        fn() => new Response(null, 404),
+    );
+}
+                        </code></pre>
+                    </section>
+                    <section>
+                        <pre><code data-line-numbers="3,5" class="language-php">function userController(string $id): Response {
+    return getUser($id)
+        ->map(fn(User $user) => $user->toArray())
+        ->match(
+            fn(array $data) => new Response($data),
+            fn() => new Response(null, 404),
+        );
+}
+                        </code></pre>
+                    </section>
+                    <section>
+                        <pre><code data-line-numbers="1,3" class="language-php">function brotherController(string $id): Response {
+    return getUser($id)
+        ->map(fn(User $user) => $user->getBrother())
+        ->map(fn(User $brother) => $brother->toArray())
+        ->match(
+            fn(array $data) => new Response($data),
+            fn() => new Response(null, 404),
+        );
+}
+                        </code></pre>
+                    </section>
+                    <section>
+                        <pre><code data-line-numbers="3,4" class="language-php">function brotherController(string $id): Response {
+    return getUser($id)
+        ->map(fn(User $user) => $user->getBrotherId())
+        ->flatMap(fn(string $brotherId) => getUser($brotherId))
+        ->map(fn(User $brother) => $brother->toArray())
+        ->match(
+            fn(array $data) => new Response($data),
+            fn() => new Response(null, 404),
+        );
+}
+                        </code></pre>
+                    </section>
+                    <section>
+                        <pre><code data-line-numbers="2,4,8" class="language-php">function brotherController(string $id): Response {
+    return getUser($id)
+        ->map(fn(User $user) => $user->getBrotherId())
+        ->flatMap(fn(string $brotherId) => getUser($brotherId))
+        ->map(fn(User $user) => $user->toArray())
+        ->match(
+            fn(array $data) => new Response($data),
+            fn() => new Response(null, 404),
+        );
+}
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Avant</h3>
+                        <pre><code class="language-php"><script type="text/template">/**
+ * @throws InvalidEmail
+ */
+function createUser(string $email): User;
+</script></code></pre>
+                        <h3>Après</h3>
+                        <pre><code class="language-php"><script type="text/template">/**
+ * @return Either<InvalidEmail, User>
+ */
+function createUser(string $email): Either;
+</script></code></pre>
+                    </section>
+                    <section>
+                        <h3>Avant</h3>
+                        <pre><code data-line-numbers class="language-php"><script type="text/template">/**
+ * @throws InvalidEmail
+ */
+function createUser(string $email): User {
+    if (!is_email($email)) {
+        throw new InvalidEmail();
+    }
+
+    $user = new User($email);
+    $pdo->insert($user);
+
+    return $user;
+}
+</script></code></pre>
+                    </section>
+                    <section>
+                        <h3>Après</h3>
+                        <pre><code data-line-numbers="2,4,6,12" class="language-php"><script type="text/template">/**
+ * @return Either<InvalidEmail, User>
+ */
+function createUser(string $email): Either {
+    if (!is_email($email)) {
+        return Either::left(new InvalidEmail());
+    }
+
+    $user = new User($email);
+    $pdo->insert($user);
+
+    return Either::right($user);
+}
+</script></code></pre>
+                    </section>
+                    <section>
+                        <pre><code data-line-numbers class="language-php"><script type="text/template">function newUserController(string $email): Response {
+    return createUser($email)
+        ->map(fn(User $user) => $user->toArray())
+        ->match(
+            fn(array $data) => new Response($data, 201),
+            fn(InvalidEmail $error) => new Response(null, 400),
+        );
+}
+                        </script></code></pre>
+
+                        <aside class="notes">
+                            règle générale<br/>
+                            lecture = Maybe<br/>
+                            écriture = Either
+                        </aside>
+                    </section>
+                    <section>
+                        <pre><code class="language-php"><script type="text/template">/**
+ * @return Either<InvalidEmail|EmailAlreadyUsed, User>
+ */
+function createUser(string $email): Either;
+</script></code></pre>
+                        <pre><code data-line-numbers="6,7" class="language-php"><script type="text/template">function newUserController(string $email): Response {
+    return createUser($email)
+        ->map(fn(User $user) => $user->toArray())
+        ->match(
+            fn(array $data) => new Response($data, 201),
+            fn(InvalidEmail $error) => new Response(null, 400),
+            // ⌙-> erreur car ça peut aussi être EmailAlreadyUsed
+        );
+}
+                        </script></code></pre>
+
+                        <aside class="notes">
+                            règle générale<br/>
+                            lecture = Maybe<br/>
+                            écriture = Either
+                        </aside>
+                    </section>
+                    <section>
+                        <pre><code class="language-php"><script type="text/template">/**
+ * @return Either<InvalidEmail|EmailAlreadyUsed, User>
+ */
+function createUser(string $email): Either;
+</script></code></pre>
+                        <pre><code data-line-numbers="6" class="language-php"><script type="text/template">function newUserController(string $email): Response {
+    return createUser($email)
+        ->map(fn(User $user) => $user->toArray())
+        ->match(
+            fn(array $data) => new Response($data, 201),
+            fn(InvalidEmail|EmailAlreadyUsed $error) => new Response(null, 400),
+        );
+}
+                        </script></code></pre>
+                    </section>
+                    <section data-markdown>
+                        ## Monad
+
+                        - `map`
+                        - `flatMap`
+
+                        Note:
+                        mention spéciale : Promises, then = map + flatMap
+                    </section>
+                </section>
+                <section>
+                    <section data-markdown>
+                        ## Migration
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        class UserRepository
+                        {
+                            public function get(string $id): Maybe;
+                        }
+                        ```
+
+                        ```php
+                        # ServiceClass
+                        $user = $userRepository->get($id)->match(
+                            fn(User $user) => $user,
+                            fn() => throw new UserNotFound(),
+                        );
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ### Supprimer toutes les exceptions ?
+                    </section>
+                </section>
+                <section data-markdown>
+                    ```sh
+                    composer require innmind/immutable
+                    ```
+                </section>
+                <section data-markdown>
+                    # Questions
+
+                    ![](joind.png)
+
+                    Twitter @Baptouuuu
+
+                    Github @Baptouuuu/talks
+                </section>
+            </div>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script>
+            // More info about initialization & config:
+            // - https://revealjs.com/initialization/
+            // - https://revealjs.com/config/
+            Reveal.initialize({
+                hash: true,
+
+                // Learn about plugins: https://revealjs.com/plugins/
+                plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+            });
+        </script>
+    </body>
+</html>
