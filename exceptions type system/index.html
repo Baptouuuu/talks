@@ -215,7 +215,7 @@ function getUser(string $id): Maybe {
                         </code></pre>
                     </section>
                     <section>
-                        <pre><code data-line-numbers="1,3,4" class="language-php">function brotherController(string $id): Response {
+                        <pre><code data-line-numbers="1,3" class="language-php">function brotherController(string $id): Response {
     return getUser($id)
         ->map(fn(User $user) => $user->getBrother())
         ->map(fn(User $brother) => $brother->toArray())
