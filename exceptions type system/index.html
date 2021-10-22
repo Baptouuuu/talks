@@ -303,9 +303,9 @@ function createUser(string $email): Either {
                     <section>
                         <pre><code data-line-numbers class="language-php"><script type="text/template">function newUserController(string $email): Response {
     return createUser($email)
-        ->map(fn(User $user) => new Response($user, 201))
+        ->map(fn(User $user) => $user->toArray())
         ->match(
-            fn(Response $response) => $response,
+            fn(array $data) => new Response($data, 201),
             fn(InvalidEmail $error) => new Response(null, 400),
         );
 }
@@ -325,9 +325,9 @@ function createUser(string $email): Either;
 </script></code></pre>
                         <pre><code data-line-numbers="6,7" class="language-php"><script type="text/template">function newUserController(string $email): Response {
     return createUser($email)
-        ->map(fn(User $user) => new Response($user, 201))
+        ->map(fn(User $user) => $user->toArray())
         ->match(
-            fn(Response $response) => $response,
+            fn(array $data) => new Response($data, 201),
             fn(InvalidEmail $error) => new Response(null, 400),
             // ⌙-> erreur car ça peut aussi être EmailAlreadyUsed
         );
@@ -348,9 +348,9 @@ function createUser(string $email): Either;
 </script></code></pre>
                         <pre><code data-line-numbers="6" class="language-php"><script type="text/template">function newUserController(string $email): Response {
     return createUser($email)
-        ->map(fn(User $user) => new Response($user, 201))
+        ->map(fn(User $user) => $user->toArray())
         ->match(
-            fn(Response $response) => $response,
+            fn(array $data) => new Response($data, 201),
             fn(InvalidEmail|EmailAlreadyUsed $error) => new Response(null, 400),
         );
 }
