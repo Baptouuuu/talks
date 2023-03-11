@@ -33,6 +33,252 @@
                     - exceptions => monades (cf conf)
                     - passerelles
                 </section>
+                <section>
+                    <section data-markdown>
+                        ## Asynchrone
+
+                        Notes:
+                        - Problématique IO
+                        - Mono thread
+                    </section>
+                    <section>
+                        schéma asynchrone pour dissocier l'event loop du métier de l'IO
+                    </section>
+                    <section data-markdown>
+                        ### Exercice
+
+                        - Lire un fichier par tranche
+                        - Une fonction avec un type explicite
+                        - Fonctionne en synchrone et asynchrone
+                    </section>
+                    <section data-markdown>
+                        ### Réactif
+
+                        ```php
+                        $stream = \fopen('some-file', 'r');
+                        $data = [];
+                        Loop::addReadStream($stream, function(string $chunk) use (&$data) {
+                            $data[] = $chunk;
+                        });
+                        Loop::run();
+                        ```
+
+                        Notes:
+                        - React/AMP
+                        - Perte de contrôle du flow
+                        - Pas de type de retour
+                    </section>
+                    <section>
+                        <h3>Impératif</h3>
+
+                        <pre><code class="language-php">function read(string $name): \Generator {
+    $stream = \fopen($name, 'r');
+    while (!\feof($stream)) {
+        yield \fread($stream, 1024);
+    }
+}</code></pre>
+                        <aside class="notes">
+                            <li>Point d'arrêt</li>
+                            <li>Mauvais type de retour</li>
+                        </aside>
+                    </section>
+                </section>
+                <section>
+                    <section data-markdown>
+                        ## Fiber
+                    </section>
+                    <section>
+                        <pre><code data-line-numbers="1-10|6-9" class="language-php">function read(string $name): array {
+    $stream = \fopen($name, 'r');
+    $data = [];
+    while (!\feof($stream)) {
+        $data[] = \fread($stream, 1024);
+        match (Fiber::getCurrent()) {
+            null => null,
+            default => Fiber::suspend(),
+        };
+    }
+
+    return $data;
+}</code></pre>
+                        <aside class="notes">
+                            <li>Bon type de retour</li>
+                            <li>On attend le retour pour continuer</li>
+                            <li>Disponible uniquement en CLI</li>
+                        </aside>
+                    </section>
+                </section>
+                <section data-markdown>
+                    ## Compromis
+
+                    Notes:
+                    - Chaque solution a un mérite
+                    - Complexité du choix
+                </section>
+                <section><!-- pause --></section>
+                <section>
+                    <section data-markdown>
+                        ## Monades
+                    </section>
+                    <section data-markdown>
+                        - `Maybe`
+                        - `Either`
+                        - `Set`
+                        - `Sequence`
+                        - `State`
+                        - `Validation`
+                        - `IO`
+                        - `Free`
+                        - ...
+                    </section>
+                    <section data-markdown>
+                        - `Sequence` (`innmind/immutable`)
+                    </section>
+                    <section data-markdown>
+                        - Conteneur immuable
+                        - Une méthode `map`
+                        - Une méthode `flatMap`
+                        - Une/des méthode(s) d'extraction
+
+                        Notes:
+                        - extraire/déballer/détoner
+                        - Schrödinger
+                    </section>
+                    <section>
+                        <h3>map</h3>
+                        <pre><code data-line-numbers="1|2|3-6|1,7">$numbers = [1, 2, 3, 4];
+$double = static fn(int $i): int => $i * 2;
+$doubles = \array_map(
+    static fn(int $i): int => $double($i),
+    $numbers,
+);
+$doubles === [2, 4, 6, 8];
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>flatMap</h3>
+                        <pre><code data-line-numbers="1|2|3|4|1,7">$numbers = [1, 2, 3, 4];
+$double = static fn(int $i): int => $i * 2;
+$doubles = \array_flatMap(
+    static fn(int $i): array => [$i, $double($i)],
+    $numbers,
+);
+$doubles === [1, 2, 2, 4, 3, 6, 4, 8];
+                        </code></pre>
+                        <aside class="notes">
+                            <li>C'est l'essence des monades</li>
+                            <li>Type primitif non détonable</li>
+                        </aside>
+                    </section>
+                    <section>
+                        <h3>Sequence</h3>
+                        <pre><code data-line-numbers="1|2|3-5|6">$numbers = Sequence::of(1, 2, 3, 4);
+$double = static fn(int $i): int => $i * 2;
+$doubles = $numbers->map(
+    static fn(int $i): int => $double($i),
+);
+$doubles->toList() === [2, 4, 6, 8];
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Sequence</h3>
+                        <pre><code data-line-numbers="1|2|3|4|6">$numbers = Sequence::of(1, 2, 3, 4);
+$double = static fn(int $i): int => $i * 2;
+$doubles = $numbers->flatMap(
+    static fn(int $i): Sequence => Sequence::of($i, $double($i)),
+);
+$doubles->toList() === [1, 2, 2, 4, 3, 6, 4, 8];
+                        </code></pre>
+                    </section>
+                    <section data-markdown>
+                        ### Sequence
+
+                        - `->toList()`
+                        - `->reduce()`
+                        - `->foreach()`
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        $numbers = Sequence::lazy(function(): \Generator {
+                            yield 1;
+                            yield 2;
+                            yield 3;
+                            yield 4;
+                        });
+                        ```
+
+                        Notes:
+                        - Source abstraite
+                        - Point d'arrêt défini à la source
+                    </section>
+                </section>
+                <section>
+                    <section data-markdown>
+                        ```php
+                        function read(string $name): Sequence {
+                            return Sequence::lazy(function() use ($name) {
+                                $stream = \fopen($name, 'r');
+                                while (!\feof($stream)) {
+                                    yield \fread($stream, 1024);
+                                }
+                            });
+                        }
+                        ```
+                    </section>
+                    <section>
+                        <pre><code data-line-numbers="6-10" class="language-php">function read(string $name): Sequence {
+    return Sequence::lazy(function() use ($name) {
+        $stream = \fopen($name, 'r');
+        while (!\feof($stream)) {
+            yield \fread($stream, 1024);
+            match (\Fiber::getCurrent()) {
+                null => null,
+                default => \Fiber::suspend(),
+            };
+        }
+    });
+}</code></pre>
+                        <aside class="notes">
+                            Trop complexe dans une vraie app
+                        </aside>
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        read('some-file')
+                            ->map(static fn($chunk) => \strtoupper($chunk))
+                            ->foreach(function(string $chunk) {
+                                echo $chunk;
+                            });
+                        ```
+                    </section>
+                    <section data-markdown>
+                        `innmind/operating-system`
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        $file = OperatingSystem\Factory::build()
+                            ->filesystem()
+                            ->mount(Path::of('some-folder/'))
+                            ->get(Name::of('some-file'))
+                            ->match(
+                                static fn($file) => $file,
+                                static fn() => throw new \RuntimeException('fichier inconnu'),
+                            );
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        $file
+                            ->content()
+                            ->lines() // Sequence
+                            ->map(static fn(Line $line) => $line->toString())
+                            ->map(static fn(string $line) => \strtoupper($line))
+                            ->foreach(function(string $line) {
+                                echo $line;
+                            });
+                        ```
+                    </section>
+                </section>
                 <section data-markdown>
                     ## Questions
 
