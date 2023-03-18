@@ -165,7 +165,22 @@ $doubles = \array_flatMap(
 );
 $doubles === [1, 2, 2, 4, 3, 6, 4, 8];
                         </code></pre>
+                    </section>
+                    <section>
+                        <h3>flatMap</h3>
+                        <pre><code data-line-numbers="1|2|4-7|1,10">$numbers = [1, 2, 3, 4];
+$isEven = static fn(int $i): int => $i % 2 === 0;
+$even = \array_flatMap(
+    static fn(int $i): array => match ($isEven($i)) {
+        true => [$i],
+        false => [],
+    },
+    $numbers,
+);
+$even === [2, 4];
+                        </code></pre>
                         <aside class="notes">
+                            <li>Filter</li>
                             <li>C'est l'essence des monades</li>
                             <li>Type primitif non détonable</li>
                         </aside>
