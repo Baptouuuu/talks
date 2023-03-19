@@ -231,17 +231,15 @@ $doubles->toList() === [1, 2, 2, 4, 3, 6, 4, 8];
                     </section>
                 </section>
                 <section>
-                    <section data-markdown>
-                        ```php
-                        function read(string $name): Sequence {
-                            return Sequence::lazy(function() use ($name) {
-                                $stream = \fopen($name, 'r');
-                                while (!\feof($stream)) {
-                                    yield \fread($stream, 1024);
-                                }
-                            });
-                        }
-                        ```
+                    <section>
+                        <pre><code data-line-numbers="1,2|3-6" class="language-php">function read(string $name): Sequence {
+    return Sequence::lazy(function() use ($name) {
+        $stream = \fopen($name, 'r');
+        while (!\feof($stream)) {
+            yield \fread($stream, 1024);
+        }
+    });
+}</code></pre>
                     </section>
                     <section>
                         <pre><code data-line-numbers="6-10" class="language-php">function read(string $name): Sequence {
