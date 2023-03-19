@@ -57,8 +57,8 @@
                         ```php
                         $stream = \fopen('some-file', 'r');
                         $data = [];
-                        Loop::addReadStream($stream, function(string $chunk) use (&$data) {
-                            $data[] = $chunk;
+                        Loop::addReadStream($stream, function($stream) use (&$data) {
+                            $data[] = \fread($stream, 1024);
                         });
                         Loop::run();
                         ```
