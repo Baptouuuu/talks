@@ -1,0 +1,15 @@
+{
+    "name": "baptouuuu/demo",
+    "type": "project",
+    "require": {
+        "innmind/framework": "^1.1",
+        "innmind/async-http-server": "^1.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Baptiste Langlade",
+            "email": "baptiste.langlade@hey.com"
+        }
+    ]
+}
