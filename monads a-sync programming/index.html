@@ -47,7 +47,7 @@
                     <section data-markdown>
                         ### Exercice
 
-                        - Lire un fichier par tranche
+                        - Lire un fichier par ligne
                         - Une fonction avec un type explicite
                         - Fonctionne en synchrone et asynchrone
                     </section>
@@ -58,7 +58,7 @@
                         $stream = \fopen('some-file', 'r');
                         $data = [];
                         Loop::addReadStream($stream, function($stream) use (&$data) {
-                            $data[] = \fread($stream, 1024);
+                            $data[] = \fgets($stream);
                         });
                         Loop::run();
                         ```
@@ -74,7 +74,7 @@
                         <pre><code class="language-php">function read(string $name): \Generator {
     $stream = \fopen($name, 'r');
     while (!\feof($stream)) {
-        yield \fread($stream, 1024);
+        yield \fgets($stream);
     }
 }</code></pre>
                         <aside class="notes">
@@ -92,7 +92,7 @@
     $stream = \fopen($name, 'r');
     $data = [];
     while (!\feof($stream)) {
-        $data[] = \fread($stream, 1024);
+        $data[] = \fgets($stream);
         match (Fiber::getCurrent()) {
             null => null,
             default => Fiber::suspend(),
@@ -236,7 +236,7 @@ $doubles->toList() === [1, 2, 2, 4, 3, 6, 4, 8];
     return Sequence::lazy(function() use ($name) {
         $stream = \fopen($name, 'r');
         while (!\feof($stream)) {
-            yield \fread($stream, 1024);
+            yield \fgets($stream);
         }
     });
 }</code></pre>
@@ -246,7 +246,7 @@ $doubles->toList() === [1, 2, 2, 4, 3, 6, 4, 8];
     return Sequence::lazy(function() use ($name) {
         $stream = \fopen($name, 'r');
         while (!\feof($stream)) {
-            yield \fread($stream, 1024);
+            yield \fgets($stream);
             match (\Fiber::getCurrent()) {
                 null => null,
                 default => \Fiber::suspend(),
@@ -261,9 +261,9 @@ $doubles->toList() === [1, 2, 2, 4, 3, 6, 4, 8];
                     <section data-markdown>
                         ```php
                         read('some-file')
-                            ->map(static fn($chunk) => \strtoupper($chunk))
-                            ->foreach(function(string $chunk) {
-                                echo $chunk;
+                            ->map(static fn($line) => \strtoupper($line))
+                            ->foreach(function(string $line) {
+                                echo $line;
                             });
                         ```
                     </section>
