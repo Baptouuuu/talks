@@ -290,11 +290,75 @@ $doubles->toList() === [1, 2, 2, 4, 3, 6, 4, 8];
         echo $line;
     });</code></pre>
                     </section>
-                    <!-- expliquer que tout ce qui dépend de OS devient automatiquement compatible -->
                     <!-- parler de la loupe d'execution -->
                     <!-- dériver sur innmind/framework avec les différents main (demo ?) -->
                     <!-- futur de php : ie actors -->
                     <!-- polyglotisme (ML panda/python, langages fonctionnels et autres) -->
+                </section>
+                <section>
+                    <section>
+                        <h3>innmind/operating-system</h3>
+
+                        <table>
+                            <tr>
+                                <td>clock</td>
+                                <td>filesystem</td>
+                            </tr>
+                            <tr>
+                                <td>processes</td>
+                                <td>volumes</td>
+                            </tr>
+                            <tr>
+                                <td>sockets</td>
+                                <td>http</td>
+                            </tr>
+                            <tr>
+                                <td>sql</td>
+                                <td>signals</td>
+                            </tr>
+                            <tr>
+                                <td>sleep</td>
+                                <td>fork</td>
+                            </tr>
+                        </table>
+                    </section>
+                    <section>
+                        <table>
+                            <tr>
+                                <td>clock</td>
+                                <td>filesystem</td>
+                            </tr>
+                            <tr>
+                                <td>processes</td>
+                                <td>volumes</td>
+                            </tr>
+                            <tr>
+                                <td>sockets</td>
+                                <td>http</td>
+                            </tr>
+                            <tr>
+                                <td><i style="font-style: italic;">sql<i></td>
+                                <td><s>signals</s></td>
+                            </tr>
+                            <tr>
+                                <td>sleep</td>
+                                <td><s>fork</s></td>
+                            </tr>
+                        </table>
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        use Innmind\OperatingSystem\OperatingSystem;
+
+                        function myApp(OperatingSystem $os): mixed {
+                            // your code here
+                        }
+                        ```
+
+                        Notes:
+                        Coeur de l'app agnostic
+                        Permet de switch le contexte de façon transparente
+                    </section>
                 </section>
                 <section data-markdown>
                     ## Questions
