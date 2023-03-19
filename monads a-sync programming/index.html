@@ -270,29 +270,25 @@ $doubles->toList() === [1, 2, 2, 4, 3, 6, 4, 8];
                     <section data-markdown>
                         `innmind/operating-system`
                     </section>
-                    <section data-markdown>
-                        ```php
-                        $file = OperatingSystem\Factory::build()
-                            ->filesystem()
-                            ->mount(Path::of('some-folder/'))
-                            ->get(Name::of('some-file'))
-                            ->match(
-                                static fn($file) => $file,
-                                static fn() => throw new \RuntimeException('fichier inconnu'),
-                            );
-                        ```
+                    <section>
+                        <pre><code data-line-numbers="1|2|3|4|5-8|1,6" class="language-php">$file = OperatingSystem\Factory::build()
+    ->filesystem()
+    ->mount(Path::of('some-folder/'))
+    ->get(Name::of('some-file'))
+    ->match( // Maybe
+        static fn($file) => $file,
+        static fn() => throw new \RuntimeException('fichier inconnu'),
+    );</code></pre>
                     </section>
-                    <section data-markdown>
-                        ```php
-                        $file
-                            ->content()
-                            ->lines() // Sequence
-                            ->map(static fn(Line $line) => $line->toString())
-                            ->map(static fn(string $line) => \strtoupper($line))
-                            ->foreach(function(string $line) {
-                                echo $line;
-                            });
-                        ```
+                    <section>
+                        <pre><code data-line-numbers="1-3|4|5|6-8" class="language-php">$file
+    ->content()
+    ->lines() // Sequence
+    ->map(static fn(Line $line) => $line->toString())
+    ->map(static fn(string $line) => \strtoupper($line))
+    ->foreach(function(string $line) {
+        echo $line;
+    });</code></pre>
                     </section>
                     <!-- expliquer que tout ce qui dépend de OS devient automatiquement compatible -->
                     <!-- parler de la loupe d'execution -->
