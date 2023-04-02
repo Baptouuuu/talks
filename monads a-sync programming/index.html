@@ -71,12 +71,15 @@
                     <section>
                         <h3>Impératif</h3>
 
-                        <pre><code class="language-php">function read(string $name): \Generator {
+                        <pre><code class="language-php"><script  type="text/template">/**
+ * @return \Generator<string>
+ */
+function read(string $name): \Generator {
     $stream = \fopen($name, 'r');
     while (!\feof($stream)) {
         yield \fgets($stream);
     }
-}</code></pre>
+}</script></code></pre>
                         <aside class="notes">
                             <li>Point d'arrêt</li>
                             <li>Mauvais type de retour</li>
@@ -88,7 +91,8 @@
                         ## Fiber
                     </section>
                     <section>
-                        <pre><code data-line-numbers="1-13|6-9" class="language-php">function read(string $name): array {
+                        <pre><code data-line-numbers="1-14|7-10" class="language-php"><script  type="text/template">/** @return array<string> */
+function read(string $name): array {
     $stream = \fopen($name, 'r');
     $data = [];
     while (!\feof($stream)) {
@@ -100,7 +104,7 @@
     }
 
     return $data;
-}</code></pre>
+}</script></code></pre>
                         <aside class="notes">
                             <li>Bon type de retour</li>
                             <li>On attend le retour pour continuer</li>
