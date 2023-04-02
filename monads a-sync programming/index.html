@@ -147,6 +147,17 @@
                         - Schrödinger
                     </section>
                     <section>
+                        <h3>foreach</h3>
+                        <pre><code data-line-numbers="1|2|3-6|1,7">$numbers = [1, 2, 3, 4];
+$double = static fn(int $i): int => $i * 2;
+$doubles = [];
+foreach ($number as $i) {
+    $doubles[] = $double($i);
+}
+$doubles === [2, 4, 6, 8];
+                        </code></pre>
+                    </section>
+                    <section>
                         <h3>map</h3>
                         <pre><code data-line-numbers="1|2|3-6|1,7">$numbers = [1, 2, 3, 4];
 $double = static fn(int $i): int => $i * 2;
