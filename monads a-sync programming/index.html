@@ -230,6 +230,33 @@ $doubles->toList() === [1, 2, 2, 4, 3, 6, 4, 8];
                         - `->foreach()`
                         - `->match()`
                     </section>
+                </section>
+                <section>
+                    <section>
+                        <pre><code data-line-numbers="1-2,9" class="language-php"><script  type="text/template">/** @return Sequence<string> */
+function read(string $name): Sequence {
+    $stream = \fopen($name, 'r');
+    $data = [];
+    while (!\feof($stream)) {
+        $data[] = \fgets($stream);
+    }
+
+    return Sequence::of(...$data);
+}</script></code></pre>
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        read('some-file')
+                            ->map(static fn($line) => \strtoupper($line))
+                            ->foreach(function(string $line) {
+                                echo $line;
+                            });
+                        ```
+
+                        Notes:
+                        Question de style
+                        Quel interet ?
+                    </section>
                     <section data-markdown>
                         ```php
                         $numbers = Sequence::lazy(function(): \Generator {
@@ -244,20 +271,20 @@ $doubles->toList() === [1, 2, 2, 4, 3, 6, 4, 8];
                         - Source abstraite
                         - Point d'arrêt défini à la source
                     </section>
-                </section>
-                <section>
                     <section>
-                        <pre><code data-line-numbers="1,2|3-6" class="language-php">function read(string $name): Sequence {
+                        <pre><code data-line-numbers="3|4-7" class="language-php"><script  type="text/template">/** @return Sequence<string> */
+function read(string $name): Sequence {
     return Sequence::lazy(function() use ($name) {
         $stream = \fopen($name, 'r');
         while (!\feof($stream)) {
             yield \fgets($stream);
         }
     });
-}</code></pre>
+}</script></code></pre>
                     </section>
                     <section>
-                        <pre><code data-line-numbers="6-10" class="language-php">function read(string $name): Sequence {
+                        <pre><code data-line-numbers="7-10" class="language-php"><script  type="text/template">/** @return Sequence<string> */
+function read(string $name): Sequence {
     return Sequence::lazy(function() use ($name) {
         $stream = \fopen($name, 'r');
         while (!\feof($stream)) {
@@ -268,19 +295,10 @@ $doubles->toList() === [1, 2, 2, 4, 3, 6, 4, 8];
             };
         }
     });
-}</code></pre>
+}</script></code></pre>
                         <aside class="notes">
                             Trop complexe dans une vraie app
                         </aside>
-                    </section>
-                    <section data-markdown>
-                        ```php
-                        read('some-file')
-                            ->map(static fn($line) => \strtoupper($line))
-                            ->foreach(function(string $line) {
-                                echo $line;
-                            });
-                        ```
                     </section>
                     <section data-markdown>
                         `innmind/operating-system`
