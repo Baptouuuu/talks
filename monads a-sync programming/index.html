@@ -186,7 +186,7 @@ $doubles === [1, 2, 2, 4, 3, 6, 4, 8];
                     <section>
                         <h3>flatMap</h3>
                         <pre><code data-line-numbers="1|2|4-7|1,10">$numbers = [1, 2, 3, 4];
-$isEven = static fn(int $i): int => $i % 2 === 0;
+$isEven = static fn(int $i): bool => $i % 2 === 0;
 $even = \array_flatMap(
     static fn(int $i): array => match ($isEven($i)) {
         true => [$i],
