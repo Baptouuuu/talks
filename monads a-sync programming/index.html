@@ -155,7 +155,7 @@ function read(string $name): array {
                         <pre><code data-line-numbers="1|2|3-6|1,7">$numbers = [1, 2, 3, 4];
 $double = static fn(int $i): int => $i * 2;
 $doubles = [];
-foreach ($number as $i) {
+foreach ($numbers as $i) {
     $doubles[] = $double($i);
 }
 $doubles === [2, 4, 6, 8];
