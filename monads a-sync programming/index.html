@@ -56,9 +56,9 @@
 
                         ```php
                         $stream = \fopen('some-file', 'r');
-                        $data = [];
-                        Loop::addReadStream($stream, function($stream) use (&$data) {
-                            $data[] = \fgets($stream);
+                        $lines = [];
+                        Loop::addReadStream($stream, function($stream) use (&$lines) {
+                            $lines[] = \fgets($stream);
                         });
                         Loop::run();
                         ```
@@ -94,16 +94,16 @@ function read(string $name): \Generator {
                         <pre><code data-line-numbers="1-14|7-10" class="language-php"><script  type="text/template">/** @return array<string> */
 function read(string $name): array {
     $stream = \fopen($name, 'r');
-    $data = [];
+    $lines = [];
     while (!\feof($stream)) {
-        $data[] = \fgets($stream);
+        $lines[] = \fgets($stream);
         match (Fiber::getCurrent()) {
             null => null,
             default => Fiber::suspend(),
         };
     }
 
-    return $data;
+    return $lines;
 }</script></code></pre>
                         <aside class="notes">
                             <li>Bon type de retour</li>
@@ -236,12 +236,12 @@ $doubles->toList() === [1, 2, 2, 4, 3, 6, 4, 8];
                         <pre><code data-line-numbers="1-2,9" class="language-php"><script  type="text/template">/** @return Sequence<string> */
 function read(string $name): Sequence {
     $stream = \fopen($name, 'r');
-    $data = [];
+    $lines = [];
     while (!\feof($stream)) {
-        $data[] = \fgets($stream);
+        $lines[] = \fgets($stream);
     }
 
-    return Sequence::of(...$data);
+    return Sequence::of(...$lines);
 }</script></code></pre>
                     </section>
                     <section data-markdown>
