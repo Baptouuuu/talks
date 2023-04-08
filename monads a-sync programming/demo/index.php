@@ -16,6 +16,7 @@ use Innmind\Http\{
     Message\StatusCode,
     ProtocolVersion,
 };
+use Innmind\TimeContinuum\Earth\Period\Second;
 use Innmind\Url\Path;
 
 new class extends Http {
@@ -49,8 +50,10 @@ new class extends Http {
             null, // headers
             $file
                 ->content()
-                ->map(static function($line) {
-                    \sleep(1);
+                ->map(static function($line) use ($os) {
+                    $os
+                        ->process()
+                        ->halt(new Second(1));
 
                     return $line;
                 }),
