@@ -6,7 +6,7 @@ require 'vendor/autoload.php';
 
 use Innmind\Framework\{
     Application,
-    Main\Http,
+    Main\Async\Http,
 };
 use Innmind\Router\Route;
 use Innmind\OperatingSystem\OperatingSystem;
@@ -53,7 +53,7 @@ new class extends Http {
                 ->map(static function($line) use ($os) {
                     $os
                         ->process()
-                        ->halt(new Second(1));
+                        ->halt(new Second(2));
 
                     return $line;
                 }),
