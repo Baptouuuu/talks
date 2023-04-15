@@ -259,30 +259,22 @@ function read(string $name): Sequence {
                         Question de style
                         Quel interet ?
                     </section>
-                    <section data-markdown>
-                        ```php
-                        $numbers = Sequence::lazy(function(): \Generator {
-                            yield 1;
-                            yield 2;
-                            yield 3;
-                            yield 4;
-                        });
-                        ```
-
-                        Notes:
-                        - Source abstraite
-                        - Point d'arrêt défini à la source
-                    </section>
                     <section>
                         <pre><code data-line-numbers="3|4-7" class="language-php"><script  type="text/template">/** @return Sequence<string> */
 function read(string $name): Sequence {
-    return Sequence::lazy(function() use ($name) {
+    return Sequence::lazy(function() use ($name): \Generator {
         $stream = \fopen($name, 'r');
         while (!\feof($stream)) {
             yield \fgets($stream);
         }
     });
 }</script></code></pre>
+                        <aside class="notes">
+                            <ul>
+                                <li>Source abstraite</li>
+                                <li>Point d'arrêt défini à la source</li>
+                            </ul>
+                        </aside>
                     </section>
                     <section>
                         <pre><code data-line-numbers="7-10" class="language-php"><script  type="text/template">/** @return Sequence<string> */
