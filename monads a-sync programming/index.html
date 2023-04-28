@@ -89,12 +89,9 @@ function read(string $name): \Generator {
                             <li>Mauvais type de retour</li>
                         </aside>
                     </section>
-                </section>
-                <section>
-                    <section data-markdown>
-                        ## Fiber
-                    </section>
                     <section>
+                        <h3>Fiber</h3>
+
                         <pre><code data-line-numbers="1-6,11-14|7-10" class="language-php"><script  type="text/template">/** @return array<string> */
 function read(string $name): array {
     $stream = \fopen($name, 'r');
