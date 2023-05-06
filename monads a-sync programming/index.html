@@ -58,6 +58,8 @@
                         ### Réactif
 
                         ```php
+                        use React\EventLoop\Loop;
+
                         $stream = \fopen('some-file', 'r');
                         $lines = [];
                         Loop::addReadStream($stream, function($stream) use (&$lines) {
