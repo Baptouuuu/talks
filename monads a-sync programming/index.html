@@ -100,10 +100,9 @@ function read(string $name): array {
     $lines = [];
     while (!\feof($stream)) {
         $lines[] = \fgets($stream);
-        match (Fiber::getCurrent()) {
-            null => null,
-            default => Fiber::suspend(),
-        };
+        if (\Fiber::getCurrent()) {
+            \Fiber::suspend();
+        }
     }
 
     return $lines;
@@ -283,10 +282,9 @@ function read(string $name): Sequence {
         $stream = \fopen($name, 'r');
         while (!\feof($stream)) {
             yield \fgets($stream);
-            match (\Fiber::getCurrent()) {
-                null => null,
-                default => \Fiber::suspend(),
-            };
+            if (\Fiber::getCurrent()) {
+                \Fiber::suspend();
+            }
         }
     });
 }</script></code></pre>
