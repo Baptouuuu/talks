@@ -8,7 +8,6 @@ use Innmind\Framework\{
     Application,
     Main\Async\Http,
 };
-use Innmind\Router\Route;
 use Innmind\OperatingSystem\OperatingSystem;
 use Innmind\Filesystem\Name;
 use Innmind\Http\{
@@ -22,15 +21,15 @@ use Innmind\Url\Path;
 new class extends Http {
     protected function configure(Application $app): Application
     {
-        return $app->appendRoutes(
-            static fn($routes, $_, $os) => $routes
-                ->add(Route::literal('GET /fichier-1')->handle(
-                    static fn() => self::load($os, 'fichier-1.txt'),
-                ))
-                ->add(Route::literal('GET /fichier-2')->handle(
-                    static fn() => self::load($os, 'fichier-2.txt'),
-                )),
-        );
+        return $app
+            ->route(
+                'GET /fichier-1',
+                static fn($_, $__, $___, $os) => self::load($os, 'fichier-1.txt'),
+            )
+            ->route(
+                'GET /fichier-2',
+                static fn($_, $__, $___, $os) => self::load($os, 'fichier-2.txt'),
+            );
     }
 
     protected static function load(OperatingSystem $os, string $fichier): Response

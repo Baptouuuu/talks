@@ -2,7 +2,7 @@
     "name": "baptouuuu/demo",
     "type": "project",
     "require": {
-        "innmind/framework": "^1.1",
+        "innmind/framework": "^1.3",
         "innmind/async-http-server": "^1.0"
     },
     "license": "MIT",
