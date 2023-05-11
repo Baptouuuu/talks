@@ -1,0 +1,471 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Monades : Paradigme unique pour la programation (a)synchrone</title>
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/moon.css" id="theme">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown>
+                    ## Monades :
+                    ### Paradigme unique pour la programation (a)synchrone
+                </section>
+                <section data-markdown>
+                    - Baptiste Langlade
+                    - Lyon
+                    - Efalia
+                    - 10+ ans XP
+                    - ~90 packages open source
+
+                    Notes:
+                    - main XP PHP mais aussi d'autres langages
+                    - packages pour du crawling
+                    - exceptions => monades (cf conf)
+                    - passerelles
+                </section>
+                <section>
+                    <section data-markdown>
+                        ## Asynchrone
+
+                        Notes:
+                        - Problématique IO
+                        - Mono thread
+                    </section>
+                    <section data-markdown>
+                        ![](parallelism.png)
+                    </section>
+                    <section data-markdown>
+                        ![](async.png)
+                    </section>
+                    <section data-markdown>
+                        ### Exercice
+
+                        - Lire un fichier par ligne
+                        - Une fonction avec un type explicite
+                        - Fonctionne en synchrone et asynchrone
+                    </section>
+                    <section data-markdown>
+                        ### Réactif
+
+                        ```php
+                        use React\EventLoop\Loop;
+
+                        $stream = \fopen('some-file', 'r');
+                        $lines = [];
+                        Loop::addReadStream($stream, function($stream) use (&$lines) {
+                            $lines[] = \fgets($stream);
+                        });
+                        Loop::run();
+                        ```
+
+                        Notes:
+                        - React/AMP
+                        - Sync et Async
+                        - Pas de type de retour
+                    </section>
+                    <section>
+                        <h3>Impératif</h3>
+
+                        <pre><code class="language-php"><script  type="text/template">/**
+ * @return \Generator<string>
+ */
+function read(string $name): \Generator {
+    $stream = \fopen($name, 'r');
+    while (!\feof($stream)) {
+        yield \fgets($stream);
+    }
+}</script></code></pre>
+                        <aside class="notes">
+                            <li>Point d'arrêt</li>
+                            <li>Sync et Async</li>
+                            <li>Mauvais type de retour</li>
+                        </aside>
+                    </section>
+                    <section>
+                        <h3>Fiber</h3>
+
+                        <pre><code data-line-numbers="1-6,11-14|7-10" class="language-php"><script  type="text/template">/** @return array<string> */
+function read(string $name): array {
+    $stream = \fopen($name, 'r');
+    $lines = [];
+    while (!\feof($stream)) {
+        $lines[] = \fgets($stream);
+        if (\Fiber::getCurrent()) {
+            \Fiber::suspend();
+        }
+    }
+
+    return $lines;
+}</script></code></pre>
+                        <aside class="notes">
+                            <li>Bon type de retour</li>
+                            <li>Sync et Async</li>
+                            <li>On attend le retour pour continuer</li>
+                        </aside>
+                    </section>
+                </section>
+                <section data-markdown>
+                    ## Compromis
+
+                    Notes:
+                    - Chaque solution a un mérite
+                    - Complexité du choix
+                </section>
+                <section><!-- pause --></section>
+                <section>
+                    <section data-markdown>
+                        ## Monades
+                    </section>
+                    <section data-markdown>
+                        - `Maybe`
+                        - `Either`
+                        - `Set`
+                        - `Sequence`
+                        - `State`
+                        - `Validation`
+                        - `Free`
+                        - ...
+                    </section>
+                    <section data-markdown>
+                        - `Sequence`
+
+                        (`innmind/immutable`)
+                    </section>
+                    <section data-markdown>
+                        - Conteneur immuable
+                        - Une méthode `map`
+                        - Une méthode `flatMap`
+                        - Une/des méthode(s) d'extraction
+
+                        Notes:
+                        - Schrödinger
+                    </section>
+                    <section>
+                        <h3>foreach</h3>
+                        <pre><code data-line-numbers="1|2|3-6|1,7">$numbers = [1, 2, 3, 4];
+$double = static fn(int $i): int => $i * 2;
+$doubles = [];
+foreach ($numbers as $i) {
+    $doubles[] = $double($i);
+}
+$doubles === [2, 4, 6, 8];
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>map</h3>
+                        <pre><code data-line-numbers="1|2|3-6|1,7">$numbers = [1, 2, 3, 4];
+$double = static fn(int $i): int => $i * 2;
+$doubles = \array_map(
+    static fn(int $i): int => $double($i),
+    $numbers,
+);
+$doubles === [2, 4, 6, 8];
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>flatMap</h3>
+                        <pre><code data-line-numbers="1|2|3|4|1,7">$numbers = [1, 2, 3, 4];
+$double = static fn(int $i): int => $i * 2;
+$doubles = \array_flatMap(
+    static fn(int $i): array => [$i, $double($i)],
+    $numbers,
+);
+$doubles === [1, 2, 2, 4, 3, 6, 4, 8];
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>flatMap</h3>
+                        <pre><code data-line-numbers="1|2|4-7|1,10">$numbers = [1, 2, 3, 4];
+$isEven = static fn(int $i): bool => $i % 2 === 0;
+$even = \array_flatMap(
+    static fn(int $i): array => match ($isEven($i)) {
+        true => [$i],
+        false => [],
+    },
+    $numbers,
+);
+$even === [2, 4];
+                        </code></pre>
+                        <aside class="notes">
+                            <li>Filter</li>
+                            <li>C'est l'essence des monades</li>
+                            <li>Type primitif non détonable</li>
+                        </aside>
+                    </section>
+                    <section>
+                        <h3>Sequence</h3>
+                        <pre><code data-line-numbers="1|2|3-5|6">$numbers = Sequence::of(1, 2, 3, 4);
+$double = static fn(int $i): int => $i * 2;
+$doubles = $numbers->map(
+    static fn(int $i): int => $double($i),
+);
+$doubles->toList() === [2, 4, 6, 8];
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Sequence</h3>
+                        <pre><code data-line-numbers="1|2|3|4|6">$numbers = Sequence::of(1, 2, 3, 4);
+$double = static fn(int $i): int => $i * 2;
+$doubles = $numbers->flatMap(
+    static fn(int $i): Sequence => Sequence::of($i, $double($i)),
+);
+$doubles->toList() === [1, 2, 2, 4, 3, 6, 4, 8];
+                        </code></pre>
+                    </section>
+                    <section data-markdown>
+                        ### Sequence
+
+                        - `->toList()`
+                        - `->reduce()`
+                        - `->foreach()`
+                        - ...
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <pre><code data-line-numbers="1-2,9" class="language-php"><script  type="text/template">/** @return Sequence<string> */
+function read(string $name): Sequence {
+    $stream = \fopen($name, 'r');
+    $lines = [];
+    while (!\feof($stream)) {
+        $lines[] = \fgets($stream);
+    }
+
+    return Sequence::of(...$lines);
+}</script></code></pre>
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        read('some-file')
+                            ->map(static fn($line) => \strtoupper($line))
+                            ->foreach(function(string $line) {
+                                echo $line;
+                            });
+                        ```
+
+                        Notes:
+                        Question de style
+                        Quel interet ?
+                    </section>
+                    <section>
+                        <pre><code data-line-numbers="3|4-7" class="language-php"><script  type="text/template">/** @return Sequence<string> */
+function read(string $name): Sequence {
+    return Sequence::lazy(function() use ($name): \Generator {
+        $stream = \fopen($name, 'r');
+        while (!\feof($stream)) {
+            yield \fgets($stream);
+        }
+    });
+}</script></code></pre>
+                        <aside class="notes">
+                            <ul>
+                                <li>Source abstraite</li>
+                                <li>Point d'arrêt défini à la source</li>
+                            </ul>
+                        </aside>
+                    </section>
+                    <section>
+                        <pre><code data-line-numbers="7-10" class="language-php"><script  type="text/template">/** @return Sequence<string> */
+function read(string $name): Sequence {
+    return Sequence::lazy(function() use ($name) {
+        $stream = \fopen($name, 'r');
+        while (!\feof($stream)) {
+            yield \fgets($stream);
+            if (\Fiber::getCurrent()) {
+                \Fiber::suspend();
+            }
+        }
+    });
+}</script></code></pre>
+                        <aside class="notes">
+                            Trop complexe dans une vraie app
+                        </aside>
+                    </section>
+                    <section data-markdown>
+                        `innmind/operating-system`
+                    </section>
+                    <section>
+                        <pre><code data-line-numbers="1|3|4|5|6-9|2,7" class="language-php"><script  type="text/template">$os = OperatingSystem\Factory::build();
+$file = $os
+    ->filesystem()
+    ->mount(Path::of('some-folder/'))
+    ->get(Name::of('some-file'))
+    ->match( // Maybe<Innmind\Filesystem\File>
+        static fn($file) => $file,
+        static fn() => throw new \RuntimeException('fichier inconnu'),
+    );</script></code></pre>
+                    </section>
+                    <section>
+                        <pre><code data-line-numbers="1-3|4|5|6-8" class="language-php"><script  type="text/template">$file
+    ->content()
+    ->lines() // Sequence<Innmind\Filesystem\File\Content\Line>
+    ->map(static fn(Line $line) => $line->toString())
+    ->map(static fn(string $line) => \strtoupper($line))
+    ->foreach(function(string $line) {
+        echo $line;
+    });</script></code></pre>
+                        <aside class="notes">
+                            Déclaratif
+                        </aside>
+                    </section>
+                </section>
+                <section><!-- pause --></section>
+                <section>
+                    <section>
+                        <h3>innmind/operating-system</h3>
+
+                        <table>
+                            <tr>
+                                <td>clock</td>
+                                <td>filesystem</td>
+                            </tr>
+                            <tr>
+                                <td>processes</td>
+                                <td>volumes</td>
+                            </tr>
+                            <tr>
+                                <td>sockets</td>
+                                <td>http</td>
+                            </tr>
+                            <tr>
+                                <td>sql</td>
+                                <td>signals</td>
+                            </tr>
+                            <tr>
+                                <td>sleep</td>
+                                <td>fork</td>
+                            </tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>innmind/async-operating-system</h3>
+
+                        <table>
+                            <tr>
+                                <td>clock</td>
+                                <td>filesystem</td>
+                            </tr>
+                            <tr>
+                                <td>processes</td>
+                                <td>volumes</td>
+                            </tr>
+                            <tr>
+                                <td>sockets</td>
+                                <td>http</td>
+                            </tr>
+                            <tr>
+                                <td><i style="font-style: italic;">sql<i></td>
+                                <td><s>signals</s></td>
+                            </tr>
+                            <tr>
+                                <td>sleep</td>
+                                <td><s>fork</s></td>
+                            </tr>
+                        </table>
+                        <aside class="notes">
+                            Utilise fibers
+                        </aside>
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        use Innmind\OperatingSystem\OperatingSystem;
+
+                        function myApp(OperatingSystem $os): mixed {
+                            // your code here
+                        }
+                        ```
+
+                        Notes:
+                        - Coeur de l'app agnostic
+                        - Permet de switch le contexte de façon transparente
+                    </section>
+                </section>
+                <section>
+                    <section data-markdown>
+                        ## Contexte Execution
+
+                        Notes:
+                        HTTP vs CLI
+                    </section>
+                    <section data-markdown>
+                        ### Async HTTP
+                    </section>
+                    <section data-markdown>
+                        `innmind/framework`
+
+                        Notes:
+                        Contexte d'execution == Main
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        use Innmind\Framework\Main\Http;
+                        use Innmind\Framework\Main\Cli;
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ```php
+                        use Innmind\Framework\Main\Async\Http;
+                        ```
+                    </section>
+                    <section data-markdown>
+                        ## Demo
+                    </section>
+                    <section data-markdown>
+                        ## Déclaratif
+                    </section>
+                </section>
+                <section>
+                    <section data-markdown>
+                        ## Futur
+
+                        Notes:
+                        - Ouvre portes à d'autre outils (ie actors)
+                        - Passerelles
+                        - Connaissance trans langages
+                    </section>
+                    <section data-markdown>
+                        ## PHP is [~dead~ alive] 🐈
+
+                        Notes:
+                        Référence à Schrödinger
+                    </section>
+                </section>
+                <section data-markdown>
+                    ## Questions
+
+                    ![](joind.png)
+
+                    Twitter @Baptouuuu
+
+                    Github @Baptouuuu/talks
+                </section>
+            </div>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script>
+            // More info about initialization & config:
+            // - https://revealjs.com/initialization/
+            // - https://revealjs.com/config/
+            Reveal.initialize({
+                hash: true,
+
+                // Learn about plugins: https://revealjs.com/plugins/
+                plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,2760 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "c9fe209cbab26fd2fe0d8bc6dc78c2a8",
+    "packages": [
+        {
+            "name": "brick/math",
+            "version": "0.10.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/brick/math.git",
+                "reference": "459f2781e1a08d52ee56b0b1444086e038561e3f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/brick/math/zipball/459f2781e1a08d52ee56b0b1444086e038561e3f",
+                "reference": "459f2781e1a08d52ee56b0b1444086e038561e3f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2.2",
+                "phpunit/phpunit": "^9.0",
+                "vimeo/psalm": "4.25.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Brick\\Math\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Arbitrary-precision arithmetic library",
+            "keywords": [
+                "Arbitrary-precision",
+                "BigInteger",
+                "BigRational",
+                "arithmetic",
+                "bigdecimal",
+                "bignum",
+                "brick",
+                "math"
+            ],
+            "support": {
+                "issues": "https://github.com/brick/math/issues",
+                "source": "https://github.com/brick/math/tree/0.10.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/BenMorel",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "formal/access-layer",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/formal-php/access-layer.git",
+                "reference": "40f21eeee1d9d70f91a4219cbdf9ae984a2c5e47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/formal-php/access-layer/zipball/40f21eeee1d9d70f91a4219cbdf9ae984a2c5e47",
+                "reference": "40f21eeee1d9d70f91a4219cbdf9ae984a2c5e47",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.0",
+                "innmind/specification": "^3.0.1",
+                "innmind/url": "~4.0",
+                "php": "~8.1",
+                "psr/log": "~3.0"
+            },
+            "require-dev": {
+                "innmind/black-box": "~4.17",
+                "innmind/coding-standard": "~2.0",
+                "nikic/php-parser": "^4.13.2",
+                "phpunit/phpunit": "^9.5.14",
+                "vimeo/psalm": "~4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Formal\\AccessLayer\\": "src/",
+                    "Fixtures\\Formal\\AccessLayer\\": "fixtures/",
+                    "Properties\\Formal\\AccessLayer\\": "properties/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "homepage": "http://github.com/formal-php/access-layer",
+            "support": {
+                "issues": "http://github.com/formal-php/access-layer/issues",
+                "source": "https://github.com/formal-php/access-layer/tree/2.0.0"
+            },
+            "time": "2022-03-06T17:04:23+00:00"
+        },
+        {
+            "name": "innmind/async-http-server",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/async-http-server.git",
+                "reference": "033bb5424fea72749516849e66cb571a66bbcb20"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/async-http-server/zipball/033bb5424fea72749516849e66cb571a66bbcb20",
+                "reference": "033bb5424fea72749516849e66cb571a66bbcb20",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/async-operating-system": "^1.0",
+                "innmind/cli": "^3.3",
+                "innmind/http-parser": "~1.0",
+                "innmind/io": "~1.0",
+                "innmind/mantle": "^1.0",
+                "innmind/operating-system": "~3.7",
+                "php": "~8.1"
+            },
+            "provide": {
+                "innmind/mantle-sources": "1.0"
+            },
+            "require-dev": {
+                "innmind/black-box": "~4.17",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Async\\HttpServer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "homepage": "http://github.com/innmind/async-http-server",
+            "support": {
+                "issues": "http://github.com/innmind/async-http-server/issues",
+                "source": "https://github.com/Innmind/async-http-server/tree/1.0.0"
+            },
+            "time": "2023-02-26T11:00:03+00:00"
+        },
+        {
+            "name": "innmind/async-operating-system",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/async-operating-system.git",
+                "reference": "3445cd4a699141dfe9dd4b4951fee738493de777"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/async-operating-system/zipball/3445cd4a699141dfe9dd4b4951fee738493de777",
+                "reference": "3445cd4a699141dfe9dd4b4951fee738493de777",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/async-socket": "~1.0",
+                "innmind/async-stream": "~1.0",
+                "innmind/async-time-warp": "~1.0",
+                "innmind/http-transport": "~6.4",
+                "innmind/mantle": "~1.0",
+                "innmind/operating-system": "^3.5",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "~4.10",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Async\\OperatingSystem\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "homepage": "http://github.com/innmind/async-operating-system",
+            "support": {
+                "issues": "http://github.com/innmind/async-operating-system/issues",
+                "source": "https://github.com/Innmind/async-operating-system/tree/1.0.0"
+            },
+            "time": "2023-02-11T14:27:17+00:00"
+        },
+        {
+            "name": "innmind/async-socket",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/async-socket.git",
+                "reference": "3c1bb22c6f63a8fd2533ece279fc55c8666265b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/async-socket/zipball/3c1bb22c6f63a8fd2533ece279fc55c8666265b9",
+                "reference": "3c1bb22c6f63a8fd2533ece279fc55c8666265b9",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/async-stream": "~1.0",
+                "innmind/mantle": "~1.0",
+                "innmind/socket": "^6.0",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "~4.10",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.30"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Async\\Socket\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "homepage": "http://github.com/innmind/async-socket",
+            "support": {
+                "issues": "http://github.com/innmind/async-socket/issues",
+                "source": "https://github.com/Innmind/async-socket/tree/1.0.0"
+            },
+            "time": "2023-02-11T13:55:14+00:00"
+        },
+        {
+            "name": "innmind/async-stream",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/async-stream.git",
+                "reference": "98c885fc281b7a87d01755b1539459f756374a5c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/async-stream/zipball/98c885fc281b7a87d01755b1539459f756374a5c",
+                "reference": "98c885fc281b7a87d01755b1539459f756374a5c",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/mantle": "~1.0",
+                "innmind/stream": "^4.0",
+                "innmind/time-continuum": "^3.1",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "~4.10",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.30"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Async\\Stream\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "homepage": "http://github.com/innmind/async-stream",
+            "support": {
+                "issues": "http://github.com/innmind/async-stream/issues",
+                "source": "https://github.com/Innmind/async-stream/tree/1.0.0"
+            },
+            "time": "2023-02-11T13:43:14+00:00"
+        },
+        {
+            "name": "innmind/async-time-warp",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/async-time-warp.git",
+                "reference": "b5f33cc71839ad97e43baa651a8502007688ab10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/async-time-warp/zipball/b5f33cc71839ad97e43baa651a8502007688ab10",
+                "reference": "b5f33cc71839ad97e43baa651a8502007688ab10",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/mantle": "~1.0",
+                "innmind/time-warp": "^3.0",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "~4.10",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.30"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Async\\TimeWarp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "homepage": "http://github.com/innmind/async-time-warp",
+            "support": {
+                "issues": "http://github.com/innmind/async-time-warp/issues",
+                "source": "https://github.com/Innmind/async-time-warp/tree/1.0.0"
+            },
+            "time": "2023-02-11T12:48:54+00:00"
+        },
+        {
+            "name": "innmind/cli",
+            "version": "3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/CLI.git",
+                "reference": "629bd77a06a16800671cc2ffdeab6114f9c8450c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/CLI/zipball/629bd77a06a16800671cc2ffdeab6114f9c8450c",
+                "reference": "629bd77a06a16800671cc2ffdeab6114f9c8450c",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.0",
+                "innmind/operating-system": "~3.4",
+                "innmind/stack-trace": "~4.0",
+                "innmind/stream": "~3.0|~4.0",
+                "innmind/url": "~4.0",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.10",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\CLI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Library to build CLI tools",
+            "homepage": "http://github.com/Innmind/CLI",
+            "keywords": [
+                "cli"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/CLI/issues",
+                "source": "https://github.com/Innmind/CLI/tree/3.3.0"
+            },
+            "time": "2023-01-29T16:03:13+00:00"
+        },
+        {
+            "name": "innmind/colour",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/Colour.git",
+                "reference": "ce451725e085420dc15d13a9dabe7ff98f51a7e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/Colour/zipball/ce451725e085420dc15d13a9dabe7ff98f51a7e7",
+                "reference": "ce451725e085420dc15d13a9dabe7ff98f51a7e7",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.0",
+                "php": "~8.1"
+            },
+            "conflict": {
+                "innmind/black-box": "<4.0|~5.0"
+            },
+            "provide": {
+                "innmind/black-box-sets": "4.0"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.0",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "^9.5.14",
+                "vimeo/psalm": "~4.4"
+            },
+            "suggest": {
+                "innmind/black-box": "For property based testing"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Colour\\": "src/",
+                    "Fixtures\\Innmind\\Colour\\": "fixtures/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Handle colours strictly",
+            "homepage": "http://github.com/Innmind/Colour",
+            "keywords": [
+                "colour"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/Colour/issues",
+                "source": "https://github.com/Innmind/Colour/tree/4.0.0"
+            },
+            "time": "2022-02-20T13:33:10+00:00"
+        },
+        {
+            "name": "innmind/di",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/DI.git",
+                "reference": "602c9ae284c7a3e21fb281584a36fc1d069694fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/DI/zipball/602c9ae284c7a3e21fb281584a36fc1d069694fd",
+                "reference": "602c9ae284c7a3e21fb281584a36fc1d069694fd",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "~4.10",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.30"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\DI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "homepage": "http://github.com/innmind/di",
+            "support": {
+                "issues": "http://github.com/innmind/di/issues",
+                "source": "https://github.com/Innmind/DI/tree/2.0.0"
+            },
+            "time": "2022-12-29T10:47:11+00:00"
+        },
+        {
+            "name": "innmind/file-watch",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/FileWatch.git",
+                "reference": "8ab1c473c1e7acecad9a6471ead451394f370985"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/FileWatch/zipball/8ab1c473c1e7acecad9a6471ead451394f370985",
+                "reference": "8ab1c473c1e7acecad9a6471ead451394f370985",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/server-control": "~5.0",
+                "innmind/time-continuum": "~3.0",
+                "innmind/time-warp": "~3.0",
+                "innmind/url": "~4.0",
+                "php": "~8.1",
+                "psr/log": "~3.0"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.17",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.17"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\FileWatch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Library to execute code when a file changes",
+            "homepage": "http://github.com/Innmind/FileWatch",
+            "keywords": [
+                "file",
+                "watch"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/FileWatch/issues",
+                "source": "https://github.com/Innmind/FileWatch/tree/3.1.0"
+            },
+            "time": "2023-01-29T14:21:12+00:00"
+        },
+        {
+            "name": "innmind/filesystem",
+            "version": "6.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/Filesystem.git",
+                "reference": "45fea4274de32fd5f54d259c678532e8492e6a22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/Filesystem/zipball/45fea4274de32fd5f54d259c678532e8492e6a22",
+                "reference": "45fea4274de32fd5f54d259c678532e8492e6a22",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.8",
+                "innmind/media-type": "~2.0",
+                "innmind/stream": "~4.0",
+                "innmind/url": "~4.0",
+                "php": "~8.1",
+                "psr/log": "~3.0",
+                "symfony/filesystem": "~6.0"
+            },
+            "conflict": {
+                "innmind/black-box": "<4.7|~5.0"
+            },
+            "provide": {
+                "innmind/black-box-sets": "4.7.0"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.17",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "ramsey/uuid": "^4.6",
+                "vimeo/psalm": "~4.30"
+            },
+            "suggest": {
+                "innmind/black-box": "For property based testing"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Filesystem\\": "src/",
+                    "Fixtures\\Innmind\\Filesystem\\": "fixtures/",
+                    "Properties\\Innmind\\Filesystem\\": "properties/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Filesystem abstraction layer",
+            "homepage": "http://github.com/Innmind/filesystem",
+            "keywords": [
+                "filesystem"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/filesystem/issues",
+                "source": "https://github.com/Innmind/Filesystem/tree/6.2.0"
+            },
+            "time": "2023-01-29T11:06:10+00:00"
+        },
+        {
+            "name": "innmind/framework",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/framework.git",
+                "reference": "5205bd82d2a4bd4749cf84c442c8a4da72dc8d76"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/framework/zipball/5205bd82d2a4bd4749cf84c442c8a4da72dc8d76",
+                "reference": "5205bd82d2a4bd4749cf84c442c8a4da72dc8d76",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/cli": "^3.1",
+                "innmind/di": "^2.0",
+                "innmind/filesystem": "^6.0",
+                "innmind/http-server": "^3.0",
+                "innmind/immutable": "^4.9",
+                "innmind/operating-system": "^3.2",
+                "innmind/router": "^3.0",
+                "innmind/url": "^4.1",
+                "php": "~8.1",
+                "ramsey/uuid": "^4.7"
+            },
+            "conflict": {
+                "innmind/async-http-server": "<1.0|~2.0",
+                "innmind/black-box": "<4.7|~5.0"
+            },
+            "provide": {
+                "innmind/framework-middlewares": "1.0"
+            },
+            "require-dev": {
+                "innmind/async-http-server": "~1.0",
+                "innmind/black-box": "^4.17",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~5.6"
+            },
+            "suggest": {
+                "innmind/async-http-server": "To run a local asynchronous http server",
+                "innmind/black-box": "For property based testing"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Framework\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Http/Cli framework",
+            "homepage": "http://github.com/Innmind/framework",
+            "keywords": [
+                "cli",
+                "framework",
+                "http"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/framework/issues",
+                "source": "https://github.com/Innmind/framework/tree/1.3.0"
+            },
+            "time": "2023-05-01T12:37:30+00:00"
+        },
+        {
+            "name": "innmind/graphviz",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/Graphviz.git",
+                "reference": "330a2a9d914e80df99ec104a2bf97d92a3f87787"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/Graphviz/zipball/330a2a9d914e80df99ec104a2bf97d92a3f87787",
+                "reference": "330a2a9d914e80df99ec104a2bf97d92a3f87787",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/colour": "~4.0",
+                "innmind/filesystem": "~5.1|~6.0",
+                "innmind/immutable": "~4.0",
+                "innmind/url": "~4.0",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.12",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.21"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Graphviz\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Graphviz abstraction",
+            "homepage": "http://github.com/Innmind/Graphviz",
+            "support": {
+                "issues": "http://github.com/Innmind/Graphviz/issues",
+                "source": "https://github.com/Innmind/Graphviz/tree/3.2.0"
+            },
+            "time": "2022-12-18T12:48:23+00:00"
+        },
+        {
+            "name": "innmind/http",
+            "version": "6.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/Http.git",
+                "reference": "a5bd5bdcdf52cab0a9560ba85c25e0aed3d950d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/Http/zipball/a5bd5bdcdf52cab0a9560ba85c25e0aed3d950d4",
+                "reference": "a5bd5bdcdf52cab0a9560ba85c25e0aed3d950d4",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/filesystem": "~6.2",
+                "innmind/immutable": "~4.0",
+                "innmind/media-type": "^2.0.1",
+                "innmind/stream": "~4.0",
+                "innmind/time-continuum": "~3.0",
+                "innmind/url": "~4.0",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.9",
+                "innmind/coding-standard": "~2.0",
+                "nikic/php-parser": "^4.13.2",
+                "phpunit/phpunit": "^9.5.14",
+                "psr/http-message": "^1.0",
+                "vimeo/psalm": "~4.21"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Http\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Value Objects to abstract http messages",
+            "homepage": "http://github.com/Innmind/Http",
+            "keywords": [
+                "Value Object",
+                "http"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/Http/issues",
+                "source": "https://github.com/Innmind/Http/tree/6.1.0"
+            },
+            "time": "2023-02-17T10:27:11+00:00"
+        },
+        {
+            "name": "innmind/http-parser",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/http-parser.git",
+                "reference": "cc707ed68d6bd1f12014b5f2430d5b2b2c08e596"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/http-parser/zipball/cc707ed68d6bd1f12014b5f2430d5b2b2c08e596",
+                "reference": "cc707ed68d6bd1f12014b5f2430d5b2b2c08e596",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/http": "~6.1",
+                "innmind/immutable": "~4.11",
+                "innmind/io": "~1.0",
+                "innmind/stream": "^4.0",
+                "innmind/time-continuum": "^3.2",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "~4.17",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\HttpParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "homepage": "http://github.com/innmind/http-parser",
+            "support": {
+                "issues": "http://github.com/innmind/http-parser/issues",
+                "source": "https://github.com/Innmind/http-parser/tree/1.0.0"
+            },
+            "time": "2023-02-19T16:29:13+00:00"
+        },
+        {
+            "name": "innmind/http-server",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/HttpServer.git",
+                "reference": "4b534b2e02d7503cabf9c8752d70c10e79456b61"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/HttpServer/zipball/4b534b2e02d7503cabf9c8752d70c10e79456b61",
+                "reference": "4b534b2e02d7503cabf9c8752d70c10e79456b61",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/http": "^5.3.1|~6.0",
+                "innmind/operating-system": "~3.4",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/coding-standard": "~2.0",
+                "vimeo/psalm": "~4.30"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\HttpServer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Http server",
+            "homepage": "http://github.com/Innmind/HttpServer",
+            "keywords": [
+                "http",
+                "server"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/HttpServer/issues",
+                "source": "https://github.com/Innmind/HttpServer/tree/3.2.0"
+            },
+            "time": "2023-01-29T15:45:52+00:00"
+        },
+        {
+            "name": "innmind/http-transport",
+            "version": "6.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/HttpTransport.git",
+                "reference": "7092072aee248fb266d6e2121f8bded17e8f61a3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/HttpTransport/zipball/7092072aee248fb266d6e2121f8bded17e8f61a3",
+                "reference": "7092072aee248fb266d6e2121f8bded17e8f61a3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "innmind/filesystem": "~6.2",
+                "innmind/http": "~5.2|~6.0",
+                "innmind/immutable": "~4.10",
+                "innmind/stream": "~4.0",
+                "innmind/time-continuum": "~3.0",
+                "innmind/time-warp": "~3.0",
+                "innmind/url": "~4.0",
+                "php": "~8.1",
+                "psr/log": "~3.0",
+                "ramsey/uuid": "^4.7"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.18",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\HttpTransport\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Library to fulfill http resquest",
+            "homepage": "http://github.com/Innmind/HttpTransport",
+            "keywords": [
+                "client",
+                "http"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/HttpTransport/issues",
+                "source": "https://github.com/Innmind/HttpTransport/tree/6.4.1"
+            },
+            "time": "2023-02-11T09:52:56+00:00"
+        },
+        {
+            "name": "innmind/immutable",
+            "version": "4.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/Immutable.git",
+                "reference": "ee97ef48f7fdd0c6b8ddaf4f588372c288d4139c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/Immutable/zipball/ee97ef48f7fdd0c6b8ddaf4f588372c288d4139c",
+                "reference": "ee97ef48f7fdd0c6b8ddaf4f588372c288d4139c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.0"
+            },
+            "conflict": {
+                "innmind/black-box": "<4.4|~5.0"
+            },
+            "provide": {
+                "innmind/black-box-sets": "4.4.0"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.4",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~5.6"
+            },
+            "suggest": {
+                "innmind/black-box": "For property based testing"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Immutable\\": "src/",
+                    "Fixtures\\Innmind\\Immutable\\": "fixtures/",
+                    "Properties\\Innmind\\Immutable\\": "properties/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Immutable PHP primitive wrappers",
+            "homepage": "http://github.com/Innmind/Immutable",
+            "keywords": [
+                "immutable",
+                "wrapper"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/Immutable/issues",
+                "source": "https://github.com/Innmind/Immutable/tree/4.11.0"
+            },
+            "time": "2023-02-18T13:33:16+00:00"
+        },
+        {
+            "name": "innmind/io",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/io.git",
+                "reference": "ce9f67fbab7173378ad8ea8581e864377c7f83ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/io/zipball/ce9f67fbab7173378ad8ea8581e864377c7f83ba",
+                "reference": "ce9f67fbab7173378ad8ea8581e864377c7f83ba",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.11",
+                "innmind/stream": "~4.0",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "~4.17",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\IO\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "High level abstraction for streams and sockets",
+            "homepage": "http://github.com/innmind/io",
+            "keywords": [
+                "Socket",
+                "stream"
+            ],
+            "support": {
+                "issues": "http://github.com/innmind/io/issues",
+                "source": "https://github.com/Innmind/io/tree/1.0.0"
+            },
+            "time": "2023-02-19T16:13:29+00:00"
+        },
+        {
+            "name": "innmind/ip",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/IP.git",
+                "reference": "3d396319149223b5b3f890bf12f9301c391a7496"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/IP/zipball/3d396319149223b5b3f890bf12f9301c391a7496",
+                "reference": "3d396319149223b5b3f890bf12f9301c391a7496",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.1",
+                "php": "~8.0"
+            },
+            "require-dev": {
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\IP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "langlade.baptiste@gmail.com"
+                }
+            ],
+            "description": "IP addresses model",
+            "homepage": "http://github.com/Innmind/IP",
+            "keywords": [
+                "IP",
+                "address"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/IP/issues",
+                "source": "https://github.com/Innmind/IP/tree/3.1.0"
+            },
+            "time": "2023-02-25T10:33:25+00:00"
+        },
+        {
+            "name": "innmind/mantle",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/mantle.git",
+                "reference": "5b0d909973e36b5c1346de159968a67545bac597"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/mantle/zipball/5b0d909973e36b5c1346de159968a67545bac597",
+                "reference": "5b0d909973e36b5c1346de159968a67545bac597",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "^4.9",
+                "innmind/time-continuum": "^3.1",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "~4.10",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.30"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Mantle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Async orchestration",
+            "homepage": "http://github.com/innmind/mantle",
+            "keywords": [
+                "async"
+            ],
+            "support": {
+                "issues": "http://github.com/innmind/mantle/issues",
+                "source": "https://github.com/Innmind/mantle/tree/1.0.0"
+            },
+            "time": "2023-02-11T12:28:29+00:00"
+        },
+        {
+            "name": "innmind/media-type",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/MediaType.git",
+                "reference": "2703e6d59a801092a659d57d3a999c4df001d404"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/MediaType/zipball/2703e6d59a801092a659d57d3a999c4df001d404",
+                "reference": "2703e6d59a801092a659d57d3a999c4df001d404",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.1",
+                "php": "~8.0"
+            },
+            "conflict": {
+                "innmind/black-box": "<4.1|~5.0"
+            },
+            "provide": {
+                "innmind/black-box-sets": "4.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.17",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~5.6"
+            },
+            "suggest": {
+                "innmind/black-box": "For property based testing"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\MediaType\\": "src/",
+                    "Fixtures\\Innmind\\MediaType\\": "fixtures/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Model of media types",
+            "homepage": "http://github.com/Innmind/MediaType",
+            "keywords": [
+                "media type"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/MediaType/issues",
+                "source": "https://github.com/Innmind/MediaType/tree/2.0.1"
+            },
+            "time": "2023-02-12T09:44:50+00:00"
+        },
+        {
+            "name": "innmind/operating-system",
+            "version": "3.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/OperatingSystem.git",
+                "reference": "eb9ba0bffa45fb139cb185b1f114a8660b472bea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/OperatingSystem/zipball/eb9ba0bffa45fb139cb185b1f114a8660b472bea",
+                "reference": "eb9ba0bffa45fb139cb185b1f114a8660b472bea",
+                "shasum": ""
+            },
+            "require": {
+                "formal/access-layer": "^2.0",
+                "innmind/file-watch": "~3.1",
+                "innmind/filesystem": "~6.2",
+                "innmind/http-transport": "~6.4",
+                "innmind/server-control": "~5.0",
+                "innmind/server-status": "~4.0",
+                "innmind/signals": "~3.0",
+                "innmind/socket": "~6.0",
+                "innmind/stream": "~4.0",
+                "innmind/time-continuum": "~3.0",
+                "innmind/time-warp": "~3.0",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.8",
+                "innmind/coding-standard": "~2.0",
+                "innmind/ip": "~3.0",
+                "innmind/url": "~4.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.30"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\OperatingSystem\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Abstraction for the whole system the script is operating in",
+            "homepage": "http://github.com/Innmind/OperatingSystem",
+            "keywords": [
+                "abstraction",
+                "operating system"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/OperatingSystem/issues",
+                "source": "https://github.com/Innmind/OperatingSystem/tree/3.7.0"
+            },
+            "time": "2023-02-25T10:04:35+00:00"
+        },
+        {
+            "name": "innmind/router",
+            "version": "3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/Router.git",
+                "reference": "0ffd6b4f5d99e64094db98706b8ae1d385a5d962"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/Router/zipball/0ffd6b4f5d99e64094db98706b8ae1d385a5d962",
+                "reference": "0ffd6b4f5d99e64094db98706b8ae1d385a5d962",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/http": "~5.3|~6.0",
+                "innmind/immutable": "~4.9",
+                "innmind/url": "~4.1",
+                "innmind/url-template": "~3.0",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.16",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.30"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Router\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "HTTP router",
+            "homepage": "http://github.com/Innmind/Router",
+            "keywords": [
+                "http",
+                "router"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/Router/issues",
+                "source": "https://github.com/Innmind/Router/tree/3.3.0"
+            },
+            "time": "2023-01-29T14:56:21+00:00"
+        },
+        {
+            "name": "innmind/server-control",
+            "version": "5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/ServerControl.git",
+                "reference": "ff58c5fa5a9d576c61b2fea0621e48319b420ac6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/ServerControl/zipball/ff58c5fa5a9d576c61b2fea0621e48319b420ac6",
+                "reference": "ff58c5fa5a9d576c61b2fea0621e48319b420ac6",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/filesystem": "~6.2",
+                "innmind/immutable": "^4.1.1",
+                "innmind/stream": "~4.0",
+                "innmind/time-continuum": "^3.1",
+                "innmind/time-warp": "^3.0",
+                "innmind/url": "~4.0",
+                "php": "~8.1",
+                "psr/log": "~3.0"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.17",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "^9.5.13",
+                "vimeo/psalm": "~4.17"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Server\\Control\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Allows to control the server from php",
+            "homepage": "http://github.com/Innmind/ServerControl",
+            "support": {
+                "issues": "http://github.com/Innmind/ServerControl/issues",
+                "source": "https://github.com/Innmind/ServerControl/tree/5.0.0"
+            },
+            "time": "2023-01-29T12:27:57+00:00"
+        },
+        {
+            "name": "innmind/server-status",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/ServerStatus.git",
+                "reference": "c90f08c3aae764657176f95f5869afe3d47eac7c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/ServerStatus/zipball/c90f08c3aae764657176f95f5869afe3d47eac7c",
+                "reference": "c90f08c3aae764657176f95f5869afe3d47eac7c",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.0",
+                "innmind/server-control": "~5.0",
+                "innmind/time-continuum": "~3.0",
+                "innmind/url": "~4.0",
+                "php": "~8.1",
+                "psr/log": "~3.0"
+            },
+            "require-dev": {
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.30"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Server\\Status\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Library to access various components of the operating system",
+            "homepage": "http://github.com/Innmind/ServerStatus",
+            "support": {
+                "issues": "http://github.com/Innmind/ServerStatus/issues",
+                "source": "https://github.com/Innmind/ServerStatus/tree/4.0.0"
+            },
+            "time": "2023-01-29T12:57:54+00:00"
+        },
+        {
+            "name": "innmind/signals",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/Signals.git",
+                "reference": "65f5611c7edd547b7371fd83ab06bc5a12781fea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/Signals/zipball/65f5611c7edd547b7371fd83ab06bc5a12781fea",
+                "reference": "65f5611c7edd547b7371fd83ab06bc5a12781fea",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.0",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.16",
+                "innmind/coding-standard": "~2.0",
+                "nikic/php-parser": "^4.13.2",
+                "phpunit/phpunit": "^9.5.14",
+                "vimeo/psalm": "~4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Signals\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Manage multiple callbacks per signal",
+            "homepage": "http://github.com/Innmind/Signals",
+            "keywords": [
+                "cli",
+                "handler",
+                "signal"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/Signals/issues",
+                "source": "https://github.com/Innmind/Signals/tree/3.0.0"
+            },
+            "time": "2022-02-20T14:36:04+00:00"
+        },
+        {
+            "name": "innmind/socket",
+            "version": "6.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/Socket.git",
+                "reference": "cac0c384fb1336dbdb6cfd91b1bbde03c2ec450a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/Socket/zipball/cac0c384fb1336dbdb6cfd91b1bbde03c2ec450a",
+                "reference": "cac0c384fb1336dbdb6cfd91b1bbde03c2ec450a",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.0",
+                "innmind/ip": "~3.0",
+                "innmind/stream": "~4.0",
+                "innmind/url": "~4.0",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "symfony/process": "^5.0",
+                "vimeo/psalm": "~4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Socket\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Wrapper to PHP socket functions",
+            "homepage": "http://github.com/Innmind/Socket",
+            "keywords": [
+                "Socket"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/Socket/issues",
+                "source": "https://github.com/Innmind/Socket/tree/6.0.0"
+            },
+            "time": "2023-01-29T10:22:13+00:00"
+        },
+        {
+            "name": "innmind/specification",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/Specification.git",
+                "reference": "f67c85dbcc1cb63662374e476d6964c9f59b832f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/Specification/zipball/f67c85dbcc1cb63662374e476d6964c9f59b832f",
+                "reference": "f67c85dbcc1cb63662374e476d6964c9f59b832f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/coding-standard": "~2.0",
+                "vimeo/psalm": "~4.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Specification\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "langlade.baptiste@gmail.com"
+                }
+            ],
+            "description": "Interfaces allowing to compose a tree of specifications",
+            "homepage": "http://github.com/Innmind/Specification",
+            "keywords": [
+                "ddd",
+                "specification"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/Specification/issues",
+                "source": "https://github.com/Innmind/Specification/tree/3.0.1"
+            },
+            "time": "2022-02-27T15:47:42+00:00"
+        },
+        {
+            "name": "innmind/stack-trace",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/StackTrace.git",
+                "reference": "020e1744346af5380467e8038f4569e23a04bfaa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/StackTrace/zipball/020e1744346af5380467e8038f4569e23a04bfaa",
+                "reference": "020e1744346af5380467e8038f4569e23a04bfaa",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/graphviz": "~3.1",
+                "innmind/immutable": "~4.1",
+                "innmind/url": "~4.0",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.16",
+                "innmind/coding-standard": "~2.0",
+                "innmind/operating-system": "~3.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.21"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\StackTrace\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Tool to inspect exception stack trace",
+            "homepage": "http://github.com/Innmind/StackTrace",
+            "keywords": [
+                "exception",
+                "inspect",
+                "stack trace"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/StackTrace/issues",
+                "source": "https://github.com/Innmind/StackTrace/tree/4.0.0"
+            },
+            "time": "2022-03-27T09:59:53+00:00"
+        },
+        {
+            "name": "innmind/stream",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/Stream.git",
+                "reference": "93302206f8dbed586e3a8511772044fb58bc3b5e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/Stream/zipball/93302206f8dbed586e3a8511772044fb58bc3b5e",
+                "reference": "93302206f8dbed586e3a8511772044fb58bc3b5e",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.0",
+                "innmind/time-continuum": "~3.0",
+                "innmind/url": "~4.0",
+                "php": "~8.1",
+                "psr/log": "~3.0"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.8",
+                "innmind/coding-standard": "~2.0",
+                "nikic/php-parser": "^4.13.2",
+                "phpunit/phpunit": "~9.0",
+                "symfony/process": "~6.0",
+                "vimeo/psalm": "^4.30"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Stream\\": "src/",
+                    "Fixtures\\Innmind\\Stream\\": "fixtures/",
+                    "Properties\\Innmind\\Stream\\": "properties/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Wrapper to PHP stream functions",
+            "homepage": "http://github.com/Innmind/Stream",
+            "keywords": [
+                "stream"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/Stream/issues",
+                "source": "https://github.com/Innmind/Stream/tree/4.0.0"
+            },
+            "time": "2023-01-29T10:05:43+00:00"
+        },
+        {
+            "name": "innmind/time-continuum",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/TimeContinuum.git",
+                "reference": "a7110e5f459c7e98d77fccb83bb627b077eff1c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/TimeContinuum/zipball/a7110e5f459c7e98d77fccb83bb627b077eff1c6",
+                "reference": "a7110e5f459c7e98d77fccb83bb627b077eff1c6",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.0",
+                "php": "~8.1",
+                "psr/log": "~3.0"
+            },
+            "conflict": {
+                "innmind/black-box": "<4.0|~5.0"
+            },
+            "provide": {
+                "innmind/black-box-sets": "4.0"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.0",
+                "innmind/coding-standard": "^2.0.1",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.1"
+            },
+            "suggest": {
+                "innmind/black-box": "For property based testing"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\TimeContinuum\\": "src/",
+                    "Fixtures\\Innmind\\TimeContinuum\\": "fixtures/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Library to manipulate time",
+            "homepage": "http://github.com/Innmind/TimeContinuum",
+            "keywords": [
+                "time"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/TimeContinuum/issues",
+                "source": "https://github.com/Innmind/TimeContinuum/tree/3.2.0"
+            },
+            "time": "2023-02-11T10:38:20+00:00"
+        },
+        {
+            "name": "innmind/time-warp",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/TimeWarp.git",
+                "reference": "ed2ba8925e357328f817f7701ff8e56d1e384167"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/TimeWarp/zipball/ed2ba8925e357328f817f7701ff8e56d1e384167",
+                "reference": "ed2ba8925e357328f817f7701ff8e56d1e384167",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/time-continuum": "~3.0",
+                "php": "~8.0",
+                "psr/log": "~3.0"
+            },
+            "require-dev": {
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\TimeWarp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Time warp",
+            "homepage": "http://github.com/Innmind/TimeWarp",
+            "keywords": [
+                "time",
+                "warp"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/TimeWarp/issues",
+                "source": "https://github.com/Innmind/TimeWarp/tree/3.0.0"
+            },
+            "time": "2022-02-06T10:27:14+00:00"
+        },
+        {
+            "name": "innmind/url",
+            "version": "4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/Url.git",
+                "reference": "3694ba0fe5ca6f99aec44488445267c56014912b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/Url/zipball/3694ba0fe5ca6f99aec44488445267c56014912b",
+                "reference": "3694ba0fe5ca6f99aec44488445267c56014912b",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.0",
+                "league/uri-components": "~2.0",
+                "league/uri-parser": "~1.2",
+                "php": "~8.0"
+            },
+            "conflict": {
+                "innmind/black-box": "<4.0|~5.0"
+            },
+            "provide": {
+                "innmind/black-box-sets": "4.0"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.5",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.5",
+                "vimeo/psalm": "~4.1"
+            },
+            "suggest": {
+                "innmind/black-box": "For property based testing"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Url\\": "src/",
+                    "Fixtures\\Innmind\\Url\\": "fixtures/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Library to abstract url handling",
+            "homepage": "http://github.com/Innmind/Url",
+            "keywords": [
+                "url"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/Url/issues",
+                "source": "https://github.com/Innmind/Url/tree/4.1.0"
+            },
+            "time": "2022-01-23T10:16:28+00:00"
+        },
+        {
+            "name": "innmind/url-template",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/UrlTemplate.git",
+                "reference": "51c4da32050c062c355c41b634eb685af7da5ac0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/UrlTemplate/zipball/51c4da32050c062c355c41b634eb685af7da5ac0",
+                "reference": "51c4da32050c062c355c41b634eb685af7da5ac0",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~4.3",
+                "innmind/url": "~4.1",
+                "php": "~8.1"
+            },
+            "require-dev": {
+                "innmind/black-box": "^4.16",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~9.0",
+                "vimeo/psalm": "~4.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\UrlTemplate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Url template expansion processor",
+            "homepage": "http://github.com/Innmind/UrlTemplate",
+            "keywords": [
+                "rfc6570",
+                "url template"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/UrlTemplate/issues",
+                "source": "https://github.com/Innmind/UrlTemplate/tree/3.0.0"
+            },
+            "time": "2022-08-06T09:58:41+00:00"
+        },
+        {
+            "name": "league/uri-components",
+            "version": "2.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/uri-components.git",
+                "reference": "06f49e726a7fd06063e80f5f8b045fb9128e6c43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/uri-components/zipball/06f49e726a7fd06063e80f5f8b045fb9128e6c43",
+                "reference": "06f49e726a7fd06063e80f5f8b045fb9128e6c43",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "league/uri-interfaces": "^2.3",
+                "php": "^7.4 || ^8.0",
+                "psr/http-message": "^1.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^v3.8.0",
+                "guzzlehttp/psr7": "^2.2",
+                "laminas/laminas-diactoros": "^2.11.0",
+                "league/uri": "^6.0",
+                "phpstan/phpstan": "^1.7",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.1",
+                "phpstan/phpstan-strict-rules": "^1.2",
+                "phpunit/phpunit": "^9.5.20"
+            },
+            "suggest": {
+                "ext-fileinfo": "Needed to create Data URI from a filepath",
+                "ext-gmp": "to improve handle IPV4 parsing",
+                "ext-intl": "to handle IDN host",
+                "jeremykendall/php-domain-parser": "Public Suffix and Top Level Domain parsing implemented in PHP",
+                "league/uri": "to allow manipulating URI objects",
+                "php-64bit": "to improve handle IPV4 parsing",
+                "psr/http-message-implementation": "to allow manipulating PSR-7 Uri objects"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Uri\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ignace Nyamagana Butera",
+                    "email": "nyamsprod@gmail.com",
+                    "homepage": "https://nyamsprod.com"
+                }
+            ],
+            "description": "URI components manipulation library",
+            "homepage": "http://uri.thephpleague.com",
+            "keywords": [
+                "authority",
+                "components",
+                "fragment",
+                "host",
+                "path",
+                "port",
+                "query",
+                "rfc3986",
+                "scheme",
+                "uri",
+                "url",
+                "userinfo"
+            ],
+            "support": {
+                "issues": "https://github.com/thephpleague/uri-components/issues",
+                "source": "https://github.com/thephpleague/uri-components/tree/2.4.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/nyamsprod",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-05-26T05:50:46+00:00"
+        },
+        {
+            "name": "league/uri-interfaces",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/uri-interfaces.git",
+                "reference": "00e7e2943f76d8cb50c7dfdc2f6dee356e15e383"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/uri-interfaces/zipball/00e7e2943f76d8cb50c7dfdc2f6dee356e15e383",
+                "reference": "00e7e2943f76d8cb50c7dfdc2f6dee356e15e383",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.19",
+                "phpstan/phpstan": "^0.12.90",
+                "phpstan/phpstan-phpunit": "^0.12.19",
+                "phpstan/phpstan-strict-rules": "^0.12.9",
+                "phpunit/phpunit": "^8.5.15 || ^9.5"
+            },
+            "suggest": {
+                "ext-intl": "to use the IDNA feature",
+                "symfony/intl": "to use the IDNA feature via Symfony Polyfill"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Uri\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ignace Nyamagana Butera",
+                    "email": "nyamsprod@gmail.com",
+                    "homepage": "https://nyamsprod.com"
+                }
+            ],
+            "description": "Common interface for URI representation",
+            "homepage": "http://github.com/thephpleague/uri-interfaces",
+            "keywords": [
+                "rfc3986",
+                "rfc3987",
+                "uri",
+                "url"
+            ],
+            "support": {
+                "issues": "https://github.com/thephpleague/uri-interfaces/issues",
+                "source": "https://github.com/thephpleague/uri-interfaces/tree/2.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/nyamsprod",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-06-28T04:27:21+00:00"
+        },
+        {
+            "name": "league/uri-parser",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/uri-parser.git",
+                "reference": "671548427e4c932352d9b9279fdfa345bf63fa00"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/uri-parser/zipball/671548427e4c932352d9b9279fdfa345bf63fa00",
+                "reference": "671548427e4c932352d9b9279fdfa345bf63fa00",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "phpstan/phpstan": "^0.9.2",
+                "phpstan/phpstan-phpunit": "^0.9.4",
+                "phpstan/phpstan-strict-rules": "^0.9.0",
+                "phpunit/phpunit": "^6.0"
+            },
+            "suggest": {
+                "ext-intl": "Allow parsing RFC3987 compliant hosts",
+                "league/uri-schemes": "Allow validating and normalizing URI parsing results"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions_include.php"
+                ],
+                "psr-4": {
+                    "League\\Uri\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ignace Nyamagana Butera",
+                    "email": "nyamsprod@gmail.com",
+                    "homepage": "https://nyamsprod.com"
+                }
+            ],
+            "description": "userland URI parser RFC 3986 compliant",
+            "homepage": "https://github.com/thephpleague/uri-parser",
+            "keywords": [
+                "parse_url",
+                "parser",
+                "rfc3986",
+                "rfc3987",
+                "uri",
+                "url"
+            ],
+            "support": {
+                "issues": "https://github.com/thephpleague/uri-parser/issues",
+                "source": "https://github.com/thephpleague/uri-parser/tree/master"
+            },
+            "abandoned": true,
+            "time": "2018-11-22T07:55:51+00:00"
+        },
+        {
+            "name": "psr/http-message",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-message.git",
+                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP messages",
+            "homepage": "https://github.com/php-fig/http-message",
+            "keywords": [
+                "http",
+                "http-message",
+                "psr",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/http-message/tree/master"
+            },
+            "time": "2016-08-06T14:39:51+00:00"
+        },
+        {
+            "name": "psr/log",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/log/tree/3.0.0"
+            },
+            "time": "2021-07-14T16:46:02+00:00"
+        },
+        {
+            "name": "ramsey/collection",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ramsey/collection.git",
+                "reference": "a4b48764bfbb8f3a6a4d1aeb1a35bb5e9ecac4a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ramsey/collection/zipball/a4b48764bfbb8f3a6a4d1aeb1a35bb5e9ecac4a5",
+                "reference": "a4b48764bfbb8f3a6a4d1aeb1a35bb5e9ecac4a5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "captainhook/plugin-composer": "^5.3",
+                "ergebnis/composer-normalize": "^2.28.3",
+                "fakerphp/faker": "^1.21",
+                "hamcrest/hamcrest-php": "^2.0",
+                "jangregor/phpstan-prophecy": "^1.0",
+                "mockery/mockery": "^1.5",
+                "php-parallel-lint/php-console-highlighter": "^1.0",
+                "php-parallel-lint/php-parallel-lint": "^1.3",
+                "phpcsstandards/phpcsutils": "^1.0.0-rc1",
+                "phpspec/prophecy-phpunit": "^2.0",
+                "phpstan/extension-installer": "^1.2",
+                "phpstan/phpstan": "^1.9",
+                "phpstan/phpstan-mockery": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.3",
+                "phpunit/phpunit": "^9.5",
+                "psalm/plugin-mockery": "^1.1",
+                "psalm/plugin-phpunit": "^0.18.4",
+                "ramsey/coding-standard": "^2.0.3",
+                "ramsey/conventional-commits": "^1.3",
+                "vimeo/psalm": "^5.4"
+            },
+            "type": "library",
+            "extra": {
+                "captainhook": {
+                    "force-install": true
+                },
+                "ramsey/conventional-commits": {
+                    "configFile": "conventional-commits.json"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ramsey\\Collection\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Ramsey",
+                    "email": "ben@benramsey.com",
+                    "homepage": "https://benramsey.com"
+                }
+            ],
+            "description": "A PHP library for representing and manipulating collections.",
+            "keywords": [
+                "array",
+                "collection",
+                "hash",
+                "map",
+                "queue",
+                "set"
+            ],
+            "support": {
+                "issues": "https://github.com/ramsey/collection/issues",
+                "source": "https://github.com/ramsey/collection/tree/2.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/ramsey",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/ramsey/collection",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-12-31T21:50:55+00:00"
+        },
+        {
+            "name": "ramsey/uuid",
+            "version": "4.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ramsey/uuid.git",
+                "reference": "433b2014e3979047db08a17a205f410ba3869cf2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/433b2014e3979047db08a17a205f410ba3869cf2",
+                "reference": "433b2014e3979047db08a17a205f410ba3869cf2",
+                "shasum": ""
+            },
+            "require": {
+                "brick/math": "^0.8.8 || ^0.9 || ^0.10",
+                "ext-json": "*",
+                "php": "^8.0",
+                "ramsey/collection": "^1.2 || ^2.0"
+            },
+            "replace": {
+                "rhumsaa/uuid": "self.version"
+            },
+            "require-dev": {
+                "captainhook/captainhook": "^5.10",
+                "captainhook/plugin-composer": "^5.3",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "doctrine/annotations": "^1.8",
+                "ergebnis/composer-normalize": "^2.15",
+                "mockery/mockery": "^1.3",
+                "paragonie/random-lib": "^2",
+                "php-mock/php-mock": "^2.2",
+                "php-mock/php-mock-mockery": "^1.3",
+                "php-parallel-lint/php-parallel-lint": "^1.1",
+                "phpbench/phpbench": "^1.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan": "^1.8",
+                "phpstan/phpstan-mockery": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.1",
+                "phpunit/phpunit": "^8.5 || ^9",
+                "ramsey/composer-repl": "^1.4",
+                "slevomat/coding-standard": "^8.4",
+                "squizlabs/php_codesniffer": "^3.5",
+                "vimeo/psalm": "^4.9"
+            },
+            "suggest": {
+                "ext-bcmath": "Enables faster math with arbitrary-precision integers using BCMath.",
+                "ext-gmp": "Enables faster math with arbitrary-precision integers using GMP.",
+                "ext-uuid": "Enables the use of PeclUuidTimeGenerator and PeclUuidRandomGenerator.",
+                "paragonie/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
+                "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
+            },
+            "type": "library",
+            "extra": {
+                "captainhook": {
+                    "force-install": true
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Ramsey\\Uuid\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A PHP library for generating and working with universally unique identifiers (UUIDs).",
+            "keywords": [
+                "guid",
+                "identifier",
+                "uuid"
+            ],
+            "support": {
+                "issues": "https://github.com/ramsey/uuid/issues",
+                "source": "https://github.com/ramsey/uuid/tree/4.7.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/ramsey",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/ramsey/uuid",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-01-12T18:13:24+00:00"
+        },
+        {
+            "name": "symfony/filesystem",
+            "version": "v6.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "82b6c62b959f642d000456f08c6d219d749215b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/82b6c62b959f642d000456f08c6d219d749215b3",
+                "reference": "82b6c62b959f642d000456f08c6d219d749215b3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/polyfill-ctype": "~1.8",
+                "symfony/polyfill-mbstring": "~1.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides basic utilities for the filesystem",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/filesystem/tree/v6.2.7"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-02-14T08:44:56+00:00"
+        },
+        {
+            "name": "symfony/polyfill-ctype",
+            "version": "v1.27.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "5bbc823adecdae860bb64756d639ecfec17b050a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/5bbc823adecdae860bb64756d639ecfec17b050a",
+                "reference": "5bbc823adecdae860bb64756d639ecfec17b050a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "provide": {
+                "ext-ctype": "*"
+            },
+            "suggest": {
+                "ext-ctype": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.27-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gert de Pagter",
+                    "email": "BackEndTea@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for ctype functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "ctype",
+                "polyfill",
+                "portable"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.27.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-11-03T14:55:06+00:00"
+        },
+        {
+            "name": "symfony/polyfill-mbstring",
+            "version": "v1.27.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "8ad114f6b39e2c98a8b0e3bd907732c207c2b534"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/8ad114f6b39e2c98a8b0e3bd907732c207c2b534",
+                "reference": "8ad114f6b39e2c98a8b0e3bd907732c207c2b534",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "provide": {
+                "ext-mbstring": "*"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.27-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the Mbstring extension",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "mbstring",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.27.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-11-03T14:55:06+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}
