@@ -1,0 +1,472 @@
+autoscale: true
+theme: Fira, 6
+
+## Augmentez votre couverture :
+## supprimez des tests !
+
+---
+
+[.list: alignment(left)]
+
+- Baptiste Langlade
+- Lyon
+- 10+ ans XP
+- ~95 packages Open Source
+
+---
+
+## Efalia
+
+^ Efalia Suite
+
+---
+
+## GED
+
+---
+
+[.list: alignment(left)]
+
+- Armoires
+    - Gabarits de documents
+        - Documents
+- Bannettes
+    - Documents
+
+---
+
+## Tests fonctionnels
+
+^ 3 devs, déploiement on premise, symfony
+
+---
+
+[.list: alignment(left)]
+
+- Armoires
+    - Gabarits de documents
+        - Documents
+- Bannettes
+    - Documents
+
+^ Tests positifs + négatifs, fonctionnalité verrouillage
+
+---
+
+[.list: alignment(left)]
+
+## Matrice exponentielle
+
+- Armoires
+    - Gabarits de documents
+        - Documents
+    - Gabarits de dossiers
+        - Dossiers > Gabarits de documents > Documents
+- Bannettes
+    - Documents
+
+^ x^n+1 tests
+
+---
+
+## Complexité non humaine
+
+^ Soit on abandonne soit on trouve un nouvel outil
+
+---
+
+---
+
+# Property Based Testing
+
+^ Programmation fonctionnelle, aléatoire
+
+---
+
+## Loi de Murphy
+
+^ Loi statistique
+
+---
+
+> Pour toute string entre 1 et 255 caractères je peux créer une armoire
+
+---
+
+```php
+final class ArmoireTest extends TestCase
+{
+    public function testCréationArmoire()
+    {
+        $response = $this->makePost('/api/armoires', [
+            'nom' => 'foobar',
+        ]);
+
+        $this->assertSame(201, $response->getStatusCode());
+    }
+}
+```
+
+---
+
+```sh
+composer require --dev innmind/black-box
+```
+
+---
+
+[.code-highlight: 5]
+[.code-highlight: 10]
+[.code-highlight: 11]
+[.code-highlight: 13]
+
+```php
+use Innmind\BlackBox\{PHPUnit\BlackBox, Set};
+
+final class ArmoireTest extends TestCase
+{
+    use BlackBox;
+
+    public function testCréationArmoire()
+    {
+        $this
+            ->forAll(Set\Strings::between(1, 255))
+            ->then(function(string $nom) {
+                $response = $this->makePost('/api/armoires', [
+                    'nom' => $nom,
+                ]);
+
+                $this->assertSame(201, $response->getStatusCode());
+            });
+    }
+}
+```
+
+^ elasticsearch
+
+---
+
+[.code-highlight: 13]
+[.code-highlight: 15-19]
+[.code-highlight: 12]
+[.code-highlight: 9-10]
+
+```php
+final class GabaritDeDocumentTest extends TestCase
+{
+    use BlackBox;
+
+    public function testCréationGabaritDeDocument()
+    {
+        $this
+            ->forAll(
+                Set\Strings::between(1, 255),
+                Set\Strings::between(1, 255),
+            )
+            ->then(function(string $nomArmoire, string $nomGabarit) {
+                $armoire = $this->créerArmoire($nomArmoire);
+
+                $response = $this->makePost("/api/armoires/{$armoire['id']}/gabarits-de-documents", [
+                    'nom' => $nomGabarit,
+                ]);
+
+                $this->assertSame(201, $response->getStatusCode());
+            });
+    }
+}
+```
+
+^ Double problème, création armoire et génération du nom dupliquée
+
+---
+
+[.code-highlight: 1]
+[.code-highlight: 16-21]
+[.code-highlight: 3]
+[.code-highlight: 5]
+[.code-highlight: 7-11]
+[.code-highlight: 13]
+
+```php
+final class CreerArmoire
+{
+    public function __construct(private string $nom) {}
+
+    public function __invoke(TestCase $test): array
+    {
+        $response = $test->makePost('/api/armoires', [
+            'nom' => $this->nom,
+        ]);
+
+        $test->assertSame(201, $response->getStatusCode());
+
+        return \json_decode($response->getContent(), true);
+    }
+
+    public static function any(): Set
+    {
+        return Set\Strings::between(1, 255)->map(
+            static fn($nom) => new self($nom),
+        );
+    }
+}
+```
+
+---
+
+[.code-highlight: 8]
+[.code-highlight: 9]
+[.code-highlight: 10]
+
+```php
+final class ArmoireTest extends TestCase
+{
+    use BlackBox;
+
+    public function testCréationArmoire()
+    {
+        $this
+            ->forAll(CreerArmoire::any())
+            ->then(function(CreerArmoire $créerArmoire) {
+                $créerArmoire($this);
+            });
+    }
+}
+```
+
+---
+
+[.code-highlight: 9]
+[.code-highlight: 12]
+[.code-highlight: 13]
+
+```php
+final class GabaritDeDocumentTest extends TestCase
+{
+    use BlackBox;
+
+    public function testCréationGabaritDeDocument()
+    {
+        $this
+            ->forAll(
+                CreerArmoire::any(),
+                Set\Strings::between(1, 255),
+            )
+            ->then(function(CreerArmoire $créerArmoire, string $nomGabarit) {
+                $armoire = $créerArmoire($this);
+
+                $response = $this->makePost("/api/armoires/{$armoire['id']}/gabarits-de-documents", [
+                    'nom' => $nomGabarit,
+                ]);
+
+                $this->assertSame(201, $response->getStatusCode());
+            });
+    }
+}
+```
+
+---
+
+[.list: alignment(left)]
+
+- `CreerArmoire`
+- `CreerGabaritDeDocument`
+- `ClasserDocument`
+- `CreerBannette`
+- `UploaderDocument`
+
+---
+
+[.list: alignment(left)]
+
+`VerrouillerDocument`
+
+- `ClasserDocument`
+- `UploaderDocument`
+
+---
+
+[.code-highlight: 1]
+[.code-highlight: 14-16]
+[.code-highlight: 17]
+[.code-highlight: 17]
+[.code-highlight: 3]
+[.code-highlight: 7]
+[.code-highlight: 14-16]
+
+```php
+final class VerrouillerDocument
+{
+    public function __construct(private $créerDocument) {}
+
+    public function __invoke(TestCase $test)
+    {
+        $document = ($this->créerDocument)($test);
+
+        // reste du test
+    }
+
+    public static function any(): Set
+    {
+        return Set\Either::any(
+            ClasserDocument::any(),
+            UploaderDocument::any(),
+        )->map(static fn($créerDocument) => new self($créerDocument));
+    }
+}
+```
+
+---
+
+```php
+namespace Fixtures;
+
+final class Document
+{
+    public static function any(): Set
+    {
+        return Set\Either::any(
+            ClasserDocument::any(),
+            UploaderDocument::any(),
+        );
+    }
+}
+```
+
+---
+
+[.code-highlight: 10-15]
+
+```php
+final class VerrouillerDocument
+{
+    public function __construct(private $créerDocument) {}
+
+    public function __invoke(TestCase $test)
+    {
+        // implémentation
+    }
+
+    public static function any(): Set
+    {
+        return \Fixtures\Document::any()->map(
+            static fn($créerDocument) => new self($créerDocument),
+        );
+    }
+}
+```
+
+---
+
+[.code-highlight: 10]
+
+```php
+namespace Fixtures;
+
+final class Document
+{
+    public static function any(): Set
+    {
+        return Set\Either::any(
+            ClasserDocument::any(),
+            UploaderDocument::any(),
+            ClasserDocumentDansDossier::any(),
+        );
+    }
+}
+```
+
+---
+
+---
+
+## Opportunités
+
+---
+
+### Parcours utilisateur
+
+---
+
+[.code-highlight: 5-20]
+
+```php
+final class SimulationTest extends TestCase
+{
+    use BlackBox;
+
+    public function testParcoursUtilisateur()
+    {
+        $this
+            ->forAll(Set\Sequence::of(
+                Set\Either::any(
+                    ClasserDocument::any(),
+                    CreerBannette::any(),
+                    // etc...
+                ),
+            ))
+            ->then(function(array $actions) {
+                foreach ($actions as $action) {
+                    $action($this);
+                }
+            });
+    }
+}
+```
+
+---
+
+### Tests en conditions réelles
+
+^ Efalia Suite
+
+---
+
+[.code-highlight: 7-9]
+
+```php
+final class CreerArmoire
+{
+    public function __construct(private string $nom) {}
+
+    public function __invoke(TestCase $test): array
+    {
+        $response = $test->makePost('/api/armoires', [
+            'nom' => $this->nom,
+        ]);
+
+        $test->assertSame(201, $response->getStatusCode());
+
+        return \json_decode($response->getContent(), true);
+    }
+
+    public static function any(): Set
+    {
+        return Set\Strings::between(1, 255)->map(
+            static fn($nom) => new self($nom),
+        );
+    }
+}
+```
+
+^ Client HTTP
+
+---
+
+## Model Checker
+
+^ TLA+ / Alloy
+
+---
+
+## 🤫
+
+---
+
+## Questions
+
+![inline](open-feedback.png)
+
+Twitter @Baptouuuu
+
+Github @Baptouuuu/talks
