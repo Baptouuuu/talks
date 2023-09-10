@@ -297,9 +297,9 @@ final class GabaritDeDocumentTest extends TestCase
 
 - `CreerArmoire`
 - `CreerGabaritDeDocument`
-- `ClasserDocument`
+- `CreerDocumentDansArmoire`
 - `CreerBannette`
-- `UploaderDocument`
+- `CreerDocumentDansBannette`
 
 ---
 
@@ -335,8 +335,8 @@ final class VerrouillerDocument
     public static function any(): Set
     {
         return Set\Either::any(
-            ClasserDocument::any(),
-            UploaderDocument::any(),
+            CreerDocumentDansArmoire::any(),
+            CreerDocumentDansBannette::any(),
         )->map(static fn($créerDocument) => new self($créerDocument));
     }
 }
@@ -352,8 +352,8 @@ final class Document
     public static function any(): Set
     {
         return Set\Either::any(
-            ClasserDocument::any(),
-            UploaderDocument::any(),
+            CreerDocumentDansArmoire::any(),
+            CreerDocumentDansBannette::any(),
         );
     }
 }
@@ -394,9 +394,9 @@ final class Document
     public static function any(): Set
     {
         return Set\Either::any(
-            ClasserDocument::any(),
-            UploaderDocument::any(),
-            ClasserDocumentDansDossier::any(),
+            CreerDocumentDansArmoire::any(),
+            CreerDocumentDansBannette::any(),
+            CreerDocumentDansDossier::any(),
         );
     }
 }
@@ -426,7 +426,7 @@ final class SimulationTest extends TestCase
         $this
             ->forAll(Set\Sequence::of(
                 Set\Either::any(
-                    ClasserDocument::any(),
+                    CreerDocumentDansArmoire::any(),
                     CreerBannette::any(),
                     // etc...
                 ),
