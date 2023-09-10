@@ -126,6 +126,7 @@ final class ArmoireTest extends TestCase
 
 [.code-highlight: 5-10]
 [.code-highlight: 12-16]
+[.code-highlight: 5-10]
 
 ```php
 final class GabaritDeDocumentTest extends TestCase
@@ -138,6 +139,26 @@ final class GabaritDeDocumentTest extends TestCase
 
         $this->assertSame(201, $response->getStatusCode());
         $armoire = \json_decode($response->getContent(), true);
+
+        $response = $this->makePost("/api/armoires/{$armoire['id']}/gabarits-de-documents", [
+            'nom' => 'baz',
+        ]);
+
+        $this->assertSame(201, $response->getStatusCode());
+    }
+}
+```
+
+---
+
+[.code-highlight: 5]
+
+```php
+final class GabaritDeDocumentTest extends TestCase
+{
+    public function testCréationGabaritDeDocument()
+    {
+        $armoire = $this->créerArmoire('foobar');
 
         $response = $this->makePost("/api/armoires/{$armoire['id']}/gabarits-de-documents", [
             'nom' => 'baz',
