@@ -69,6 +69,15 @@ theme: Fira, 6
 
 ---
 
+[.list: alignment(left)]
+
+## Après 3 ans
+
+- 730 tests (350 positifs, 380 négatifs)
+- 1h15 de temps d'exécution
+
+---
+
 ## Complexité non humaine
 
 ^ Soit on abandonne soit on trouve un nouvel outil
