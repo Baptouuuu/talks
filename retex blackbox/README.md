@@ -429,7 +429,7 @@ final class SimulationTest extends TestCase
                     CreerBannette::any(),
                     // etc...
                 ),
-            ))
+            )->atLeast(2))
             ->then(function(array $actions) {
                 foreach ($actions as $action) {
                     $action($this);
