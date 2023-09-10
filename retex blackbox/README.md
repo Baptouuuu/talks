@@ -89,6 +89,10 @@ theme: Fira, 6
 
 ---
 
+## Tests en dur
+
+---
+
 ```php
 final class ArmoireTest extends TestCase
 {
@@ -102,6 +106,36 @@ final class ArmoireTest extends TestCase
     }
 }
 ```
+
+---
+
+[.code-highlight: 5-10]
+[.code-highlight: 12-16]
+
+```php
+final class GabaritDeDocumentTest extends TestCase
+{
+    public function testCréationGabaritDeDocument()
+    {
+        $response = $this->makePost('/api/armoires', [
+            'nom' => 'foobar',
+        ]);
+
+        $this->assertSame(201, $response->getStatusCode());
+        $armoire = \json_decode($response->getContent(), true);
+
+        $response = $this->makePost("/api/armoires/{$armoire['id']}/gabarits-de-documents", [
+            'nom' => 'baz',
+        ]);
+
+        $this->assertSame(201, $response->getStatusCode());
+    }
+}
+```
+
+---
+
+## Données aléatoires
 
 ---
 
@@ -203,6 +237,10 @@ final class GabaritDeDocumentTest extends TestCase
 ```
 
 ^ Double problème, création armoire et génération du nom dupliquée
+
+---
+
+## Tests dynamiques
 
 ---
 
