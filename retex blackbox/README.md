@@ -45,9 +45,9 @@ theme: Fira, 6
 
 - Armoires
     - Gabarits de documents
-        - Documents
+        - **Documents**
 - Bannettes
-    - Documents
+    - **Documents**
 
 ^ Tests positifs + négatifs, fonctionnalité verrouillage
 
@@ -59,11 +59,11 @@ theme: Fira, 6
 
 - Armoires
     - Gabarits de documents
-        - Documents
+        - **Documents**
     - Gabarits de dossiers
-        - Dossiers > Gabarits de documents > Documents
+        - Dossiers > Gabarits de documents > **Documents**
 - Bannettes
-    - Documents
+    - **Documents**
 
 ^ x^n+1 tests
 
