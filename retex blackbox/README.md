@@ -477,6 +477,20 @@ final class Document
 
 ---
 
+```php
+final class ArmoireTest extends TestCase
+{
+    public function testNonRégression()
+    {
+        $créerArmoire = new CreerArmoire('nom invalide');
+
+        $créerArmoire($this);
+    }
+}
+```
+
+---
+
 ---
 
 ## Opportunités
