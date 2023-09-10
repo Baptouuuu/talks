@@ -493,7 +493,7 @@ final class ArmoireTest extends TestCase
 
 ---
 
-## Opportunités
+## Futur
 
 ---
 
