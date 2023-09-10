@@ -307,14 +307,13 @@ final class GabaritDeDocumentTest extends TestCase
 
 `VerrouillerDocument`
 
-- `ClasserDocument`
-- `UploaderDocument`
+- `CreerDocumentDansArmoire`
+- `CreerDocumentDansBannette`
 
 ---
 
 [.code-highlight: 1]
 [.code-highlight: 14-16]
-[.code-highlight: 17]
 [.code-highlight: 17]
 [.code-highlight: 3]
 [.code-highlight: 7]
