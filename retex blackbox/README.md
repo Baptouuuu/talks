@@ -98,6 +98,12 @@ theme: Fira, 6
 
 ---
 
+## Tests locaux & CI
+
+^ Au plus on lance les tests au plus le système est efficace
+
+---
+
 ## Tests en dur
 
 ---
