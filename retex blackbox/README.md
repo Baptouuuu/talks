@@ -15,7 +15,7 @@ theme: Fira, 6
 
 ---
 
-## Efalia
+![inline 200%](efalia.png)
 
 ^ Efalia Suite
 
