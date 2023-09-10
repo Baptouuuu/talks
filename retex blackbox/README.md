@@ -130,6 +130,32 @@ final class ArmoireTest extends TestCase
     public function testCréationArmoire()
     {
         $this
+            ->forAll(Set\Elements::of('foobar'))
+            ->then(function(string $nom) {
+                $response = $this->makePost('/api/armoires', [
+                    'nom' => $nom,
+                ]);
+
+                $this->assertSame(201, $response->getStatusCode());
+            });
+    }
+}
+```
+
+---
+
+[.code-highlight: 8]
+[.code-highlight: 9]
+[.code-highlight: 11]
+
+```php
+final class ArmoireTest extends TestCase
+{
+    use BlackBox;
+
+    public function testCréationArmoire()
+    {
+        $this
             ->forAll(Set\Strings::between(1, 255))
             ->then(function(string $nom) {
                 $response = $this->makePost('/api/armoires', [
