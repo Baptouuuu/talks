@@ -413,7 +413,9 @@ final class Document
 
 ---
 
-[.code-highlight: 5-20]
+[.code-highlight: 8,14]
+[.code-highlight: 9-13]
+[.code-highlight: 15-19]
 
 ```php
 final class SimulationTest extends TestCase
