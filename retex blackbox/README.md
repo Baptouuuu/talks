@@ -477,6 +477,10 @@ final class Document
 
 ---
 
+## Test non régression
+
+---
+
 ```php
 final class ArmoireTest extends TestCase
 {
