@@ -511,6 +511,17 @@ final class ArmoireTest extends TestCase
 
 ---
 
+[.list: alignment(left)]
+
+## Composition
+
+- `Set\Strings::madeOf(...Set)`
+- `Set->filter()`
+- `Set\Composite(callable, ...Set)`
+- etc...
+
+---
+
 ---
 
 ## Futur
