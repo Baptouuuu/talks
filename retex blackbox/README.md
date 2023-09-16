@@ -53,9 +53,13 @@ theme: Fira, 6
 
 ---
 
-[.list: alignment(left)]
+## Verrouiller document
 
-## Matrice exponentielle
+![inline](2-dep.svg)
+
+---
+
+[.list: alignment(left)]
 
 - Armoires
     - Gabarits de documents
@@ -65,7 +69,11 @@ theme: Fira, 6
 - Bannettes
     - **Documents**
 
-^ x^n+1 tests
+---
+
+## Verrouiller document
+
+![inline](n-dep.svg)
 
 ---
 
@@ -78,7 +86,7 @@ theme: Fira, 6
 
 ---
 
-## Complexité non humaine
+## Complexité Exponentielle
 
 ^ Soit on abandonne soit on trouve un nouvel outil
 
@@ -474,6 +482,14 @@ final class Document
     }
 }
 ```
+
+---
+
+![inline](before.svg)
+
+---
+
+![inline](after.svg)
 
 ---
 

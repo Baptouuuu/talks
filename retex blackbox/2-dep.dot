@@ -1,0 +1,49 @@
+digraph tests {
+    test1_armoire[label="Test 1"; shape="box"];
+    test2_armoire[label="Test 2"; shape="box"];
+    test3_armoire[label="Test 3"; shape="box"];
+    test1_bannette[label="Test 1"; shape="box"];
+    test2_bannette[label="Test 2"; shape="box"];
+    test3_bannette[label="Test 3"; shape="box"];
+
+    test1_creerdocument_armoire[label="Document"; shape="box"];
+    test2_creerdocument_armoire[label="Document"; shape="box"];
+    test3_creerdocument_armoire[label="Document"; shape="box"];
+    test1_creerdocument_bannette[label="Document"; shape="box"];
+    test2_creerdocument_bannette[label="Document"; shape="box"];
+    test3_creerdocument_bannette[label="Document"; shape="box"];
+
+    test1_creergabarit_armoire[label="Gabarit"; shape="box"];
+    test2_creergabarit_armoire[label="Gabarit"; shape="box"];
+    test3_creergabarit_armoire[label="Gabarit"; shape="box"];
+    test1_creerbannette[label="Bannette"; shape="box"];
+    test2_creerbannette[label="Bannette"; shape="box"];
+    test3_creerbannette[label="Bannette"; shape="box"];
+
+    test1_creerarmoire[label="Armoire"; shape="box"];
+    test2_creerarmoire[label="Armoire"; shape="box"];
+    test3_creerarmoire[label="Armoire"; shape="box"];
+
+    {rank=same; test1_armoire; test2_armoire; test3_armoire; test1_bannette; test2_bannette; test3_bannette}
+    {rank=same; test1_creerdocument_armoire; test2_creerdocument_armoire; test3_creerdocument_armoire; test1_creerdocument_bannette; test2_creerdocument_bannette; test3_creerdocument_bannette}
+    {rank=same; test1_creergabarit_armoire; test2_creergabarit_armoire; test3_creergabarit_armoire; test1_creerbannette; test2_creerbannette; test3_creerbannette}
+    {rank=same; test1_creerarmoire; test2_creerarmoire; test3_creerarmoire}
+
+    test1_armoire -> test1_creerdocument_armoire;
+    test2_armoire -> test2_creerdocument_armoire;
+    test3_armoire -> test3_creerdocument_armoire;
+    test1_bannette -> test1_creerdocument_bannette;
+    test2_bannette -> test2_creerdocument_bannette;
+    test3_bannette -> test3_creerdocument_bannette;
+
+    test1_creerdocument_armoire -> test1_creergabarit_armoire;
+    test2_creerdocument_armoire -> test2_creergabarit_armoire;
+    test3_creerdocument_armoire -> test3_creergabarit_armoire;
+    test1_creerdocument_bannette -> test1_creerbannette;
+    test2_creerdocument_bannette -> test2_creerbannette;
+    test3_creerdocument_bannette -> test3_creerbannette;
+
+    test1_creergabarit_armoire -> test1_creerarmoire;
+    test2_creergabarit_armoire -> test2_creerarmoire;
+    test3_creergabarit_armoire -> test3_creerarmoire;
+}

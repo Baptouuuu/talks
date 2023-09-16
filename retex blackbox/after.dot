@@ -1,0 +1,46 @@
+digraph tests {
+    test1[label="Test 1"; shape="box"];
+    test2[label="Test 2"; shape="box"];
+    test3[label="Test 3"; shape="box"];
+
+    document_any[label="Document::any()"; shape="box"; color="red"];
+
+    creer_document_armoire[label="CreerDocumentDansArmoire"; shape="box"; color="red"];
+    creer_document_bannette[label="CreerDocumentDansBannette"; shape="box"; color="red"];
+    creer_document_dossier[label="CreerDocumentDansDossier"; shape="box"; color="red"];
+
+    creer_dossier[label="CreerDossier"; shape="box"];
+
+    creer_gabarit_document[label="CreerGabaritDocument"; shape="box"];
+    creer_gabarit_dossier[label="CreerGabaritDossier"; shape="box"];
+    creer_gabarit_document_dossier[label="CreerGabaritDocumentDansDossier"; shape="box"];
+
+    creer_armoire[label="CreerArmoire"; shape="box"];
+    creer_bannette[label="CreerBannette"; shape="box"];
+
+    {rank=same; test1; test2; test3}
+    {rank=same; creer_document_armoire; creer_document_bannette; creer_document_dossier}
+    {rank=same; creer_dossier}
+    {rank=same; creer_gabarit_document; creer_gabarit_document_dossier}
+    {rank=same; creer_armoire; creer_bannette}
+
+    test1 -> document_any;
+    test2 -> document_any;
+    test3 -> document_any;
+
+    document_any -> creer_document_armoire [color="red"];
+    document_any -> creer_document_bannette [color="red"];
+    document_any -> creer_document_dossier [color="red"];
+
+    creer_document_armoire -> creer_gabarit_document;
+    creer_gabarit_document -> creer_armoire;
+
+    creer_document_bannette -> creer_bannette;
+
+    creer_document_dossier -> creer_gabarit_document_dossier;
+    creer_document_dossier -> creer_dossier;
+
+    creer_gabarit_document_dossier -> creer_gabarit_dossier;
+
+    creer_gabarit_dossier -> creer_armoire;
+}
