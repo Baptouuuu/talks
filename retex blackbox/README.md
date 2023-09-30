@@ -511,6 +511,14 @@ final class ArmoireTest extends TestCase
 
 ---
 
+![inline](erreur.png)
+
+---
+
+![inline](erreur-source.png)
+
+---
+
 [.list: alignment(left)]
 
 ## Composition
