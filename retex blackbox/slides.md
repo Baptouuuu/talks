@@ -511,6 +511,10 @@ final class ArmoireTest extends TestCase
 
 ---
 
+![inline](erreur-full.png)
+
+---
+
 ![inline](erreur.png)
 
 ---
