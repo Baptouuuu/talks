@@ -218,7 +218,7 @@ final class ArmoireTest extends TestCase
 
 ---
 
-> Pour toute string entre 1 et 255 caractères je peux créer une armoire
+> Pour toute string entre 1 et 255 caractères alors je peux créer une armoire
 
 ---
 
