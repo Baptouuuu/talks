@@ -331,7 +331,7 @@ final class ArmoireTest extends TestCase
 {
     use BlackBox;
 
-    public function testCréationArmoire()
+    public function testCreationArmoire()
     {
         $this
             ->forAll(CreerArmoire::any())
@@ -500,7 +500,7 @@ final class Document
 ```php
 final class ArmoireTest extends TestCase
 {
-    public function testNonRégression()
+    public function testNonRegression()
     {
         $creerArmoire = new CreerArmoire('nom invalide');
 
