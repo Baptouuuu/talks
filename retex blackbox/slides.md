@@ -119,7 +119,7 @@ theme: Fira, 6
 ```php
 final class ArmoireTest extends TestCase
 {
-    public function testCréationArmoire()
+    public function testCreationArmoire()
     {
         $response = $this->makePost('/api/armoires', [
             'nom' => 'foobar',
@@ -139,7 +139,7 @@ final class ArmoireTest extends TestCase
 ```php
 final class GabaritDeDocumentTest extends TestCase
 {
-    public function testCréationGabaritDeDocument()
+    public function testCreationGabaritDeDocument()
     {
         $response = $this->makePost('/api/armoires', [
             'nom' => 'foobar',
@@ -164,9 +164,9 @@ final class GabaritDeDocumentTest extends TestCase
 ```php
 final class GabaritDeDocumentTest extends TestCase
 {
-    public function testCréationGabaritDeDocument()
+    public function testCreationGabaritDeDocument()
     {
-        $armoire = $this->créerArmoire('foobar');
+        $armoire = $this->creerArmoire('foobar');
 
         $response = $this->makePost("/api/armoires/{$armoire['id']}/gabarits-de-documents", [
             'nom' => 'baz',
@@ -201,7 +201,7 @@ final class ArmoireTest extends TestCase
 {
     use BlackBox;
 
-    public function testCréationArmoire()
+    public function testCreationArmoire()
     {
         $this
             ->forAll(Set\Elements::of('foobar'))
@@ -231,7 +231,7 @@ final class ArmoireTest extends TestCase
 {
     use BlackBox;
 
-    public function testCréationArmoire()
+    public function testCreationArmoire()
     {
         $this
             ->forAll(Set\Strings::between(1, 255))
@@ -260,7 +260,7 @@ final class GabaritDeDocumentTest extends TestCase
 {
     use BlackBox;
 
-    public function testCréationGabaritDeDocument()
+    public function testCreationGabaritDeDocument()
     {
         $this
             ->forAll(
@@ -268,7 +268,7 @@ final class GabaritDeDocumentTest extends TestCase
                 Set\Strings::between(1, 255),
             )
             ->then(function(string $nomArmoire, string $nomGabarit) {
-                $armoire = $this->créerArmoire($nomArmoire);
+                $armoire = $this->creerArmoire($nomArmoire);
 
                 $response = $this->makePost("/api/armoires/{$armoire['id']}/gabarits-de-documents", [
                     'nom' => $nomGabarit,
@@ -335,8 +335,8 @@ final class ArmoireTest extends TestCase
     {
         $this
             ->forAll(CreerArmoire::any())
-            ->then(function(CreerArmoire $créerArmoire) {
-                $créerArmoire($this);
+            ->then(function(CreerArmoire $creerArmoire) {
+                $creerArmoire($this);
             });
     }
 }
@@ -353,15 +353,15 @@ final class GabaritDeDocumentTest extends TestCase
 {
     use BlackBox;
 
-    public function testCréationGabaritDeDocument()
+    public function testCreationGabaritDeDocument()
     {
         $this
             ->forAll(
                 CreerArmoire::any(),
                 Set\Strings::between(1, 255),
             )
-            ->then(function(CreerArmoire $créerArmoire, string $nomGabarit) {
-                $armoire = $créerArmoire($this);
+            ->then(function(CreerArmoire $creerArmoire, string $nomGabarit) {
+                $armoire = $creerArmoire($this);
 
                 $response = $this->makePost("/api/armoires/{$armoire['id']}/gabarits-de-documents", [
                     'nom' => $nomGabarit,
@@ -404,11 +404,11 @@ final class GabaritDeDocumentTest extends TestCase
 ```php
 final class VerrouillerDocument
 {
-    public function __construct(private $créerDocument) {}
+    public function __construct(private $creerDocument) {}
 
     public function __invoke(TestCase $test)
     {
-        $document = ($this->créerDocument)($test);
+        $document = ($this->creerDocument)($test);
 
         // reste du test
     }
@@ -418,7 +418,7 @@ final class VerrouillerDocument
         return Set\Either::any(
             CreerDocumentDansArmoire::any(),
             CreerDocumentDansBannette::any(),
-        )->map(static fn($créerDocument) => new self($créerDocument));
+        )->map(static fn($creerDocument) => new self($creerDocument));
     }
 }
 ```
@@ -447,7 +447,7 @@ final class Document
 ```php
 final class VerrouillerDocument
 {
-    public function __construct(private $créerDocument) {}
+    public function __construct(private $creerDocument) {}
 
     public function __invoke(TestCase $test)
     {
@@ -457,7 +457,7 @@ final class VerrouillerDocument
     public static function any(): Set
     {
         return \Fixtures\Document::any()->map(
-            static fn($créerDocument) => new self($créerDocument),
+            static fn($creerDocument) => new self($creerDocument),
         );
     }
 }
@@ -502,9 +502,9 @@ final class ArmoireTest extends TestCase
 {
     public function testNonRégression()
     {
-        $créerArmoire = new CreerArmoire('nom invalide');
+        $creerArmoire = new CreerArmoire('nom invalide');
 
-        $créerArmoire($this);
+        $creerArmoire($this);
     }
 }
 ```
