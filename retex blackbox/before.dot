@@ -1,0 +1,89 @@
+digraph tests {
+    test1_armoire[label="Test 1"; shape="box"];
+    test2_armoire[label="Test 2"; shape="box"];
+    test3_armoire[label="Test 3"; shape="box"];
+    test1_bannette[label="Test 1"; shape="box"];
+    test2_bannette[label="Test 2"; shape="box"];
+    test3_bannette[label="Test 3"; shape="box"];
+    test1_dossier[label="Test 1"; shape="box"];
+    test2_dossier[label="Test 2"; shape="box"];
+    test3_dossier[label="Test 3"; shape="box"];
+
+    test1_creerdocument_armoire[label="Document"; shape="box"];
+    test2_creerdocument_armoire[label="Document"; shape="box"];
+    test3_creerdocument_armoire[label="Document"; shape="box"];
+    test1_creerdocument_bannette[label="Document"; shape="box"];
+    test2_creerdocument_bannette[label="Document"; shape="box"];
+    test3_creerdocument_bannette[label="Document"; shape="box"];
+    test1_creerdocument_dossier[label="Document"; shape="box"];
+    test2_creerdocument_dossier[label="Document"; shape="box"];
+    test3_creerdocument_dossier[label="Document"; shape="box"];
+
+    test1_creergabarit_armoire[label="Gabarit"; shape="box"];
+    test2_creergabarit_armoire[label="Gabarit"; shape="box"];
+    test3_creergabarit_armoire[label="Gabarit"; shape="box"];
+    test1_creerbannette[label="Bannette"; shape="box"];
+    test2_creerbannette[label="Bannette"; shape="box"];
+    test3_creerbannette[label="Bannette"; shape="box"];
+    test1_creerdossier[label="Dossier"; shape="box"];
+    test2_creerdossier[label="Dossier"; shape="box"];
+    test3_creerdossier[label="Dossier"; shape="box"];
+
+    test1_creerarmoire[label="Armoire"; shape="box"];
+    test2_creerarmoire[label="Armoire"; shape="box"];
+    test3_creerarmoire[label="Armoire"; shape="box"];
+    test1_creergabaritdocument_dossier[label="Gabarit Document"; shape="box"];
+    test2_creergabaritdocument_dossier[label="Gabarit Document"; shape="box"];
+    test3_creergabaritdocument_dossier[label="Gabarit Document"; shape="box"];
+
+
+    test1_creergabaritdossier[label="Gabarit Dossier"; shape="box"];
+    test2_creergabaritdossier[label="Gabarit Dossier"; shape="box"];
+    test3_creergabaritdossier[label="Gabarit Dossier"; shape="box"];
+
+    test1_creerarmoire_dossier[label="Armoire"; shape="box"];
+    test2_creerarmoire_dossier[label="Armoire"; shape="box"];
+    test3_creerarmoire_dossier[label="Armoire"; shape="box"];
+
+    {rank=same; test1_armoire; test2_armoire; test3_armoire; test1_bannette; test2_bannette; test3_bannette; test1_dossier; test2_dossier; test3_dossier}
+    {rank=same; test1_creerdocument_armoire; test2_creerdocument_armoire; test3_creerdocument_armoire; test1_creerdocument_bannette; test2_creerdocument_bannette; test3_creerdocument_bannette; test1_creerdocument_dossier; test2_creerdocument_dossier; test3_creerdocument_dossier}
+    {rank=same; test1_creergabarit_armoire; test2_creergabarit_armoire; test3_creergabarit_armoire; test1_creerbannette; test2_creerbannette; test3_creerbannette; test1_creerdossier; test2_creerdossier; test3_creerdossier}
+    {rank=same; test1_creerarmoire; test2_creerarmoire; test3_creerarmoire; test1_creergabaritdocument_dossier; test2_creergabaritdocument_dossier; test3_creergabaritdocument_dossier}
+    {rank=same; test1_creergabaritdossier; test2_creergabaritdossier; test3_creergabaritdossier}
+    {rank=same; test1_creerarmoire_dossier; test2_creerarmoire_dossier; test3_creerarmoire_dossier}
+
+    test1_armoire -> test1_creerdocument_armoire;
+    test2_armoire -> test2_creerdocument_armoire;
+    test3_armoire -> test3_creerdocument_armoire;
+    test1_bannette -> test1_creerdocument_bannette;
+    test2_bannette -> test2_creerdocument_bannette;
+    test3_bannette -> test3_creerdocument_bannette;
+    test1_dossier -> test1_creerdocument_dossier;
+    test2_dossier -> test2_creerdocument_dossier;
+    test3_dossier -> test3_creerdocument_dossier;
+
+    test1_creerdocument_armoire -> test1_creergabarit_armoire;
+    test2_creerdocument_armoire -> test2_creergabarit_armoire;
+    test3_creerdocument_armoire -> test3_creergabarit_armoire;
+    test1_creerdocument_bannette -> test1_creerbannette;
+    test2_creerdocument_bannette -> test2_creerbannette;
+    test3_creerdocument_bannette -> test3_creerbannette;
+    test1_creerdocument_dossier -> test1_creerdossier;
+    test2_creerdocument_dossier -> test2_creerdossier;
+    test3_creerdocument_dossier -> test3_creerdossier;
+
+    test1_creergabarit_armoire -> test1_creerarmoire;
+    test2_creergabarit_armoire -> test2_creerarmoire;
+    test3_creergabarit_armoire -> test3_creerarmoire;
+    test1_creerdossier -> test1_creergabaritdocument_dossier;
+    test2_creerdossier -> test2_creergabaritdocument_dossier;
+    test3_creerdossier -> test3_creergabaritdocument_dossier;
+
+    test1_creergabaritdocument_dossier -> test1_creergabaritdossier;
+    test2_creergabaritdocument_dossier -> test2_creergabaritdossier;
+    test3_creergabaritdocument_dossier -> test3_creergabaritdossier;
+
+    test1_creergabaritdossier -> test1_creerarmoire_dossier;
+    test2_creergabaritdossier -> test2_creerarmoire_dossier;
+    test3_creergabaritdossier -> test3_creerarmoire_dossier;
+}
