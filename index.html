@@ -4,33 +4,96 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Conférences</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css">
+    <style type="text/css">
+        .video {
+            aspect-ratio: 16 / 9;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Conférences</h1>
-    <ul>
-        <li>
-            <a href="retex blackbox/slides.pdf">Augmentez votre couverture : supprimez des tests !</a>
-            (<a href="https://www.youtube.com/watch?v=ZIM1OIjvk5s">ForumPHP 2023</a>)
-        </li>
-        <li>
-            <a href="monads a-sync programming/">Monades : paradigme unique pour la programation (a)synchrone</a>
-            (Démo <a href="https://www.youtube.com/watch?v=RwCJwKfbDhE">Youtube</a> <a href="https://innmind-videos.s3.fr-par.scw.cloud/afup/Afup%20Day%202023%20-%20Demo.mp4">Téléchargement</a>)
-        </li>
-        <li>
-            <a href="exceptions type system/">Les Exceptions : le trou dans la raquette du typage</a>
-            (<a href="https://www.youtube.com/watch?v=YfoLM0vWALM">ForumPHP 2021</a>)
-        </li>
-        <li>
-            <a href="property based testing/slides/">Du test à la preuve : introduction au Property Based Testing</a>
-            (<a href="https://www.youtube.com/watch?v=uUxGngqsER0">AfupDay 2020</a>)
-        </li>
-        <li>
-            <a href="time dependency/">Le temps : la dépendance oubliée</a>
-            (<a href="https://www.youtube.com/watch?v=T_I6HhP9-6w">ForumPHP 2018</a>)
-        </li>
-        <li>
-            <a href="homeostasis/">La régulation de l’activité d’une application par homéostasie</a>
-        </li>
-    </ul>
+    <nav class="container-fluid">
+        <ul></ul>
+        <ul>
+            <li>
+                <h1>Conférences</h1>
+            </li>
+        </ul>
+        <ul>
+        </ul>
+    </nav>
+    <main class="container">
+        <article>
+            <h2>Augmentez votre couverture : supprimez des tests !</h2>
+            <iframe class="video" src="https://www.youtube.com/embed/ZIM1OIjvk5s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="retex blackbox/slides.pdf">Slides</a>
+                    </li>
+                </ul>
+            </nav>
+        </article>
+        <section>
+            <details>
+                <summary>Monades : paradigme unique pour la programation (a)synchrone</summary>
+                <iframe class="video" src="https://www.youtube.com/embed/RwCJwKfbDhE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="monads a-sync programming/">Slides</a>
+                        </li>
+                        <li>
+                            <a href="https://innmind-videos.s3.fr-par.scw.cloud/afup/Afup%20Day%202023%20-%20Demo.mp4">Téléchargement</a>
+                        </li>
+                    </ul>
+                </nav>
+            </details>
+            <details>
+                <summary>Les Exceptions : le trou dans la raquette du typage</summary>
+                <iframe class="video" src="https://www.youtube.com/embed/YfoLM0vWALM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="exceptions type system/">Slides</a>
+                        </li>
+                    </ul>
+                </nav>
+            </details>
+            <details>
+                <summary>Du test à la preuve : introduction au Property Based Testing</summary>
+                <iframe class="video" src="https://www.youtube.com/embed/uUxGngqsER0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="property based testing/slides/">Slides</a>
+                        </li>
+                    </ul>
+                </nav>
+            </details>
+            <details>
+                <summary>Le temps : la dépendance oubliée</summary>
+                <iframe class="video" src="https://www.youtube.com/embed/T_I6HhP9-6w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="time dependency/">Slides</a>
+                        </li>
+                    </ul>
+                </nav>
+            </details>
+            <details>
+                <summary>La régulation de l’activité d’une application par homéostasie</summary>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="homeostasis/">Slides</a>
+                        </li>
+                    </ul>
+                </nav>
+            </details>
+        </section>
+    </main>
 </body>
 </html>
