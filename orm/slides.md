@@ -19,6 +19,8 @@ theme: Fira, 6
 
 ---
 
+[.list: alignment(left)]
+
 ## Il en existe plusieurs
 
 - Doctrine
@@ -240,6 +242,8 @@ Les trois ont exactement le même comportement grâce au property based testing
 ### Compatibilité avec Innmind
 
 ---
+
+[.list: alignment(left)]
 
 - Génération de fichier
 - Body requête/réponse HTTP
