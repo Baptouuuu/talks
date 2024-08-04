@@ -33,15 +33,13 @@ theme: Fira, 6
 
 ## Ils ont tous le même concept
 
-Transformer l'interface SQL en interface Objet
+^ Transformer l'interface SQL en interface Objet
 
 ---
 
 ## Source des problèmes
 
-Une abstraction doit réduire la complexité
-
-^ Faire un parallèle avec les cartes
+^ Une abstraction doit réduire la complexité. Faire un parallèle avec les cartes
 
 ---
 
@@ -51,19 +49,79 @@ Une abstraction doit réduire la complexité
 
 ---
 
-TODO exemple mermaid.js d'un graphe de plusieurs utilisateurs avec plusieurs adresses
+```mermaid
+flowchart BT
+    subgraph Users
+    user1[User 1]
+    user2[User 2]
+    end
+    subgraph Addresses
+    address1[Address 1]
+    address2[Address 2]
+    address3[Address 3]
+    address4[Address 4]
+    end
+    address1 --> user1
+    address2 --> user1
+    address3 --> user2
+    address4 --> user2
+```
 
-à clusteriser par _table_
-
-^ montrer que même les adresses doivent avoir des ids
+^ montrer que même les adresses doivent avoir des ids, ref circulaire
 
 ---
 
-TODO graphe pour montrer les différents types de relations
+```mermaid
+flowchart TB
+    subgraph Users
+    user1[User 1]
+    user2[User 2]
+    end
+    subgraph Users Addresses
+    user1_addresses[Jointure 1]
+    user2_addresses[Jointure 2]
+    end
+    subgraph Addresses
+    address1[Address 1]
+    address2[Address 2]
+    address3[Address 3]
+    address4[Address 4]
+    end
+    user1 --> user1_addresses
+    user2 --> user2_addresses
+    user1_addresses --> address1
+    user1_addresses --> address2
+    user2_addresses --> address3
+    user2_addresses --> address4
+```
+
+^ Design objet plus propre
 
 ---
 
-TODO exemple où 2 utilisateurs utilisent la même adresse
+```mermaid
+flowchart TB
+    subgraph Users
+    user1[User 1]
+    user2[User 2]
+    end
+    subgraph Users Addresses
+    user1_addresses[Jointure 1]
+    user2_addresses[Jointure 2]
+    end
+    subgraph Addresses
+    address1[Address 1]
+    address2[Address 2]
+    address3[Address 3]
+    address4[Address 4]
+    end
+    user1 --> user1_addresses
+    user2 --> user2_addresses
+    user1_addresses --> address1
+    user1_addresses --> address2
+    user2_addresses ==>|Shared| address2
+    user2_addresses --> address4
+```
 
 ^ montrer le problème de cohérence en cas de suppression en cascade
 
@@ -77,13 +135,13 @@ TODO exemple où 2 utilisateurs utilisent la même adresse
 
 ---
 
-Flush accidentel de données
+Sauvegarde accidentelle de données
 
 ---
 
-`EntityManagerClosed` dès qu'il y a une erreur
+`EntityManagerClosed`
 
-^ Pour empêcher de persist des données incohérentes
+^ dès qu'il y a une erreur pour empêcher de persist des données incohérentes
 
 ---
 
@@ -93,7 +151,9 @@ Fuite mémoire
 
 ---
 
-En somme on doit avoir conscience de l'état global de l'app pour ne pas faire d'erreur.
+En somme :
+
+## on doit gérer un état global
 
 ^ Au plus une app grossie au plus c'est complexe et difficile
 
@@ -113,17 +173,69 @@ En somme on doit avoir conscience de l'état global de l'app pour ne pas faire d
 
 ---
 
-TODO graphe des utilisateurs où le partage d'une adresse est interdite
+```mermaid
+flowchart TB
+    subgraph Users
+    user1[User 1]
+    user2[User 2]
+    end
+    subgraph Addresses
+    address1[Address 1]
+    address2[Address 2]
+    address3[Address 3]
+    address4[Address 4]
+    end
+    user1 --> address1
+    user1 --> address2
+    user2 --> address3
+    user2 --> address4
+```
+
+^ Les utilisateurs ont l'ownership
 
 ---
 
-TODO graphe duplication de l'adresse
+```mermaid
+flowchart TB
+    subgraph Users
+    user1[User 1]
+    user2[User 2]
+    end
+    subgraph Addresses
+    address1[Address 1]
+    address2[Address 2]
+    address3[Address 2']
+    address4[Address 4]
+    end
+    user1 --> address1
+    user1 --> address2
+    user2 --> address3
+    user2 --> address4
+    style address2 stroke:#f00,stroke-width:4px
+    style address3 stroke:#f00,stroke-width:4px
+```
 
 ---
 
-En somme on passe d'un graphe à un ensemble d'arbre
+```mermaid
+flowchart BT
+    subgraph User 2
+    user2[Aggregate 2]
+    address3[Address 3]
+    address4[Address 4]
+    user2 --> address3
+    user2 --> address4
+    end
+    subgraph User 1
+    user1[Aggregate 1]
+    address1[Address 1]
+    address2[Address 2]
+    user1 --> address1
+    user1 --> address2
+    end
+```
 
-TODO visualiser avec un graphe clusterisé par aggregat au lieu de tables
+^ En somme on passe d'un graphe à un ensemble d'arbre
 
 ---
 
@@ -133,11 +245,44 @@ TODO visualiser avec un graphe clusterisé par aggregat au lieu de tables
 
 ---
 
-Exemple de code muable vs immuable
+[.code-highlight: 1]
+[.code-highlight: 3]
+[.code-highlight: 5-8]
+[.code-highlight: 11]
+[.code-highlight: 13]
+[.code-highlight: 15-18]
+
+```php
+final class MutableUser
+{
+    public function __construct(public string $name) {}
+
+    public function rename(string $name): void
+    {
+        $this->name = $name;
+    }
+}
+
+final readonly class ImmutableUser
+{
+    public function __construct(public string $name) {}
+
+    public function rename(string $name): self
+    {
+        return new self($name);
+    }
+}
+```
 
 ---
 
-On n'utilise que des copies locales des objets
+```php
+$user = new ImmutableUser('alice');
+$newUser = doSomething($user);
+$user->name; // forcément 'alice'
+```
+
+^ On n'utilise que des copies locales des objets, réduit la charge mentale
 
 ---
 
