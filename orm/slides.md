@@ -15,276 +15,199 @@ theme: Fira, 6
 
 ---
 
-## Les ORMs ont plus de 10 ans
-
----
-
-[.list: alignment(left)]
-
-## Il en existe plusieurs
-
-- Doctrine
-- Eloquent
-- etc...
-
-^ Data Mapper ou Active Record, transition next slide
-
----
-
-## Ils ont tous le même concept
-
-^ Transformer l'interface SQL en interface Objet
-
----
-
-## Source des problèmes
-
-^ Une abstraction doit réduire la complexité. Faire un parallèle avec les cartes
-
----
-
-## Problème 1 : Graphe d'objet
-
-^ Les foreign key sont représentées par des références
-
----
-
-```mermaid
-flowchart BT
-    subgraph Users
-    user1[User 1]
-    user2[User 2]
-    end
-    subgraph Addresses
-    address1[Address 1]
-    address2[Address 2]
-    address3[Address 3]
-    address4[Address 4]
-    end
-    address1 --> user1
-    address2 --> user1
-    address3 --> user2
-    address4 --> user2
-```
-
-^ montrer que même les adresses doivent avoir des ids, ref circulaire
-
----
-
-```mermaid
-flowchart TB
-    subgraph Users
-    user1[User 1]
-    user2[User 2]
-    end
-    subgraph Users Addresses
-    user1_addresses[Jointure 1]
-    user2_addresses[Jointure 2]
-    end
-    subgraph Addresses
-    address1[Address 1]
-    address2[Address 2]
-    address3[Address 3]
-    address4[Address 4]
-    end
-    user1 --> user1_addresses
-    user2 --> user2_addresses
-    user1_addresses --> address1
-    user1_addresses --> address2
-    user2_addresses --> address3
-    user2_addresses --> address4
-```
-
-^ Design objet plus propre
-
----
-
-```mermaid
-flowchart TB
-    subgraph Users
-    user1[User 1]
-    user2[User 2]
-    end
-    subgraph Users Addresses
-    user1_addresses[Jointure 1]
-    user2_addresses[Jointure 2]
-    end
-    subgraph Addresses
-    address1[Address 1]
-    address2[Address 2]
-    address3[Address 3]
-    address4[Address 4]
-    end
-    user1 --> user1_addresses
-    user2 --> user2_addresses
-    user1_addresses --> address1
-    user1_addresses --> address2
-    user2_addresses ==>|Shared| address2
-    user2_addresses --> address4
-```
-
-^ montrer le problème de cohérence en cas de suppression en cascade
-
----
-
----
-
-## Problème 2 : Objets muables
-
-^ Indispensable pour les relations et le compute du diff
-
----
-
-Sauvegarde accidentelle de données
-
----
-
-`EntityManagerClosed`
-
-^ dès qu'il y a une erreur pour empêcher de persist des données incohérentes
-
----
-
-Fuite mémoire
-
-^ Ok en HTTP mais problématique en CLI vie longue
-
----
-
-En somme :
-
-## on doit gérer un état global
-
-^ Au plus une app grossie au plus c'est complexe et difficile
-
----
-
----
-
-## Solutions
-
-^ PHP a beaucoup changé en 10 ans
-
----
-
 ### Domain Driven Design
 
-^ Un aggregat assure la cohérence des objets qu'il référence
+---
+
+Un `User` contient des `Address`
+
+^ les adresses ne peuvent pas être partagées
 
 ---
 
-```mermaid
-flowchart TB
-    subgraph Users
-    user1[User 1]
-    user2[User 2]
-    end
-    subgraph Addresses
-    address1[Address 1]
-    address2[Address 2]
-    address3[Address 3]
-    address4[Address 4]
-    end
-    user1 --> address1
-    user1 --> address2
-    user2 --> address3
-    user2 --> address4
+```php
+class User
+{
+    public function __construct(
+        private Address $address,
+    ) {}
+}
 ```
 
-^ Les utilisateurs ont l'ownership
-
----
-
-```mermaid
-flowchart TB
-    subgraph Users
-    user1[User 1]
-    user2[User 2]
-    end
-    subgraph Addresses
-    address1[Address 1]
-    address2[Address 2]
-    address3[Address 2']
-    address4[Address 4]
-    end
-    user1 --> address1
-    user1 --> address2
-    user2 --> address3
-    user2 --> address4
-    style address2 stroke:#f00,stroke-width:4px
-    style address3 stroke:#f00,stroke-width:4px
+```php
+class Address
+{
+    public function __construct(
+        private string $street,
+        private string $code,
+        private string $city,
+    ) {}
+}
 ```
 
 ---
 
-```mermaid
-flowchart BT
-    subgraph User 2
-    user2[Aggregate 2]
-    address3[Address 3]
-    address4[Address 4]
-    user2 --> address3
-    user2 --> address4
-    end
-    subgraph User 1
-    user1[Aggregate 1]
-    address1[Address 1]
-    address2[Address 2]
-    user1 --> address1
-    user1 --> address2
-    end
-```
-
-^ En somme on passe d'un graphe à un ensemble d'arbre
-
----
-
-### Programmation Fonctionnelle
-
-^ Immuabilité
-
----
-
-[.code-highlight: 1]
 [.code-highlight: 3]
-[.code-highlight: 5-8]
-[.code-highlight: 11]
-[.code-highlight: 13]
-[.code-highlight: 15-18]
 
 ```php
-final class MutableUser
+class User
 {
-    public function __construct(public string $name) {}
+    private int $id;
 
-    public function rename(string $name): void
-    {
-        $this->name = $name;
-    }
+    public function __construct(
+        private Address $address,
+    ) {}
 }
+```
+[.code-highlight: 3]
 
-final readonly class ImmutableUser
+```php
+class Address
 {
-    public function __construct(public string $name) {}
+    private int $id;
 
-    public function rename(string $name): self
-    {
-        return new self($name);
+    public function __construct(
+        private string $street,
+        private string $code,
+        private string $city,
+    ) {}
+}
+```
+
+^ problème : chaque objet est obligé d'avoir un id
+
+---
+
+[.code-highlight: 6]
+
+```php
+class User
+{
+    private int $id;
+
+    public function __construct(
+        private Address $address,
+    ) {}
+}
+```
+[.code-highlight: 0]
+
+```php
+class Address
+{
+    private int $id;
+
+    public function __construct(
+        private string $street,
+        private string $code,
+        private string $city,
+    ) {}
+}
+```
+
+^ problème : adresse peut être partagée
+
+---
+
+[.code-highlight: 4, 7-9, 11]
+
+```php
+class User
+{
+    private int $id;
+    private Address $address;
+
+    public function __construct(
+        string $street,
+        string $code,
+        string $city,
+    ) {
+        $this->address = new Address($this, $street, $code, $city);
     }
 }
 ```
+[.code-highlight: 6]
+
+```php
+class Address
+{
+    private int $id;
+
+    public function __construct(
+        User $user,
+        private string $street,
+        private string $code,
+        private string $city,
+    ) {}
+}
+```
+
+^ problème : référence circulaire, transition problème de mémoire
+
+---
 
 ---
 
 ```php
-$user = new ImmutableUser('alice');
-$newUser = doSomething($user);
-$user->name; // forcément 'alice'
+use Doctrine\ORM\EntityManagerInterface;
+
+function (EntityManagerInterface $manager) {
+    $entities = $manager
+        ->getRepository(User::class)
+        ->findAll();
+}
 ```
 
-^ On n'utilise que des copies locales des objets, réduit la charge mentale
+^ problème : fuite mémoire
 
 ---
+
+[.code-highlight: 7-12]
+
+```php
+use Doctrine\ORM\EntityManagerInterface;
+
+function (EntityManagerInterface $manager) {
+    $repository = $manager->getRepository(User::class);
+    $count = $repository->count();
+
+    for ($offset = 0; $offset < $count; $offset += 100) {
+        $entities = $repository->findBy(
+            limit: 100,
+            offset: $offset,
+        );
+    }
+}
+```
+
+^ problème : fuite mémoire
+
+---
+
+[.code-highlight: 8]
+
+```php
+use Doctrine\ORM\EntityManagerInterface;
+
+function (EntityManagerInterface $manager) {
+    $repository = $manager->getRepository(User::class);
+    $count = $repository->count();
+
+    for ($offset = 0; $offset < $count; $offset += 100) {
+        $manager->clear();
+        $entities = $repository->findBy(
+            limit: 100,
+            offset: $offset,
+        );
+    }
+}
+```
+
+^ problème : gérer localement un état global
+
+---
+
+^ "Ces problèmes, et il en existe d'autres, sont inextricables du design des orms actuels. Et si on repensait ce design ?"
 
 ---
 
@@ -300,55 +223,93 @@ composer require formal/orm
 
 ---
 
-TODO exemple classe aggregate `User` avec juste un nom et une fonction `rename`
+```php
+use Formal\ORM\Id;
+
+final readonly class User
+{
+    /** @param Id<self> $id */
+    public function __construct(
+        private Id $id,
+        private Address $address,
+    ) {}
+}
+```
+
+```php
+final readonly class Address
+{
+    public function __construct(
+        private string $street,
+        private string $code,
+        private string $city,
+    ) {}
+}
+```
 
 ^ Immuable
 
 ---
 
-TODO exemple de setup de `Manager` mais masquer le storage
+```php
+$address = new Address('somewhere', '12345', 'Somewhereville');
+$user1 = new User(
+    Id::new(User::class),
+    $address,
+);
+$user2 = new User(
+    Id::new(User::class),
+    $address,
+);
+```
 
-^ Détail du storage plus tard
+^ 2 adresses persistées
 
 ---
 
-TODO exemple de persistence d'un `User`
+[.code-highlight: 3-5, 8-9]
+
+```php
+use Innmind\Immutable\Either;
+
+$repository = $manager->repository(User::class);
+$manager->transactional(
+    static function() use ($repository) {
+        $user1 = ...;
+        $user2 = ...;
+        $repository->put($user1);
+        $repository->put($user2);
+
+        return Either::right(null);
+    },
+);
+```
+
+^ transaction permet de faire les appels sql directement
 
 ---
 
-TODO exemple de lister l'ensemble des `User`
+```php
+$manager
+    ->repository(User::class)
+    ->all()
+    ->foreach(static fn(User $user) => doSomething($user));
+```
 
 ^ Lazy + memory safe
 
 ---
 
-TODO exemple de maj en masse
+[.code-highlight: 4-5]
 
----
-
-TODO exemple all + filter
-
-^ Transition sur Specification
-
----
-
-TODO exemple specification `HaveUsername::of(string)`
-
----
-
-TODO exemple `matching`
-
----
-
-TODO introduire `Address`
-
----
-
-TODO modifier `User` pour montrer les entités, optionals et collections
-
----
-
-Support de Value Objects possible
+```php
+$manager
+    ->repository(User::class)
+    ->all()
+    ->drop(1_000)
+    ->take(100)
+    ->foreach(static fn(User $user) => doSomething($user));
+```
 
 ---
 
@@ -358,27 +319,119 @@ Support de Value Objects possible
 
 ---
 
+### Sécurité
+
+^ mémoire, impossible de mal l'utiliser
+
+---
+
+### No SQL
+
+---
+
+```php
+use Formal\ORM\Specification\Entity;
+use Innmind\Specification\Property;
+use Innmind\Specification\Sign;
+
+$manager
+    ->repository(User::class)
+    ->matching(
+        Entity::of('address', Property::of(
+            'city',
+            Sign::equality,
+            'Lyon',
+        )),
+    )
+    ->foreach(static fn(User $user) => doSomething($user));
+```
+
+---
+
 ### Stockage
 
 ---
 
-TODO exemple SQL
+```php
+use Formal\ORM\Manager;
+use Innmind\OperatingSystem\Factory;
+use Innmind\Url\Url;
 
-^ Ça c'est attendu
+$manager = Manager::sql(
+    Factory::build()->remote()->sql(
+        Url::of('mysql://user:password@localhost:3306/database'),
+    ),
+);
+```
+
+^ Ça c'est attendu, mysql et postgres
 
 ---
 
-TODO exemple Filesystem
+```php
+use Formal\ORM\Manager;
+use Innmind\OperatingSystem\Factory;
+use Innmind\Url\Path;
+
+$manager = Manager::filesystem(
+    Factory::build()->filesystem()->mount(
+        Path::of('some/directory/'),
+    ),
+);
+```
 
 ^ FS concret, en mémoire, S3
 
 ---
 
-TODO exemple Elasticsearch
+```php
+use Formal\ORM\Manager;
+use Innmind\Filesystem\Adapter\InMemory;
+
+$manager = Manager::filesystem(
+    InMemory::emulateFilesystem(),
+);
+```
 
 ---
 
-Les trois ont exactement le même comportement grâce au property based testing
+```php
+use Formal\ORM\Manager;
+use Innmind\OperatingSystem\Factory;
+use Innmind\S3
+use Innmind\Url\Url;
+use Innmind\Url\Path;
+
+$os = Factory::build();
+$manager = Manager::filesystem(
+    S3\Filesystem\Adapter::of(
+        S3\Factory::of($os)->build(
+            Url::of('https://user:password@bucket.s3.region-name.scw.cloud/'),
+            S3\Region::of('region-name'),
+        ),
+    ),
+);
+```
+
+---
+
+```php
+use Formal\ORM\Manager;
+use Formal\ORM\Adapter\Elasticsearch;
+use Innmind\Filesystem\Adapter\InMemory;
+
+$manager = Manager::of(
+    Elasticsearch::of(
+        Factory::build()->remote()->http(),
+    ),
+);
+```
+
+---
+
+![](pbt.png)
+
+Les trois ont exactement le même comportement
 
 ^ Référence à la conf de 2023
 
@@ -408,9 +461,11 @@ Les trois ont exactement le même comportement grâce au property based testing
 
 ---
 
+![](doc.png)
+
 ### Et plus
 
-TODO QR code vers documentation
+![inline](qr.png)
 
 ---
 
