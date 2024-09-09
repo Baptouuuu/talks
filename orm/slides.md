@@ -21,28 +21,28 @@ theme: Fira, 6
 
 ---
 
-Un `User` contient des `Address`
+Une `Voiture` a une `CarteGrise`
 
-^ les adresses ne peuvent pas être partagées
+^ la carte ne peut pas être partagée
 
 ---
 
 ```php
-class User
+class Voiture
 {
     public function __construct(
-        private Address $address,
+        private CarteGrise $carteGrise,
     ) {}
 }
 ```
 
 ```php
-class Address
+class CarteGrise
 {
     public function __construct(
-        private string $street,
-        private string $code,
-        private string $city,
+        private string $immatriculation,
+        private string $proprietaire,
+        private string $adresse,
     ) {}
 }
 ```
@@ -52,26 +52,26 @@ class Address
 [.code-highlight: 3]
 
 ```php
-class User
+class Voiture
 {
     private int $id;
 
     public function __construct(
-        private Address $address,
+        private CarteGrise $carteGrise,
     ) {}
 }
 ```
 [.code-highlight: 3]
 
 ```php
-class Address
+class CarteGrise
 {
     private int $id;
 
     public function __construct(
-        private string $street,
-        private string $code,
-        private string $city,
+        private string $immatriculation,
+        private string $proprietaire,
+        private string $adresse,
     ) {}
 }
 ```
@@ -83,63 +83,63 @@ class Address
 [.code-highlight: 6]
 
 ```php
-class User
+class Voiture
 {
     private int $id;
 
     public function __construct(
-        private Address $address,
+        private CarteGrise $carteGrise,
     ) {}
 }
 ```
 [.code-highlight: 0]
 
 ```php
-class Address
+class CarteGrise
 {
     private int $id;
 
     public function __construct(
-        private string $street,
-        private string $code,
-        private string $city,
+        private string $immatriculation,
+        private string $proprietaire,
+        private string $adresse,
     ) {}
 }
 ```
 
-^ problème : adresse peut être partagée
+^ problème : carte grise peut être partagée
 
 ---
 
 [.code-highlight: 4, 7-9, 11]
 
 ```php
-class User
+class Voiture
 {
     private int $id;
-    private Address $address;
+    private CarteGrise $carteGrise;
 
     public function __construct(
-        string $street,
-        string $code,
-        string $city,
+        string $immatriculation,
+        string $proprietaire,
+        string $adresse,
     ) {
-        $this->address = new Address($this, $street, $code, $city);
+        $this->carteGrise = new CarteGrise($this, $immatriculation, $proprietaire, $adresse);
     }
 }
 ```
 [.code-highlight: 6]
 
 ```php
-class Address
+class CarteGrise
 {
     private int $id;
 
     public function __construct(
-        User $user,
-        private string $street,
-        private string $code,
-        private string $city,
+        Voiture $voiture,
+        private string $immatriculation,
+        private string $proprietaire,
+        private string $adresse,
     ) {}
 }
 ```
@@ -155,7 +155,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 function (EntityManagerInterface $manager) {
     $entities = $manager
-        ->getRepository(User::class)
+        ->getRepository(Voiture::class)
         ->findAll();
 }
 ```
@@ -170,7 +170,7 @@ function (EntityManagerInterface $manager) {
 use Doctrine\ORM\EntityManagerInterface;
 
 function (EntityManagerInterface $manager) {
-    $repository = $manager->getRepository(User::class);
+    $repository = $manager->getRepository(Voiture::class);
     $count = $repository->count();
 
     for ($offset = 0; $offset < $count; $offset += 100) {
@@ -192,7 +192,7 @@ function (EntityManagerInterface $manager) {
 use Doctrine\ORM\EntityManagerInterface;
 
 function (EntityManagerInterface $manager) {
-    $repository = $manager->getRepository(User::class);
+    $repository = $manager->getRepository(Voiture::class);
     $count = $repository->count();
 
     for ($offset = 0; $offset < $count; $offset += 100) {
@@ -228,23 +228,23 @@ composer require formal/orm
 ```php
 use Formal\ORM\Id;
 
-final readonly class User
+final readonly class Voiture
 {
     /** @param Id<self> $id */
     public function __construct(
         private Id $id,
-        private Address $address,
+        private CarteGrise $carteGrise,
     ) {}
 }
 ```
 
 ```php
-final readonly class Address
+final readonly class CarteGrise
 {
     public function __construct(
-        private string $street,
-        private string $code,
-        private string $city,
+        private string $immatriculation,
+        private string $proprietaire,
+        private string $adresse,
     ) {}
 }
 ```
@@ -254,18 +254,18 @@ final readonly class Address
 ---
 
 ```php
-$address = new Address('somewhere', '12345', 'Somewhereville');
-$user1 = new User(
-    Id::new(User::class),
-    $address,
+$carteGrise = new CarteGrise('aa-123-bb', 'John Doe', 'Somewhereville');
+$voiture1 = new Voiture(
+    Id::new(Voiture::class),
+    $carteGrise,
 );
-$user2 = new User(
-    Id::new(User::class),
-    $address,
+$voiture2 = new Voiture(
+    Id::new(Voiture::class),
+    $carteGrise,
 );
 ```
 
-^ 2 adresses persistées
+^ 2 cartes persistées
 
 ---
 
@@ -274,13 +274,13 @@ $user2 = new User(
 ```php
 use Innmind\Immutable\Either;
 
-$repository = $manager->repository(User::class);
+$repository = $manager->repository(Voiture::class);
 $manager->transactional(
     static function() use ($repository) {
-        $user1 = ...;
-        $user2 = ...;
-        $repository->put($user1);
-        $repository->put($user2);
+        $voiture1 = ...;
+        $voiture2 = ...;
+        $repository->put($voiture1);
+        $repository->put($voiture2);
 
         return Either::right(null);
     },
@@ -293,9 +293,9 @@ $manager->transactional(
 
 ```php
 $manager
-    ->repository(User::class)
+    ->repository(Voiture::class)
     ->all()
-    ->foreach(static fn(User $user) => doSomething($user));
+    ->foreach(static fn(Voiture $voiture) => doSomething($voiture));
 ```
 
 ^ Lazy + memory safe
@@ -306,11 +306,11 @@ $manager
 
 ```php
 $manager
-    ->repository(User::class)
+    ->repository(Voiture::class)
     ->all()
     ->drop(1_000)
     ->take(100)
-    ->foreach(static fn(User $user) => doSomething($user));
+    ->foreach(static fn(Voiture $voiture) => doSomething($voiture));
 ```
 
 ---
@@ -339,15 +339,15 @@ use Innmind\Specification\Property;
 use Innmind\Specification\Sign;
 
 $manager
-    ->repository(User::class)
+    ->repository(Voiture::class)
     ->matching(
-        Entity::of('address', Property::of(
-            'city',
+        Entity::of('carteGrise', Property::of(
+            'immatriculation',
             Sign::equality,
-            'Lyon',
+            'aa-123-bb',
         )),
     )
-    ->foreach(static fn(User $user) => doSomething($user));
+    ->foreach(static fn(Voiture $voiture) => doSomething($voiture));
 ```
 
 ---
