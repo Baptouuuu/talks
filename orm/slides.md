@@ -17,6 +17,8 @@ theme: Fira, 6
 
 ### Domain Driven Design
 
+^ résoud problèmes maintenance
+
 ---
 
 Un `User` contient des `Address`
@@ -74,7 +76,7 @@ class Address
 }
 ```
 
-^ problème : chaque objet est obligé d'avoir un id
+^ problème : chaque objet est obligé d'avoir un id pour identifier la ligne en bdd
 
 ---
 
@@ -213,7 +215,7 @@ function (EntityManagerInterface $manager) {
 
 ## Arrive Formal !
 
-^ Show, don't tell !
+^ ORM orienté DDD
 
 ---
 
@@ -312,6 +314,8 @@ $manager
 ```
 
 ---
+
+^ blague que c'est la slide de la config
 
 ---
 
