@@ -291,6 +291,27 @@ $manager->transactional(
 
 ---
 
+[.code-highlight: 7-8]
+
+```php
+use Innmind\Immutable\Either;
+
+$repository = $manager->repository(Voiture::class);
+$manager->transactional(
+    static function() use ($repository) {
+        $voiture = ...;
+        $voiture = $voiture->changerAdresse('nouvelle adresse');
+        $repository->put($voiture);
+
+        return Either::right(null);
+    },
+);
+```
+
+^ update explicite empêche update accidentel, état local donc "entity manager closed" impossible
+
+---
+
 ```php
 $manager
     ->repository(Voiture::class)
