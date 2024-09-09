@@ -265,7 +265,7 @@ $voiture2 = new Voiture(
 );
 ```
 
-^ 2 cartes persistées
+^ 2 cartes persistées, rend explicite la nécessité d'ajouter une vérification
 
 ---
 
