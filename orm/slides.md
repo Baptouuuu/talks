@@ -34,9 +34,7 @@ class Voiture
         private CarteGrise $carteGrise,
     ) {}
 }
-```
 
-```php
 class CarteGrise
 {
     public function __construct(
@@ -49,7 +47,7 @@ class CarteGrise
 
 ---
 
-[.code-highlight: 3]
+[.code-highlight: 3, 12]
 
 ```php
 class Voiture
@@ -60,10 +58,7 @@ class Voiture
         private CarteGrise $carteGrise,
     ) {}
 }
-```
-[.code-highlight: 3]
 
-```php
 class CarteGrise
 {
     private int $id;
@@ -91,10 +86,7 @@ class Voiture
         private CarteGrise $carteGrise,
     ) {}
 }
-```
-[.code-highlight: 0]
 
-```php
 class CarteGrise
 {
     private int $id;
@@ -111,7 +103,7 @@ class CarteGrise
 
 ---
 
-[.code-highlight: 4, 7-9, 11]
+[.code-highlight: 4, 7-9, 11, 20]
 
 ```php
 class Voiture
@@ -127,10 +119,7 @@ class Voiture
         $this->carteGrise = new CarteGrise($this, $immatriculation, $proprietaire, $adresse);
     }
 }
-```
-[.code-highlight: 6]
 
-```php
 class CarteGrise
 {
     private int $id;
