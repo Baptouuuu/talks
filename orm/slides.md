@@ -350,6 +350,8 @@ $manager
 
 ---
 
+[.code-highlight: 8-12]
+
 ```php
 use Formal\ORM\Specification\Entity;
 use Innmind\Specification\Property;
