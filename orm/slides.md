@@ -375,86 +375,68 @@ $manager
 
 ---
 
-```php
-use Formal\ORM\Manager;
-use Innmind\OperatingSystem\Factory;
-use Innmind\Url\Url;
+[.list: alignment(left)]
 
-$manager = Manager::sql(
-    Factory::build()->remote()->sql(
-        Url::of('mysql://user:password@localhost:3306/database'),
-    ),
-);
-```
+- SQL (Mysql, MariaDB et PostgreSQL)
 
-^ Ça c'est attendu, mysql et postgres
+^ ça c'est attendu
 
 ---
 
-```php
-use Formal\ORM\Manager;
-use Innmind\OperatingSystem\Factory;
-use Innmind\Url\Path;
+[.list: alignment(left)]
 
-$manager = Manager::filesystem(
-    Factory::build()->filesystem()->mount(
-        Path::of('some/directory/'),
-    ),
-);
-```
-
-^ FS concret, en mémoire, S3
+- SQL (Mysql, MariaDB et PostgreSQL)
+- Filesystem
 
 ---
 
-```php
-use Formal\ORM\Manager;
-use Innmind\Filesystem\Adapter\InMemory;
+[.list: alignment(left)]
 
-$manager = Manager::filesystem(
-    InMemory::emulateFilesystem(),
-);
-```
+- SQL (Mysql, MariaDB et PostgreSQL)
+- Filesystem
+    - concret
 
----
-
-```php
-use Formal\ORM\Manager;
-use Innmind\OperatingSystem\Factory;
-use Innmind\S3
-use Innmind\Url\Url;
-use Innmind\Url\Path;
-
-$os = Factory::build();
-$manager = Manager::filesystem(
-    S3\Filesystem\Adapter::of(
-        S3\Factory::of($os)->build(
-            Url::of('https://user:password@bucket.s3.region-name.scw.cloud/'),
-            S3\Region::of('region-name'),
-        ),
-    ),
-);
-```
+^ utile pour du prototyping ou outils CLI
 
 ---
 
-```php
-use Formal\ORM\Manager;
-use Formal\ORM\Adapter\Elasticsearch;
-use Innmind\Filesystem\Adapter\InMemory;
+[.list: alignment(left)]
 
-$manager = Manager::of(
-    Elasticsearch::of(
-        Factory::build()->remote()->http(),
-    ),
-);
-```
+- SQL (Mysql, MariaDB et PostgreSQL)
+- Filesystem
+    - concret
+    - en mémoire
+
+^ utile pour les tests
+
+---
+
+[.list: alignment(left)]
+
+- SQL (Mysql, MariaDB et PostgreSQL)
+- Filesystem
+    - concret
+    - en mémoire
+    - S3
+
+^ utile pour prototyping en serverless, synchro d'outils CLI
+
+---
+
+[.list: alignment(left)]
+
+- SQL (Mysql, MariaDB et PostgreSQL)
+- Filesystem
+    - concret
+    - en mémoire
+    - S3
+- Elasticsearch
 
 ---
 
 ![](pbt.png)
 
-Les trois ont exactement le même comportement
+Ils ont exactement le même comportement
 
 ^ Référence à la conf de 2023
 
