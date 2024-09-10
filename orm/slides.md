@@ -336,11 +336,7 @@ $manager
 
 ---
 
-^ blague que c'est la slide de la config
-
----
-
-## Avantages
+^ blague que c'est la slide de la config, intro sur les avantages
 
 ---
 
