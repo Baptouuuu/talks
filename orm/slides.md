@@ -137,8 +137,6 @@ class CarteGrise
 
 ---
 
----
-
 ```php
 use Doctrine\ORM\EntityManagerInterface;
 
