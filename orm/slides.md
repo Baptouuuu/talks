@@ -449,7 +449,7 @@ Ils ont exactement le même comportement
 
 ---
 
-~40% plus rapide que Doctrine sur lecture/écriture simple
+~40% plus rapide que Doctrine
 
 ---
 
