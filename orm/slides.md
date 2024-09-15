@@ -463,7 +463,7 @@ Ils ont exactement le même comportement
 
 ## Questions
 
-![inline](open-feedback.png)
+![inline](open-feedback.png)![inline](signal.png)
 
 Twitter @Baptouuuu
 
