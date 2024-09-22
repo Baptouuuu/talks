@@ -327,7 +327,7 @@ $manager
 
 ---
 
-### Sécurité
+### Sureté
 
 ^ mémoire, impossible de mal l'utiliser
 
@@ -429,7 +429,7 @@ Ils ont exactement le même comportement
 
 ---
 
-### Compatibilité avec Innmind
+### Ecosytème Innmind
 
 ---
 
