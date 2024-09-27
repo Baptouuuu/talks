@@ -374,13 +374,6 @@ $manager
 
 - SQL (Mysql, MariaDB et PostgreSQL)
 - Filesystem
-
----
-
-[.list: alignment(left)]
-
-- SQL (Mysql, MariaDB et PostgreSQL)
-- Filesystem
     - concret
 
 ^ utile pour du prototyping ou outils CLI
@@ -392,9 +385,9 @@ $manager
 - SQL (Mysql, MariaDB et PostgreSQL)
 - Filesystem
     - concret
-    - en mémoire
+    - S3
 
-^ utile pour les tests
+^ utile pour prototyping en serverless, synchro d'outils CLI
 
 ---
 
@@ -403,10 +396,10 @@ $manager
 - SQL (Mysql, MariaDB et PostgreSQL)
 - Filesystem
     - concret
-    - en mémoire
     - S3
+    - en mémoire
 
-^ utile pour prototyping en serverless, synchro d'outils CLI
+^ utile pour les tests
 
 ---
 
