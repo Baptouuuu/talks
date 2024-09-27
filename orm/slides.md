@@ -31,6 +31,7 @@ Une `Voiture` a une `CarteGrise`
 class Voiture
 {
     public function __construct(
+        private Id $id,
         private CarteGrise $carteGrise,
     ) {}
 }
