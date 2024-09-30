@@ -423,7 +423,7 @@ Ils ont exactement le même comportement
 
 ---
 
-### Ecosytème Innmind
+### Ecosystème Innmind
 
 ---
 
