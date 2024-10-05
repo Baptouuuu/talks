@@ -257,11 +257,9 @@ $voiture2 = new Voiture(
 
 ---
 
-[.code-highlight: 3-5, 8-9]
+[.code-highlight: 1-3, 6-7]
 
 ```php
-use Innmind\Immutable\Either;
-
 $repository = $manager->repository(Voiture::class);
 $manager->transactional(
     static function() use ($repository) {
@@ -279,11 +277,9 @@ $manager->transactional(
 
 ---
 
-[.code-highlight: 7-8]
+[.code-highlight: 5-6]
 
 ```php
-use Innmind\Immutable\Either;
-
 $repository = $manager->repository(Voiture::class);
 $manager->transactional(
     static function() use ($repository) {
