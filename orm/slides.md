@@ -457,4 +457,4 @@ Ils ont exactement le même comportement
 
 Twitter @Baptouuuu
 
-Github @Baptouuuu/talks
+<https://baptouuuu.github.io/talks/>
