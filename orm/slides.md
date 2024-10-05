@@ -270,7 +270,7 @@ $manager->transactional(
         $repository->put($voiture1);
         $repository->put($voiture2);
 
-        return Either::right(null);
+        return Either::right(new SideEffect);
     },
 );
 ```
@@ -291,7 +291,7 @@ $manager->transactional(
         $voiture = $voiture->changerAdresse('nouvelle adresse');
         $repository->put($voiture);
 
-        return Either::right(null);
+        return Either::right(new SideEffect);
     },
 );
 ```
